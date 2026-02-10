@@ -1,10 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
-  <title>เว็บกูเอง</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>สำหรับคนพิเศษ 💖</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: sans-serif;
+      text-align: center;
+    }
+
+    .box {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-width: 300px;
+    }
+
+    h1 {
+      color: #ff4d6d;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      background: #ff4d6d;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #e63956;
+      transform: scale(1.05);
+    }
+
+    #loveText {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+      display: none;
+    }
+  </style>
 </head>
-<body style="text-align:center;font-family:sans-serif;">
-  <h1>สวัสดี นี่คือเว็บกู 😎</h1>
-  <p>ทำด้วยมือถือเครื่องเดียว ฟรี 100%</p>
+
+<body>
+  <div class="box">
+    <h1>กดปุ่มนี้สิ 💘</h1>
+    <button onclick="showLove()">กดเลย</button>
+    <p id="loveText">อยู่ด้วยกันไปนาน ๆ เลยนะอิมเมจ ❤️</p>
+  </div>
+
+  <script>
+    function showLove() {
+      document.getElementById("loveText").style.display = "block";
+    }
+  </script>
 </body>
 </html>
