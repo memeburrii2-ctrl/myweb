@@ -6,6 +6,8 @@
 <title>For Image ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
   :root {
@@ -27,357 +29,422 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* --- 1. เวลา (จิ๋ว ชิดมุม) --- */
+  /* --- LOCK SCREEN --- */
+  #lock-screen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--bg-gradient); z-index: 9999;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  #lock-screen.hidden { opacity: 0; pointer-events: none; transform: scale(1.1); }
+  .lock-title { font-size: 1.6rem; color: var(--primary); margin-bottom: 30px; font-weight: 600; text-align: center; }
+  .error-text { color: #ff0000 !important; transform: scale(1.1); }
+  .pin-dots { display: flex; gap: 15px; margin-bottom: 40px; }
+  .dot { width: 15px; height: 15px; border-radius: 50%; border: 2px solid var(--primary); transition: 0.2s; }
+  .dot.filled { background: var(--primary); }
+  .pin-pad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .num-btn {
+    width: 70px; height: 70px; border-radius: 50%;
+    border: 1px solid rgba(255, 94, 120, 0.3); background: rgba(255, 255, 255, 0.5);
+    font-size: 1.5rem; color: var(--primary); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: 0.2s; font-weight: 500;
+  }
+  .num-btn:active { background: var(--primary); color: white; }
+  .num-btn.zero { grid-column: 2; }
+  .shake-lock { animation: shake 0.4s; }
+
+  /* --- MAIN APP --- */
+  #main-app {
+    display: none; width: 100%; height: 100vh;
+    flex-direction: column; align-items: center; justify-content: center;
+  }
+  #main-app.show { display: flex; }
+
   .timer-box {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    font-size: 0.7rem;
-    color: #ff5e78;
+    position: fixed; top: 15px; left: 15px;
+    font-size: 0.7rem; color: #ff5e78;
     background: rgba(255,255,255,0.8);
-    padding: 6px 12px;
-    border-radius: 12px;
-    backdrop-filter: blur(2px);
-    z-index: 50;
-    text-align: left;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    line-height: 1.3;
-    pointer-events: none;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 6px 12px; border-radius: 12px;
+    backdrop-filter: blur(2px); z-index: 50;
+    text-align: left; border: 1px solid rgba(255, 255, 255, 0.5);
+    line-height: 1.3; pointer-events: none;
   }
-  
-  .timer-box span {
-    font-weight: 600;
-    font-size: 0.85rem;
-  }
+  .timer-box span { font-weight: 600; font-size: 0.85rem; }
 
-  /* --- 2. ป้ายชื่อ --- */
   .header-badge {
-    position: fixed;
-    top: 60px;
-    font-family: 'Pacifico', cursive;
-    font-size: 1.8rem;
-    color: var(--primary);
-    background: white;
-    padding: 8px 30px;
-    border-radius: 50px;
+    position: fixed; top: 80px;
+    font-family: 'Pacifico', cursive; font-size: 1.8rem;
+    color: var(--primary); background: white;
+    padding: 8px 30px; border-radius: 50px;
     box-shadow: 0 5px 20px rgba(255, 94, 120, 0.2);
-    z-index: 40;
-    pointer-events: none;
+    z-index: 40; pointer-events: none;
   }
 
-  /* --- 3. กล่องข้อความ --- */
-  .container {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 40px 30px;
-    border-radius: 40px;
-    box-shadow: 0 20px 60px rgba(255, 94, 120, 0.15);
-    text-align: center;
-    max-width: 400px;
-    width: 85%;
-    position: relative;
-    z-index: 10;
-    transition: 0.3s;
-    min-height: 250px; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 100px;
+  .menu-btn {
+    position: fixed; top: 15px; right: 15px;
+    font-size: 1.5rem; color: var(--primary); background: white;
+    width: 45px; height: 45px; border-radius: 50%; border: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; z-index: 200;
+    display: flex; align-items: center; justify-content: center;
   }
 
-  h1 {
-    color: var(--primary);
-    font-size: 2.0rem;
-    margin: 0 0 10px 0;
-    font-weight: 600;
-    line-height: 1.3;
+  .sidebar {
+    position: fixed; top: 0; right: -260px;
+    width: 250px; height: 100vh; background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px); box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+    transition: right 0.4s; z-index: 199; padding-top: 80px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .sidebar.open { right: 0; }
+
+  .menu-item {
+    width: 80%; padding: 15px; margin: 10px 0;
+    background: #fff0f6; color: var(--primary);
+    border-radius: 20px; text-align: center; font-size: 1.1rem;
+    cursor: pointer; transition: 0.2s;
+  }
+  .menu-item.logout {
+    margin-top: 20px;
+    background: #ffe4e8; color: #ff3b5c; font-weight: 600;
+    border: 1px solid rgba(255, 59, 92, 0.2);
   }
 
-  #message {
-    min-height: 50px;
-    color: #666;
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    line-height: 1.5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .section {
+    display: none; width: 100%; height: 100vh;
+    flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.5s; padding-bottom: 150px; /* เพิ่มที่เผื่อ Music Player */
   }
+  .section.active { display: flex; opacity: 1; }
 
-  /* --- 4. พื้นที่ปุ่ม --- */
-  .buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    position: relative;
-    width: 100%;
-    height: 60px;
-    align-items: center;
-    font-size: 0; /* <--- ยาแรง: ซ่อนตัวอักษรขยะที่หลุดเข้ามา */
+  .big-heart {
+    font-size: 5rem; color: var(--primary);
+    animation: heartbeat 1.5s infinite; margin-bottom: 20px;
   }
+  .welcome-text { color: #666; font-size: 1.2rem; margin-top: 10px; }
 
-  button {
-    border: none;
-    border-radius: 50px;
-    padding: 15px 35px;
-    font-size: 1.1rem; /* คืนค่าขนาดตัวอักษรให้ปุ่ม */
-    font-family: 'Kanit';
-    cursor: pointer;
-    transition: transform 0.2s ease, background 0.3s;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    white-space: nowrap;
+  /* GAME UI */
+  .game-container {
+    background: rgba(255, 255, 255, 0.95); padding: 40px 30px;
+    border-radius: 40px; box-shadow: 0 20px 60px rgba(255, 94, 120, 0.15);
+    text-align: center; max-width: 400px; width: 85%;
+    position: relative; z-index: 10; min-height: 250px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    margin-top: 60px;
   }
+  h1 { color: var(--primary); font-size: 2.0rem; margin: 0 0 10px 0; }
+  #message { min-height: 50px; color: #666; font-size: 1.2rem; margin-bottom: 30px; display: flex; align-items: center; justify-content: center;}
+  .buttons { display: flex; justify-content: center; gap: 20px; position: relative; width: 100%; height: 60px; align-items: center; font-size: 0; }
+  button.game-btn {
+    border: none; border-radius: 50px; padding: 15px 35px;
+    font-size: 1.1rem; font-family: 'Kanit'; cursor: pointer;
+    transition: 0.2s; box-shadow: 0 8px 20px rgba(0,0,0,0.1); white-space: nowrap;
+  }
+  #yesBtn { background: linear-gradient(45deg, #ff5e78, #ff8fa3); color: white; z-index: 100; }
+  #noBtn { background: #eee; color: #777; z-index: 30; position: relative; transition: 0.3s; }
 
-  #yesBtn {
-    background: linear-gradient(45deg, #ff5e78, #ff8fa3);
-    color: white;
-    z-index: 100;
-    font-weight: 500;
+  /* MUSIC PLAYER (ปรับตำแหน่งให้สูงขึ้น) */
+  .music-player {
+    position: fixed; 
+    bottom: 50px; /* ยกสูงขึ้นมาเป็น 50px */
+    left: 50%; transform: translateX(-50%);
+    width: 90%; max-width: 380px;
+    background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px);
+    border-radius: 20px; padding: 15px 20px;
+    box-shadow: 0 10px 30px rgba(255, 94, 120, 0.3);
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 150; border: 1px solid rgba(255, 255, 255, 0.6);
+    margin-bottom: env(safe-area-inset-bottom, 20px);
   }
-  
-  #yesBtn:active {
-    transform: scale(0.95);
+  .track-info { display: flex; flex-direction: column; align-items: flex-start; flex-grow: 1; padding-left: 10px; overflow: hidden; }
+  .track-name { font-size: 1rem; color: var(--primary); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
+  .track-artist { font-size: 0.75rem; color: #888; }
+  .player-controls { display: flex; align-items: center; gap: 15px; }
+  .ctrl-btn {
+    background: none; border: none; font-size: 1.2rem; color: var(--primary);
+    cursor: pointer; transition: 0.2s; width: 35px; height: 35px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
   }
+  .play-btn { font-size: 1.5rem; background: #fff0f6; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
 
-  #noBtn {
-    background: #eee;
-    color: #777;
-    font-weight: 400;
-    z-index: 30;
-    position: relative; 
-    transition: top 0.3s ease-out, left 0.3s ease-out, transform 0.3s;
-  }
+  .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 198; display: none; }
+  .overlay.show { display: block; }
 
-  /* เอฟเฟกต์หัวใจ */
-  .heart {
+  /* ANIMATIONS */
+  @keyframes heartbeat { 
+    0% { transform: scale(1); } 15% { transform: scale(1.3); } 
+    30% { transform: scale(1); } 45% { transform: scale(1.15); } 60% { transform: scale(1); } 
+  }
+  @keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-5px); } 40%, 80% { transform: translateX(5px); } }
+  .shake { animation: shake 0.5s; color: #ff0000 !important; }
+  .heart-float { position: fixed; pointer-events: none; animation: floatUp 4s ease-out forwards; z-index: 9999; }
+  @keyframes floatUp { 0% { transform: translateY(0) scale(0.5); } 100% { transform: translateY(-120vh) scale(1.5); opacity: 0; } }
+
+  /* อิโมจิ 3D ลอยฟุ้ง */
+  .bg-emoji {
     position: fixed;
+    bottom: -50px;
+    font-size: 2.5rem;
     pointer-events: none;
-    animation: floatUp 4s ease-out forwards;
-    z-index: 9999;
+    z-index: 1;
+    opacity: 0.7;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    animation: floatUpBg linear forwards;
   }
 
-  @keyframes floatUp {
-    0% { transform: translateY(0) scale(0.5); opacity: 1; }
-    100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
+  @keyframes floatUpBg {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.9; }
+    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
   }
-  
-  .shake {
-    animation: shake 0.5s;
-    color: #ff0000 !important;
-  }
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-    20%, 40%, 60%, 80% { transform: translateX(5px); }
-  }
+
+  div:where(.swal2-container) div:where(.swal2-popup) { border-radius: 30px !important; font-family: 'Kanit', sans-serif !important; }
 
 </style>
 </head>
 <body>
 
-  <div class="timer-box" id="safeTimer">Loading...</div>
-  
-  <div class="header-badge" id="safeHeader">For Image 🎀</div>
+  <div id="lock-screen">
+    <div class="lock-title" id="lockTitle">ใส่รหัสใจก่อนนะคนดี 🔒</div>
+    <div class="pin-dots">
+      <div class="dot" id="dot1"></div><div class="dot" id="dot2"></div><div class="dot" id="dot3"></div>
+      <div class="dot" id="dot4"></div><div class="dot" id="dot5"></div><div class="dot" id="dot6"></div>
+    </div>
+    <div class="pin-pad">
+      <div class="num-btn" onclick="addPin('1')">1</div><div class="num-btn" onclick="addPin('2')">2</div><div class="num-btn" onclick="addPin('3')">3</div>
+      <div class="num-btn" onclick="addPin('4')">4</div><div class="num-btn" onclick="addPin('5')">5</div><div class="num-btn" onclick="addPin('6')">6</div>
+      <div class="num-btn" onclick="addPin('7')">7</div><div class="num-btn" onclick="addPin('8')">8</div><div class="num-btn" onclick="addPin('9')">9</div>
+      <div class="num-btn zero" onclick="addPin('0')">0</div>
+    </div>
+  </div>
 
-  <div class="container" id="safeContainer">
-    <h1 id="question">อิมเมจรักเค้าไหม? 🥺</h1>
-    <div id="message">บอกความจริงมานะ...</div>
+  <div id="main-app">
+    <div class="timer-box" id="safeTimer">Loading...</div>
+    <div class="header-badge" id="safeHeader">For Image 🎀</div>
+    <button class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+    
+    <div class="sidebar" id="sidebar">
+      <div class="menu-item" onclick="showSection('home')">🏠 หน้าหลัก</div>
+      <div class="menu-item" onclick="showSection('game')">🎮 เกมทายใจ</div>
+      <div class="menu-item logout" onclick="handleLogout()"><i class="fas fa-right-from-bracket"></i> Log Out</div>
+    </div>
 
-    <div class="buttons">
-      <button id="yesBtn">รักที่สุด</button>
-      <button id="noBtn">ไม่รัก</button>
+    <div id="home-section" class="section active">
+      <div class="big-heart">💖</div>
+      <div class="welcome-text">ยินดีต้อนรับครับที่รัก</div>
+    </div>
+
+    <div id="game-section" class="section">
+      <div class="game-container" id="safeContainer">
+        <h1 id="question">อิมเมจรักเค้าไหม? 🥺</h1>
+        <div id="message">บอกความจริงมานะ...</div>
+        <div class="buttons">
+          <button class="game-btn" id="yesBtn">รักที่สุด</button>
+          <button class="game-btn" id="noBtn">ไม่รัก</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="music-player" id="safePlayer">
+      <div class="track-info">
+        <div class="track-name" id="trackName">เพลงรักของอิมเมจ 🎵</div>
+        <div class="track-artist">For You</div>
+      </div>
+      <div class="player-controls">
+        <button class="ctrl-btn play-btn" onclick="togglePlay()"><i class="fas fa-play" id="playIcon"></i></button>
+        <button class="ctrl-btn" onclick="nextTrack()"><i class="fas fa-forward-step"></i></button>
+      </div>
+      <audio id="audioPlayer"></audio>
     </div>
   </div>
 
 <script>
-  /* ============ ตั้งค่าวันครบรอบ ============ */
+  /* ============ LOCK SCREEN ============ */
+  const CORRECT_PIN = "080368";
+  let currentPin = "";
+  let wrongCount = 0;
+  const wrongMessages = ["ห๋าาา ไม่รู้จริงหรอ 😱", "ผิดอ่า... จำไม่ได้เหรอ 😭", "น้อยใจนะเนี่ย...", "ใบ้ให้: วันที่เรารักกัน 💕", "เอ้า! ผิดอีกแล้ว"];
+
+  function addPin(num) {
+    if (currentPin.length < 6) {
+      currentPin += num; updateDots();
+      if (currentPin.length === 6) setTimeout(checkPin, 200);
+    }
+  }
+  function updateDots() {
+    for (let i = 1; i <= 6; i++) {
+      document.getElementById(`dot${i}`).className = i <= currentPin.length ? 'dot filled' : 'dot';
+    }
+  }
+  function checkPin() {
+    if (currentPin === CORRECT_PIN) {
+      document.getElementById('lock-screen').classList.add('hidden');
+      setTimeout(() => {
+        document.getElementById('lock-screen').style.display = 'none';
+        document.getElementById('main-app').classList.add('show');
+        startFloatingEmojis(); 
+      }, 500);
+    } else {
+      const lockTitle = document.getElementById('lockTitle');
+      lockTitle.innerText = wrongMessages[wrongCount % wrongMessages.length];
+      lockTitle.classList.add('error-text');
+      document.getElementById('lock-screen').classList.add('shake-lock');
+      wrongCount++;
+      setTimeout(() => {
+        document.getElementById('lock-screen').classList.remove('shake-lock');
+        currentPin = ""; updateDots();
+        setTimeout(() => { lockTitle.innerText = "ใส่รหัสใจก่อนนะคนดี 🔒"; lockTitle.classList.remove('error-text'); }, 1200);
+      }, 400);
+    }
+  }
+
+  /* ============ FLOATING EMOJIS ============ */
+  function startFloatingEmojis() {
+    setInterval(() => {
+        const emojis = ["🧸", "💖", "✨", "🌸", "🎀", "🥰", "☁️"];
+        const e = document.createElement("div");
+        e.className = "bg-emoji";
+        e.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        e.style.left = Math.random() * 100 + "vw";
+        e.style.fontSize = (Math.random() * 20 + 30) + "px";
+        e.style.animationDuration = (Math.random() * 5 + 8) + "s";
+        document.body.appendChild(e);
+        setTimeout(() => e.remove(), 13000);
+    }, 1000);
+  }
+
+  /* ============ GLOBAL & TIMER ============ */
   const startDate = new Date(2025, 2, 8); 
-
-  /* ============ คำพูดกวนๆ 30 ประโยค (ฉบับอิมเมจ) ============ */
-  const sadTexts = [
-    "อิมเมจไม่รักเค้าจริงดิ... 🥺", 
-    "น้อยใจนะเนี่ย... 😞", 
-    "คิดดีๆ อีกทีนะอิมเมจ 👉👈", 
-    "อย่าใจร้ายกับเค้าสิ", 
-    "ปุ่มหนีแล้วเห็นมั้ย!",
-    "แน่ใจนะวิ?", 
-    "กดไม่ได้หรอก แบร่ 😜", 
-    "อิมเมจจจจจจจ~", 
-    "เค้าเลี้ยงหนมนะ 🍰", 
-    "มือหงิกแล้วมั้งคนดี",
-    "ปุ่มจะหายแล้วนะเตง", 
-    "ยอมกดรักเถอะ พลีสสส 🙏", 
-    "ดื้อจังเลยยยยยย", 
-    "เริ่มมองไม่เห็นปุ่มละสิ", 
-    "ฮึบไว้... ฮึบไว้...",
-    "อีกนิดเดียว...", 
-    "จะเล็กเท่ามดแล้ว! 🐜", 
-    "ต้องใช้แว่นขยายแล้วมั้ง 🔍", 
-    "กดสีชมพูง่ายกว่าเยอะ!", 
-    "งอนจริงๆ แล้วนะ! 😤",
-    "แงงงงงงง 😭", 
-    "ใจแข็งดุจหินผา 🗿", 
-    "ปุ่มปลิวไปดาวอังคารแล้ว 🚀", 
-    "หยุดแกล้งเค้าได้แล้ววว", 
-    "ใกล้จะกดไม่ได้แล้วนะอิมเมจ",
-    "เล็กจนจิ้มไม่โดนแล้ว!", 
-    "ความพยายามสูงมากกก 👏", 
-    "ยอมแพ้เถอะอิมเมจจจ", 
-    "ครั้งสุดท้ายแล้วนะ!", 
-    "จบข่าว! รักเค้าซะดีๆ 😎"
-  ];
-
-  let count = 0; 
-  let noScale = 1; 
-  let isLoved = false; 
-  const LIMIT = 30; 
-
-  const q = document.getElementById("question");
-  const msg = document.getElementById("message");
-  const yesBtn = document.getElementById("yesBtn");
-  const noBtn = document.getElementById("noBtn");
-
-  // Elements ที่ห้ามบัง
-  const safeHeader = document.getElementById("safeHeader");
-  const safeTimer = document.getElementById("safeTimer");
-  const safeContainer = document.getElementById("safeContainer");
-
-  // --- นับเวลา ---
   function updateTimer() {
-    const now = new Date();
-    const diff = now - startDate;
+    const now = new Date(); const diff = now - startDate;
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
     const mins = Math.floor((diff / (1000 * 60)) % 60);
     const secs = Math.floor((diff / 1000) % 60);
-    
-    document.getElementById("safeTimer").innerHTML = 
-      `เรารักกันมา<br><span>${days} วัน ${hours} ชม. ${mins} น. ${secs} ว.</span>`;
+    document.getElementById("safeTimer").innerHTML = `เรารักกันมา<br><span>${days} วัน ${hours} ชม. ${mins} น. ${secs} ว.</span>`;
   }
   setInterval(updateTimer, 1000);
 
-  // --- เช็คการชน ---
-  function isOverlap(rect1, rect2) {
-    return !(rect1.right < rect2.left || 
-             rect1.left > rect2.right || 
-             rect1.bottom < rect2.top || 
-             rect1.top > rect2.bottom);
+  function toggleMenu() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('show');
+  }
+  function showSection(sectionId) {
+    toggleMenu();
+    document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+    document.getElementById(sectionId + '-section').classList.add('active');
+    if(sectionId === 'game') resetGame();
+  }
+  function handleLogout() {
+    toggleMenu();
+    Swal.fire({
+      title: 'จะไปไหนครับ?', text: 'ออกจากหัวใจเค้าไม่ได้หรอก! 💖', icon: 'warning',
+      confirmButtonText: 'โอเค ยอมแล้ว 🥰', confirmButtonColor: '#ff5e78', background: '#fff0f6', color: '#ff5e78'
+    });
   }
 
-  // --- ปุ่มบินหนี ---
+  /* ============ MUSIC PLAYER CONFIG (แก้ให้ตรงไฟล์จริง) ============ */
+  const playlist = [
+    { title: "รักรักรักรักรักรักรัก 💖", src: "rak.mp3" }, 
+    { title: "ยังไงก็รัก 🎵", src: "yung.mp3" }
+  ];
+
+  let currentTrack = 0; let isPlaying = false;
+  const audio = document.getElementById('audioPlayer');
+  const trackName = document.getElementById('trackName');
+  const playIcon = document.getElementById('playIcon');
+  if (playlist.length > 0) { audio.src = playlist[0].src; trackName.innerText = playlist[0].title; }
+
+  function togglePlay() {
+    if (playlist.length === 0) return;
+    if (isPlaying) { audio.pause(); playIcon.classList.remove('fa-pause'); playIcon.classList.add('fa-play'); }
+    else { audio.play(); playIcon.classList.remove('fa-play'); playIcon.classList.add('fa-pause'); }
+    isPlaying = !isPlaying;
+  }
+  function nextTrack() {
+    if (playlist.length === 0) return;
+    currentTrack = (currentTrack + 1) % playlist.length;
+    audio.src = playlist[currentTrack].src; trackName.innerText = playlist[currentTrack].title;
+    if (isPlaying) audio.play();
+  }
+
+  /* ============ GAME LOGIC ============ */
+  const sadTexts = [
+    "อิมเมจไม่รักเค้าจริงดิ... 🥺", "น้อยใจนะเนี่ย... 😞", "คิดดีๆ อีกทีนะอิมเมจ 👉👈", "อย่าใจร้ายกับเค้าสิ", "ปุ่มหนีแล้วเห็นมั้ย!",
+    "แน่ใจนะวิ?", "กดไม่ได้หรอก แบร่ 😜", "อิมเมจจจจจจจ~", "เค้าเลี้ยงหนมนะ 🍰", "มือหงิกแล้วมั้งคนดี",
+    "ปุ่มจะหายแล้วนะเตง", "ยอมกดรักเถอะ พลีสสส 🙏", "ดื้อจังเลยยยยยย", "เริ่มมองไม่เห็นปุ่มละสิ", "ฮึบไว้... ฮึบไว้...",
+    "อีกนิดเดียว...", "จะเล็กเท่ามดแล้ว! 🐜", "ต้องใช้แว่นขยายแล้วมั้ง 🔍", "กดสีชมพูง่ายกว่าเยอะ!", "งอนจริงๆ แล้วนะ! 😤",
+    "แงงงงงงง 😭", "ใจแข็งดุจหินผา 🗿", "ปุ่มปลิวไปดาวอังคารแล้ว 🚀", "หยุดแกล้งเค้าได้แล้ววว", "ใกล้จะกดไม่ได้แล้วนะอิมเมจ",
+    "เล็กจนจิ้มไม่โดนแล้ว!", "ความพยายามสูงมากกก 👏", "ยอมแพ้เถอะอิมเมจจจ", "ครั้งสุดท้ายแล้วนะ!", "จบข่าว! รักเค้าซะดีๆ 😎"
+  ];
+  let count = 0; let noScale = 1; let isLoved = false; const LIMIT = 30; 
+  const q = document.getElementById("question"); const msg = document.getElementById("message");
+  const yesBtn = document.getElementById("yesBtn"); const noBtn = document.getElementById("noBtn");
+  const safeHeader = document.getElementById("safeHeader"); const safeTimer = document.getElementById("safeTimer");
+  const safeContainer = document.getElementById("safeContainer"); const safePlayer = document.getElementById("safePlayer");
+
+  function resetGame() {
+      count = 0; noScale = 1; isLoved = false;
+      q.innerText = "อิมเมจรักเค้าไหม? 🥺"; q.style.color = "#ff5e78";
+      msg.innerText = "บอกความจริงมานะ...";
+      noBtn.style.display = "inline-block"; noBtn.style.position = "relative"; 
+      noBtn.style.left = "auto"; noBtn.style.top = "auto"; noBtn.style.transform = "scale(1)";
+  }
+  function isOverlap(rect1, rect2) {
+    return !(rect1.right < rect2.left || rect1.left > rect2.right || rect1.bottom < rect2.top || rect1.top > rect2.bottom);
+  }
   function moveButton() {
     noBtn.style.position = "fixed"; 
-
     const headerRect = safeHeader.getBoundingClientRect();
     const timerRect = safeTimer.getBoundingClientRect();
     const containerRect = safeContainer.getBoundingClientRect();
+    const playerRect = safePlayer.getBoundingClientRect();
 
-    let safe = false;
-    let newX, newY;
-    let attempts = 0;
-
+    let safe = false; let newX, newY; let attempts = 0;
     while (!safe && attempts < 50) {
       attempts++;
       newX = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20) + 10;
       newY = Math.random() * (window.innerHeight - noBtn.offsetHeight - 20) + 10;
-
-      const btnRect = {
-        left: newX,
-        right: newX + noBtn.offsetWidth,
-        top: newY,
-        bottom: newY + noBtn.offsetHeight
-      };
-
+      const btnRect = { left: newX, right: newX + noBtn.offsetWidth, top: newY, bottom: newY + noBtn.offsetHeight };
       const buffer = 15; 
-      
       const hitHeader = isOverlap(btnRect, { ...headerRect, bottom: headerRect.bottom + buffer });
       const hitTimer = isOverlap(btnRect, { ...timerRect, right: timerRect.right + buffer, bottom: timerRect.bottom + buffer });
       const hitContainer = isOverlap(btnRect, { ...containerRect, top: containerRect.top - buffer, bottom: containerRect.bottom + buffer });
-
-      if (!hitHeader && !hitTimer && !hitContainer) {
-        safe = true;
-      }
+      const hitPlayer = isOverlap(btnRect, { ...playerRect, top: playerRect.top - buffer });
+      if (!hitHeader && !hitTimer && !hitContainer && !hitPlayer) safe = true;
     }
-
-    if (!safe) {
-      newY = window.innerHeight - noBtn.offsetHeight - 20;
-      newX = window.innerWidth - noBtn.offsetWidth - 20;
-    }
-
-    noBtn.style.left = newX + "px";
-    noBtn.style.top = newY + "px";
+    if (!safe) { newY = window.innerHeight - noBtn.offsetHeight - 150; newX = window.innerWidth - noBtn.offsetWidth - 20; }
+    noBtn.style.left = newX + "px"; noBtn.style.top = newY + "px";
   }
-
   function spawnHearts() {
-    const heart = document.createElement("div");
-    heart.className = "heart";
+    const heart = document.createElement("div"); heart.className = "heart-float";
     heart.innerHTML = ["❤️","💖","🥰","🌸","✨"][Math.floor(Math.random()*5)];
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.top = "100vh";
+    heart.style.left = Math.random() * 100 + "vw"; heart.style.top = "100vh";
     heart.style.fontSize = (Math.random() * 25 + 20) + "px";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 4000);
+    document.body.appendChild(heart); setTimeout(() => heart.remove(), 4000);
   }
-
-  /* --- กดปุ่ม รัก --- */
   yesBtn.onclick = () => {
-    q.classList.remove("shake");
-    q.innerText = "เย้! อิมเมจน่ารักที่สุด 💖";
-    q.style.color = "#ff5e78";
-    msg.innerText = "ขอบคุณที่เป็นความสุขของเค้านะค้าบ";
-    
-    isLoved = true; 
-
-    yesBtn.style.transform = "scale(1.1)";
-    setTimeout(() => yesBtn.style.transform = "scale(1)", 200);
-
-    if (count < LIMIT) {
-      noBtn.style.display = "inline-block";
-      noBtn.style.transform = `scale(${noScale})`;
-    }
-    
+    q.classList.remove("shake"); q.innerText = "เย้! อิมเมจน่ารักที่สุด 💖"; q.style.color = "#ff5e78";
+    msg.innerText = "ขอบคุณที่เป็นความสุขของเค้านะค้าบ"; isLoved = true; 
+    yesBtn.style.transform = "scale(1.1)"; setTimeout(() => yesBtn.style.transform = "scale(1)", 200);
+    if (count < LIMIT) { noBtn.style.display = "inline-block"; noBtn.style.transform = `scale(${noScale})`; }
     for(let i=0; i<30; i++) setTimeout(spawnHearts, i*100);
   };
-
-  /* --- กดปุ่ม ไม่รัก --- */
   noBtn.onclick = (e) => {
     e.stopPropagation();
-
     if (isLoved) {
-      q.innerText = "อิมเมจทำไมทำงี้อ่าาา!!!";
-      msg.innerText = "เมื่อกี้ยังบอกรักอยู่เลยยย! 😭";
-      
-      q.classList.add("shake");
-      setTimeout(() => q.classList.remove("shake"), 500);
-
-      moveButton(); 
-      isLoved = false; 
-      return;
+      q.innerText = "อิมเมจทำไมทำงี้อ่าาา!!!"; msg.innerText = "เมื่อกี้ยังบอกรักอยู่เลยยย! 😭";
+      q.classList.add("shake"); setTimeout(() => q.classList.remove("shake"), 500);
+      moveButton(); isLoved = false; return;
     }
-
     count++;
-
-    if (count <= sadTexts.length) {
-      msg.innerText = sadTexts[count - 1];
-    }
-    
-    q.innerText = "อิมเมจรักเค้าไหม?";
-    q.style.color = "#ff5e78";
-
-    noScale = 1 - (count * 0.032);
-    if (noScale < 0.1) noScale = 0.05; 
+    if (count <= sadTexts.length) msg.innerText = sadTexts[count - 1];
+    q.innerText = "อิมเมจรักเค้าไหม?"; q.style.color = "#ff5e78";
+    noScale = 1 - (count * 0.032); if (noScale < 0.1) noScale = 0.05; 
     noBtn.style.transform = `scale(${noScale})`;
-
-    if (count >= LIMIT) {
-      noBtn.style.display = "none";
-      msg.innerText = "ปุ่มหายไปแล้ว... รักเค้าเถอะ 😎";
-      q.innerText = "หมดทางหนี!";
-    } else {
-      moveButton();
-    }
+    if (count >= LIMIT) { noBtn.style.display = "none"; msg.innerText = "ปุ่มหายไปแล้ว... รักเค้าเถอะ 😎"; q.innerText = "หมดทางหนี!"; } else { moveButton(); }
   };
-
 </script>
 </body>
 </html>
