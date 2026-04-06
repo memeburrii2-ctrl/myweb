@@ -2,84 +2,86 @@ body {
   margin: 0;
   font-family: "Segoe UI", sans-serif;
   color: white;
-  height: 100vh;
-  overflow: hidden;
-}
-
-/* 🌌 พื้นหลังเนียน */
-.bg {
-  position: fixed;
-  inset: 0;
   background:
     radial-gradient(circle at 20% 30%, #3a3a7a, transparent),
     radial-gradient(circle at 80% 70%, #1f1f3a, transparent),
     radial-gradient(circle at 50% 50%, #0a0a14, #000);
 }
 
-/* layout กลาง */
-.main {
-  position: relative;
-  width: 100%;
-  height: 100vh;
+/* layout */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 40px 20px;
 }
 
-/* 🔵 วงกลาง */
-.center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(12px);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
+/* hero */
+.hero {
   text-align: center;
-  box-shadow: 0 0 40px rgba(100,100,255,0.3);
-  transition: 0.3s;
+  margin-bottom: 50px;
 }
 
-.center:hover {
-  transform: translate(-50%, -50%) scale(1.05);
+/* about */
+.about {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 50px;
 }
 
-/* ของลอยรอบ ๆ */
-.orbit {
-  position: absolute;
-  padding: 10px 16px;
-  border-radius: 999px;
+.avatar {
+  width: 100px;
+  border-radius: 50%;
+}
+
+/* gallery */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 50px;
+}
+
+.grid img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+/* music */
+.music {
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 80px;
+}
+
+#progress {
+  width: 70%;
+  height: 4px;
+}
+
+/* controls */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.controls button {
   background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: white;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-/* hover เท่ ๆ */
-.orbit:hover {
-  transform: scale(1.2);
+.controls button:hover {
   background: rgba(255,255,255,0.2);
 }
 
-/* ตำแหน่งรอบวง */
-.music { top: 20%; left: 50%; transform: translateX(-50%); }
-.code { top: 50%; left: 80%; transform: translateY(-50%); }
-.vibe { bottom: 20%; left: 50%; transform: translateX(-50%); }
-.anime { top: 50%; left: 20%; transform: translateY(-50%); }
-
-/* animation ลอย */
-@keyframes float {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-10px); }
-}
-
-.orbit {
-  animation: float 3s ease-in-out infinite alternate;
+/* extra */
+.extra {
+  padding: 40px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 15px;
 }
