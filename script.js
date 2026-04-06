@@ -1,5 +1,3 @@
-// ================= script.js =================
-
 let audio = document.getElementById("audio");
 let progress = document.getElementById("progress");
 
@@ -7,7 +5,6 @@ let songs = ["song1.mp3","song2.mp3"];
 let index = 0;
 
 function play(){ audio.play(); }
-function pause(){ audio.pause(); }
 
 function next(){
   index=(index+1)%songs.length;
@@ -21,7 +18,6 @@ function prev(){
   audio.play();
 }
 
-/* progress */
 audio.ontimeupdate=()=>{
   if(audio.duration){
     progress.value=(audio.currentTime/audio.duration)*100;
