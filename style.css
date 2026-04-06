@@ -1,114 +1,88 @@
 body {
   margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: #0f0f0f;
-  color: white;
-}
-
-/* LAYOUT */
-.app {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  font-family: Arial;
   height: 100vh;
+  overflow: hidden;
+  background: black;
 }
 
-/* LEFT */
-.left {
-  padding: 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+/* พื้นหลัง gradient วิ่ง */
+.bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(270deg, #ff9a9e, #a1c4fd, #fbc2eb);
+  background-size: 600% 600%;
+  animation: gradient 10s ease infinite;
 }
 
-.left h1 {
-  font-size: 40px;
+@keyframes gradient {
+  0% { background-position: 0% }
+  50% { background-position: 100% }
+  100% { background-position: 0% }
+}
+
+/* การ์ด */
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  width: 280px;
+  padding: 25px;
+
+  border-radius: 25px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+
+  text-align: center;
+  color: white;
+
+  box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ลอย */
+@keyframes float {
+  0% { transform: translate(-50%, -50%) }
+  50% { transform: translate(-50%, -55%) }
+  100% { transform: translate(-50%, -50%) }
+}
+
+.cover {
+  width: 100%;
+  border-radius: 20px;
   margin-bottom: 10px;
 }
 
-.love {
-  color: #ff4d6d;
-  margin-bottom: 30px;
-}
-
-/* GALLERY */
-.gallery {
-  display: flex;
-  gap: 15px;
-}
-
-.gallery img {
-  width: 120px;
-  border-radius: 15px;
-  transition: 0.3s;
-}
-
-.gallery img:hover {
-  transform: scale(1.1);
-}
-
-/* RIGHT */
-.right {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* PLAYER */
-.player {
-  width: 300px;
-  background: #181818;
-  padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-}
-
-.player img {
-  width: 100%;
-  border-radius: 15px;
-}
-
-.info {
-  margin: 15px 0;
-}
-
-.info h2 {
-  margin: 0;
-}
-
-.info p {
-  color: #aaa;
-  font-size: 14px;
-}
-
-/* PROGRESS */
+/* progress */
 #progress {
   width: 100%;
-  margin: 10px 0;
 }
 
-/* CONTROLS */
+/* ปุ่ม */
 .controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin-top: 10px;
 }
 
 .controls button {
-  background: #282828;
-  border: none;
-  color: white;
-  padding: 10px;
+  margin: 8px;
+  padding: 12px;
   border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.2);
+  color: white;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.3s;
 }
 
 .controls button:hover {
-  background: #1db954;
-  transform: scale(1.1);
+  transform: scale(1.3);
+  background: #ff4d6d;
 }
 
-/* ปุ่ม play ใหญ่ */
+/* ปุ่ม play เด่น */
 .play {
   background: #1db954;
   color: black;
