@@ -1,71 +1,55 @@
+<!-- ================= index.html ================= -->
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello, I'm Meme</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meme</title>
+
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<div class="main-container">
-    <header class="profile-header fade-in-element">
-        <div class="profile-pic-container">
-            <img src="path/to/your/profile.jpg" alt="Profile" class="profile-pic">
-        </div>
-        <div class="name-section">
-            <h1 class="caveat-font">Hi, I'm Meme</h1>
-            <p class="subtitle">just a chill person who likes music & vibes</p>
-        </div>
-    </header>
+<div class="bg"></div>
 
-    <section class="about-me-box fade-in-element">
-        <h2 class="caveat-font">About Me...</h2>
-        <p>กูเป็นคนธรรมดา ๆ ที่ชอบฟังเพลง ชอบอะไรเงียบ ๆ เท่ ๆ เว็บนี้ก็แค่พื้นที่เล็ก ๆ ของกู</p>
-        <div class="hand-drawn-lines">
-            <svg viewBox="0 0 100 10" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0,5 C20,10 40,-5 60,5 C80,10 100,2 100,5" stroke="currentColor" fill="none" stroke-width="1.5"/>
-            </svg>
-            <svg viewBox="0 0 100 10" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0,8 C25,2 50,15 75,5 C90,2 100,8" stroke="currentColor" fill="none" stroke-width="1.5"/>
-            </svg>
-        </div>
-    </section>
-
-    <section class="my-vibes-gallery fade-in-element">
-        <div class="gallery-item">
-            <img src="path/to/mountain.jpg" alt="Mountain">
-            <span>Mountain Views</span>
-        </div>
-        <div class="gallery-item">
-            <img src="path/to/laptop.jpg" alt="Work">
-            <span>Work & Coffee</span>
-        </div>
-        <div class="gallery-item">
-            <img src="path/to/forest.jpg" alt="Forest">
-            <span>Deep Woods</span>
-        </div>
-    </section>
-
-    <section class="music-player-fixed fade-in-element">
-        <div class="player-content">
-            <div class="album-art-container">
-                <img id="album-art" src="path/to/album_cover1.jpg" alt="Album Cover">
-            </div>
-            <div class="track-info">
-                <p id="track-name">Somebody Else</p>
-                <p id="artist-name">The 1975</p>
-            </div>
-            <div class="player-controls">
-                <button id="prev-btn">&#x23EE;</button>
-                <button id="play-pause-btn">&#x23F5;</button> <button id="next-btn">&#x23ED;</button>
-            </div>
-        </div>
-    </section>
+<!-- 🔥 TOP PROFILE -->
+<div class="top">
+  <div class="profile"></div>
+  <div class="name">Meme</div>
 </div>
 
-<button class="menu-toggle" id="menu-btn">&#x2630;</button>
+<!-- 🔥 DESCRIPTION BOX -->
+<div class="desc">
+  <h2>คำอธิบาย</h2>
+  <p>กูเป็นคนเงียบ ๆ ชอบฟังเพลง ชอบอยู่คนเดียว โลกส่วนตัวสูงนิด ๆ</p>
+</div>
+
+<!-- 🔥 PLAYER -->
+<div class="player">
+
+  <div class="song">
+    <img src="https://picsum.photos/100">
+    <div>
+      <h3>Song Name</h3>
+      <p>Artist</p>
+    </div>
+  </div>
+
+  <audio id="audio">
+    <source src="song1.mp3">
+  </audio>
+
+  <input type="range" id="progress" value="0">
+
+  <div class="controls">
+    <button onclick="prev()">⏮</button>
+    <button class="play" onclick="play()">▶</button>
+    <button onclick="next()">⏭</button>
+  </div>
+
+</div>
 
 <script src="script.js"></script>
 </body>
