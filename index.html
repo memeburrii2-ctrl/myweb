@@ -2,7 +2,8 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>My World</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ji</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -10,16 +11,13 @@
 <!-- 🌈 BG -->
 <div class="bg"></div>
 
-<!-- ✨ PARTICLE -->
-<canvas id="particles"></canvas>
-
 <!-- 👤 PROFILE -->
 <div class="profile-box">
   <img src="images/IMG_20260406_124948_090.webp" class="profile-img">
 
   <div class="profile-info">
-    <h1>NAME JI</h1>
-    <p>20 yrs | chill & vibe</p>
+    <h1>ji</h1>
+    <p>late nights & music</p>
 
     <div class="social">
       <p>IG: ipxngsxk</p>
@@ -28,11 +26,19 @@
   </div>
 </div>
 
-<!-- 💎 HERO -->
-<section class="hero">
-  <h2 class="glow-text">Welcome to My World</h2>
-  <p class="sub">just me, music & vibes</p>
-</section>
+<!-- 🎧 MUSIC -->
+<div class="music-box">
+
+  <audio id="audio" src="music/song.mp3"></audio>
+
+  <div class="controls">
+    <button onclick="playSong()">Play</button>
+    <button onclick="pauseSong()">Pause</button>
+  </div>
+
+  <input type="range" id="progress" value="0">
+
+</div>
 
 <script src="script.js"></script>
 </body>
