@@ -1,90 +1,129 @@
 body {
   margin: 0;
-  font-family: Arial;
-  height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  background: #0f0f0f;
+  color: white;
   overflow: hidden;
-  background: black;
 }
 
-/* พื้นหลัง gradient วิ่ง */
+/* animated background */
 .bg {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: linear-gradient(270deg, #ff9a9e, #a1c4fd, #fbc2eb);
-  background-size: 600% 600%;
-  animation: gradient 10s ease infinite;
+  background: radial-gradient(circle at 30% 30%, #ff4d6d22, transparent),
+              radial-gradient(circle at 70% 70%, #a1c4fd22, transparent);
+  animation: move 10s infinite alternate;
 }
 
-@keyframes gradient {
-  0% { background-position: 0% }
-  50% { background-position: 100% }
-  100% { background-position: 0% }
+@keyframes move {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.2); }
 }
 
-/* การ์ด */
-.card {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  
-  width: 280px;
+/* layout */
+.app {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+}
+
+/* left */
+.left {
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.left h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.desc {
+  color: #aaa;
+  margin-bottom: 30px;
+}
+
+/* gallery */
+.gallery {
+  display: flex;
+  gap: 15px;
+}
+
+.gallery img {
+  width: 120px;
+  border-radius: 15px;
+  transition: 0.3s;
+}
+
+.gallery img:hover {
+  transform: scale(1.1);
+}
+
+/* right */
+.right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* player */
+.player {
+  width: 320px;
   padding: 25px;
-
-  border-radius: 25px;
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(15px);
-
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
   text-align: center;
-  color: white;
-
-  box-shadow: 0 0 30px rgba(255,255,255,0.2);
-  animation: float 3s ease-in-out infinite;
-}
-
-/* ลอย */
-@keyframes float {
-  0% { transform: translate(-50%, -50%) }
-  50% { transform: translate(-50%, -55%) }
-  100% { transform: translate(-50%, -50%) }
 }
 
 .cover {
   width: 100%;
-  border-radius: 20px;
-  margin-bottom: 10px;
+  border-radius: 15px;
+}
+
+.player h2 {
+  margin: 15px 0 5px;
+}
+
+.artist {
+  color: #aaa;
+  font-size: 14px;
 }
 
 /* progress */
 #progress {
   width: 100%;
+  margin: 15px 0;
 }
 
-/* ปุ่ม */
+/* controls */
 .controls {
-  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .controls button {
-  margin: 8px;
+  background: #282828;
+  border: none;
   padding: 12px;
   border-radius: 50%;
-  border: none;
-  background: rgba(255,255,255,0.2);
   color: white;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 .controls button:hover {
-  transform: scale(1.3);
+  transform: scale(1.15);
   background: #ff4d6d;
 }
 
-/* ปุ่ม play เด่น */
+/* play button */
 .play {
-  background: #1db954;
-  color: black;
+  background: #ff4d6d;
+  color: white;
   transform: scale(1.2);
 }
