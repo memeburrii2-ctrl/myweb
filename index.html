@@ -2,31 +2,72 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>Cute Music</title>
-
+<title>My Spotify</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="card">
-  <h1>🎵 เว็บฟังเพลง 🎵</h1>
+<div class="player">
 
-  <audio id="music">
+  <h1>🎧 My Player</h1>
+  <p id="title">Song 1</p>
+
+  <audio id="audio">
     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
   </audio>
 
-  <button onclick="playMusic()">เล่น</button>
-  <button onclick="pauseMusic()">หยุด</button>
+  <input type="range" id="progress" value="0">
+
+  <div class="controls">
+    <button onclick="prevSong()">⏮</button>
+    <button onclick="playMusic()">▶</button>
+    <button onclick="pauseMusic()">⏸</button>
+    <button onclick="nextSong()">⏭</button>
+  </div>
+
 </div>
 
 <script>
+let songs = [
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+];
+
+let index = 0;
+let audio = document.getElementById("audio");
+let progress = document.getElementById("progress");
+let title = document.getElementById("title");
+
 function playMusic() {
-  document.getElementById("music").play();
+  audio.play();
 }
+
 function pauseMusic() {
-  document.getElementById("music").pause();
+  audio.pause();
 }
+
+function nextSong() {
+  index = (index + 1) % songs.length;
+  audio.src = songs[index];
+  title.innerText = "Song " + (index + 1);
+  audio.play();
+}
+
+function prevSong() {
+  index = (index - 1 + songs.length) % songs.length;
+  audio.src = songs[index];
+  title.innerText = "Song " + (index + 1);
+  audio.play();
+}
+
+audio.ontimeupdate = function() {
+  progress.value = (audio.currentTime / audio.duration) * 100;
+};
+
+progress.oninput = function() {
+  audio.currentTime = (progress.value / 100) * audio.duration;
+};
 </script>
 
 </body>
