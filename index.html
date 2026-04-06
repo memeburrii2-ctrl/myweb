@@ -3,49 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hi, I'm Meme</title>
+    <title>Hello, I'm Meme</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container fade-in-element">
-        <header>
-            <h1>Hi, I'm Meme</h1>
+
+<div class="main-container">
+    <header class="profile-header fade-in-element">
+        <div class="profile-pic-container">
+            <img src="path/to/your/profile.jpg" alt="Profile" class="profile-pic">
+        </div>
+        <div class="name-section">
+            <h1 class="caveat-font">Hi, I'm Meme</h1>
             <p class="subtitle">just a chill person who likes music & vibes</p>
-        </header>
+        </div>
+    </header>
 
-        <section class="about-me fade-in-element">
-            <div class="profile-pic">
-                <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=150&q=80" alt="Profile">
+    <section class="about-me-box fade-in-element">
+        <h2 class="caveat-font">About Me...</h2>
+        <p>กูเป็นคนธรรมดา ๆ ที่ชอบฟังเพลง ชอบอะไรเงียบ ๆ เท่ ๆ เว็บนี้ก็แค่พื้นที่เล็ก ๆ ของกู</p>
+        <div class="hand-drawn-lines">
+            <svg viewBox="0 0 100 10" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,5 C20,10 40,-5 60,5 C80,10 100,2 100,5" stroke="currentColor" fill="none" stroke-width="1.5"/>
+            </svg>
+            <svg viewBox="0 0 100 10" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,8 C25,2 50,15 75,5 C90,2 100,8" stroke="currentColor" fill="none" stroke-width="1.5"/>
+            </svg>
+        </div>
+    </section>
+
+    <section class="my-vibes-gallery fade-in-element">
+        <div class="gallery-item">
+            <img src="path/to/mountain.jpg" alt="Mountain">
+            <span>Mountain Views</span>
+        </div>
+        <div class="gallery-item">
+            <img src="path/to/laptop.jpg" alt="Work">
+            <span>Work & Coffee</span>
+        </div>
+        <div class="gallery-item">
+            <img src="path/to/forest.jpg" alt="Forest">
+            <span>Deep Woods</span>
+        </div>
+    </section>
+
+    <section class="music-player-fixed fade-in-element">
+        <div class="player-content">
+            <div class="album-art-container">
+                <img id="album-art" src="path/to/album_cover1.jpg" alt="Album Cover">
             </div>
-            <div class="about-text">
-                <h2>About Me</h2>
-                <p>กูเป็นคนธรรมดา ๆ ที่ชอบฟังเพลง ชอบอะไรเงียบ ๆ เท่ ๆ เว็บนี้ก็แค่พื้นที่เล็ก ๆ ของกู</p>
+            <div class="track-info">
+                <p id="track-name">Somebody Else</p>
+                <p id="artist-name">The 1975</p>
             </div>
-        </section>
-
-        <section class="my-vibes fade-in-element">
-            <h2>My Vibes</h2>
-            <div class="gallery">
-                <img src="https://images.unsplash.com/photo-1506744012022-d01d411cb31e?auto=format&fit=crop&w=300&q=80" alt="Vibe 1">
-                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=300&q=80" alt="Vibe 2">
-                <img src="https://images.unsplash.com/photo-1448375240586-882707db8855?auto=format&fit=crop&w=300&q=80" alt="Vibe 3">
+            <div class="player-controls">
+                <button id="prev-btn">&#x23EE;</button>
+                <button id="play-pause-btn">&#x23F5;</button> <button id="next-btn">&#x23ED;</button>
             </div>
-        </section>
+        </div>
+    </section>
+</div>
 
-        <section class="now-playing fade-in-element">
-            <h2>Now Playing</h2>
-            <div class="audio-wrapper">
-                <audio controls>
-                    <source src="your-music-file.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
-        </section>
-    </div>
+<button class="menu-toggle" id="menu-btn">&#x2630;</button>
 
-    <img src="https://i.pinimg.com/originals/a0/78/3f/a0783f982992ed8b3a58e235a9009f98.gif" alt="Decor" class="decor-img">
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
