@@ -1,74 +1,77 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<title>My Spotify</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Universe 💖</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
+    <div class="sparkles">✨</div>
+    <div class="sparkles s2">💖</div>
+    <div class="sparkles s3">⭐</div>
 
-<div class="player">
+    <main class="container">
+        
+        <section class="love-section">
+            <h1 class="bounce-text">ถึง... เธอคนเก่ง 🎀</h1>
+            <p>แวะมาบอกว่ารักแกมากๆ นะครับ ขอให้โลกนี้ใจดีกับแกเหมือนที่แกใจดีกับเค้าเลย!</p>
+        </section>
 
-  <h1>🎧 My Player</h1>
-  <p id="title">Song 1</p>
+        <section class="spotify-player">
+            <div class="player-card">
+                <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=300&q=80" alt="Cover" class="cover-art">
+                
+                <div class="song-info">
+                    <h2>เพลงของเรา (Our Song)</h2>
+                    <p>ศิลปิน: คนคลั่งรัก</p>
+                </div>
 
-  <audio id="audio">
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
-  </audio>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
 
-  <input type="range" id="progress" value="0">
+                <div class="controls">
+                    <button class="btn-icon"><i class="fas fa-backward-step"></i></button>
+                    <button class="play-btn" id="playBtn" onclick="togglePlay()"><i class="fas fa-play" id="playIcon"></i></button>
+                    <button class="btn-icon"><i class="fas fa-forward-step"></i></button>
+                </div>
+                
+                <audio id="myAudio" src="your-song-file.mp3"></audio>
+            </div>
+        </section>
 
-  <div class="controls">
-    <button onclick="prevSong()">⏮</button>
-    <button onclick="playMusic()">▶</button>
-    <button onclick="pauseMusic()">⏸</button>
-    <button onclick="nextSong()">⏭</button>
-  </div>
+        <section class="gallery-section">
+            <h2>📸 ความทรงจำของเรา</h2>
+            <div class="grid-gallery">
+                <div class="pic-wrapper"><img src="https://images.unsplash.com/photo-1516589178581-6cd785328dc0?auto=format&fit=crop&w=300&q=80" alt="Pic1"></div>
+                <div class="pic-wrapper"><img src="https://images.unsplash.com/photo-1580477651161-12502787889e?auto=format&fit=crop&w=300&q=80" alt="Pic2"></div>
+                <div class="pic-wrapper"><img src="https://images.unsplash.com/photo-1601058269784-9dbbbfa7f416?auto=format&fit=crop&w=300&q=80" alt="Pic3"></div>
+                <div class="pic-wrapper"><img src="https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?auto=format&fit=crop&w=300&q=80" alt="Pic4"></div>
+            </div>
+        </section>
 
-</div>
+    </main>
 
-<script>
-let songs = [
-  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
-];
+    <script>
+        const audio = document.getElementById("myAudio");
+        const playIcon = document.getElementById("playIcon");
+        let isPlaying = false;
 
-let index = 0;
-let audio = document.getElementById("audio");
-let progress = document.getElementById("progress");
-let title = document.getElementById("title");
-
-function playMusic() {
-  audio.play();
-}
-
-function pauseMusic() {
-  audio.pause();
-}
-
-function nextSong() {
-  index = (index + 1) % songs.length;
-  audio.src = songs[index];
-  title.innerText = "Song " + (index + 1);
-  audio.play();
-}
-
-function prevSong() {
-  index = (index - 1 + songs.length) % songs.length;
-  audio.src = songs[index];
-  title.innerText = "Song " + (index + 1);
-  audio.play();
-}
-
-audio.ontimeupdate = function() {
-  progress.value = (audio.currentTime / audio.duration) * 100;
-};
-
-progress.oninput = function() {
-  audio.currentTime = (progress.value / 100) * audio.duration;
-};
-</script>
-
+        function togglePlay() {
+            if (isPlaying) {
+                audio.pause();
+                playIcon.classList.remove("fa-pause");
+                playIcon.classList.add("fa-play");
+            } else {
+                audio.play();
+                playIcon.classList.remove("fa-play");
+                playIcon.classList.add("fa-pause");
+            }
+            isPlaying = !isPlaying;
+        }
+    </script>
 </body>
 </html>
