@@ -1,72 +1,51 @@
-<!-- ================= index.html ================= -->
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meme</title>
-
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hi, I'm Meme</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
+    <div class="container fade-in-element">
+        <header>
+            <h1>Hi, I'm Meme</h1>
+            <p class="subtitle">just a chill person who likes music & vibes</p>
+        </header>
 
-<!-- 🔥 background effect -->
-<div class="bg"></div>
+        <section class="about-me fade-in-element">
+            <div class="profile-pic">
+                <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=150&q=80" alt="Profile">
+            </div>
+            <div class="about-text">
+                <h2>About Me</h2>
+                <p>กูเป็นคนธรรมดา ๆ ที่ชอบฟังเพลง ชอบอะไรเงียบ ๆ เท่ ๆ เว็บนี้ก็แค่พื้นที่เล็ก ๆ ของกู</p>
+            </div>
+        </section>
 
-<!-- 🔥 main container -->
-<div class="container">
+        <section class="my-vibes fade-in-element">
+            <h2>My Vibes</h2>
+            <div class="gallery">
+                <img src="https://images.unsplash.com/photo-1506744012022-d01d411cb31e?auto=format&fit=crop&w=300&q=80" alt="Vibe 1">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=300&q=80" alt="Vibe 2">
+                <img src="https://images.unsplash.com/photo-1448375240586-882707db8855?auto=format&fit=crop&w=300&q=80" alt="Vibe 3">
+            </div>
+        </section>
 
-  <!-- HEADER -->
-  <div class="header fade">
-    <h1>Hi, I'm Meme</h1>
-    <p>just a chill person who likes music & vibes</p>
-  </div>
-
-  <!-- ABOUT -->
-  <div class="about fade">
-    <img src="https://picsum.photos/200">
-    <p>กูเป็นคนธรรมดา ๆ ชอบฟังเพลง เงียบ ๆ เท่ ๆ</p>
-  </div>
-
-  <!-- VIBES -->
-  <div class="section fade">
-    <h2>My Vibes</h2>
-    <div class="grid">
-      <img src="https://picsum.photos/300?1">
-      <img src="https://picsum.photos/300?2">
-      <img src="https://picsum.photos/300?3">
+        <section class="now-playing fade-in-element">
+            <h2>Now Playing</h2>
+            <div class="audio-wrapper">
+                <audio controls>
+                    <source src="your-music-file.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </section>
     </div>
-  </div>
 
-  <!-- PLAYER -->
-  <div class="section fade">
-    <h2>Now Playing</h2>
+    <img src="https://i.pinimg.com/originals/a0/78/3f/a0783f982992ed8b3a58e235a9009f98.gif" alt="Decor" class="decor-img">
 
-    <audio id="audio">
-      <source src="song1.mp3">
-    </audio>
-
-    <div class="player">
-      <div class="controls">
-        <button onclick="prev()">‹</button>
-        <button onclick="play()">▶</button>
-        <button onclick="pause()">⏸</button>
-        <button onclick="next()">›</button>
-      </div>
-
-      <input type="range" id="progress" value="0">
-    </div>
-  </div>
-
-  <!-- MORE -->
-  <div class="section fade">
-    <h2>More</h2>
-    <p>พื้นที่เขียนอะไรของมึง</p>
-  </div>
-
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
