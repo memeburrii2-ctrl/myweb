@@ -17,7 +17,6 @@ function nextSong() {
   audio.currentTime = audio.duration;
 }
 
-/* progress bar */
 audio.addEventListener("timeupdate", () => {
   progress.value = (audio.currentTime / audio.duration) * 100;
 });
