@@ -1,3 +1,5 @@
+// ================= script.js =================
+
 let audio = document.getElementById("audio");
 let progress = document.getElementById("progress");
 
@@ -19,12 +21,17 @@ function prev(){
   audio.play();
 }
 
+/* progress */
 audio.ontimeupdate=()=>{
-  progress.value=(audio.currentTime/audio.duration)*100;
+  if(audio.duration){
+    progress.value=(audio.currentTime/audio.duration)*100;
+  }
 }
 
 progress.oninput=()=>{
-  audio.currentTime=(progress.value/100)*audio.duration;
+  if(audio.duration){
+    audio.currentTime=(progress.value/100)*audio.duration;
+  }
 }
 
 /* scroll animation */
