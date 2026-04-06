@@ -1,39 +1,27 @@
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+const audio = document.getElementById("audio");
+const progress = document.getElementById("progress");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particles = [];
-
-for(let i=0;i<80;i++){
-  particles.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    size:Math.random()*2,
-    speedY:Math.random()*0.5 + 0.2
-  });
+function playSong(){
+  if(audio) audio.play();
 }
 
-function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+function pauseSong(){
+  if(audio) audio.pause();
+}
 
-  ctx.fillStyle="white";
+/* progress */
+if(audio && progress){
 
-  particles.forEach(p=>{
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-    ctx.fill();
-
-    p.y += p.speedY;
-
-    if(p.y > canvas.height){
-      p.y = 0;
-      p.x = Math.random()*canvas.width;
+  audio.addEventListener("timeupdate", ()=>{
+    if(audio.duration){
+      progress.value = (audio.currentTime / audio.duration) * 100;
     }
   });
 
-  requestAnimationFrame(draw);
-}
+  progress.addEventListener("input", ()=>{
+    if(audio.duration){
+      audio.currentTime = (progress.value / 100) * audio.duration;
+    }
+  });
 
-draw();
+}
