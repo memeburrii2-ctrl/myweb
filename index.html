@@ -1,46 +1,51 @@
-<!-- ================= index.html (แก้แล้ว) ================= -->
+<!-- ================= index.html ================= -->
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ji</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ji</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="bg"></div>
 
 <!-- 👤 PROFILE -->
-<div class="profile-box">
+<div class="profile">
 
-  <img src="images/IMG_20260406_124948_090.webp" class="profile-img">
+  <img src="images/IMG_20260406_124948_090.webp" class="avatar">
 
-  <div class="profile-info">
-    <h1>ji</h1>
-    <p class="bio">late nights & music</p>
+  <div class="info">
+    <h1>ipxngsxk</h1>
+    <p class="sub">just.ji</p>
 
-    <div class="social">
-      <a href="https://www.instagram.com/ipxngsxk?igsh=N21yMDV1bm85YXJp" target="_blank">IG: ipxngsxk</a>
-      <a href="https://www.tiktok.com/@fipxngsxk?_r=1&_t=ZS-95JOa74bEhx" target="_blank">TikTok: fipxngsxk</a>
+    <div class="bio">
+      late nights / music / quiet
     </div>
+
+    <div class="links">
+      <a href="https://www.instagram.com/ipxngsxk" target="_blank">Instagram</a>
+      <a href="https://www.tiktok.com/@fipxngsxk" target="_blank">TikTok</a>
+    </div>
+
   </div>
 
 </div>
 
-<!-- 🎧 MUSIC -->
-<div class="music-box">
-
-  <div class="song-title">now playing</div>
+<!-- 🎧 PLAYER -->
+<div class="player">
 
   <audio id="audio" src="music/song.mp3"></audio>
+
+  <div class="song">Now Playing</div>
 
   <input type="range" id="progress" value="0">
 
   <div class="controls">
-    <button onclick="prevSong()">‹</button>
+    <button onclick="prevSong()">⏮</button>
     <button id="playBtn" onclick="togglePlay()">▶</button>
-    <button onclick="nextSong()">›</button>
+    <button onclick="nextSong()">⏭</button>
   </div>
 
 </div>
