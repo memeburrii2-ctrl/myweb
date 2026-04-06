@@ -1,27 +1,38 @@
+// ================= script.js (เหมือนเดิม ใช้ได้) =================
+
 const audio = document.getElementById("audio");
 const progress = document.getElementById("progress");
+const playBtn = document.getElementById("playBtn");
 
-function playSong(){
-  if(audio) audio.play();
+let isPlaying = false;
+
+function togglePlay(){
+  if(!isPlaying){
+    audio.play();
+    playBtn.innerHTML = "❚❚";
+  }else{
+    audio.pause();
+    playBtn.innerHTML = "▶";
+  }
+  isPlaying = !isPlaying;
 }
 
-function pauseSong(){
-  if(audio) audio.pause();
+function prevSong(){
+  audio.currentTime = 0;
 }
 
-/* progress */
-if(audio && progress){
-
-  audio.addEventListener("timeupdate", ()=>{
-    if(audio.duration){
-      progress.value = (audio.currentTime / audio.duration) * 100;
-    }
-  });
-
-  progress.addEventListener("input", ()=>{
-    if(audio.duration){
-      audio.currentTime = (progress.value / 100) * audio.duration;
-    }
-  });
-
+function nextSong(){
+  audio.currentTime = audio.duration;
 }
+
+audio.addEventListener("timeupdate", ()=>{
+  if(audio.duration){
+    progress.value = (audio.currentTime / audio.duration) * 100;
+  }
+});
+
+progress.addEventListener("input", ()=>{
+  if(audio.duration){
+    audio.currentTime = (progress.value / 100) * audio.duration;
+  }
+});
