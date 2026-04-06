@@ -1,142 +1,160 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: sans-serif;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:sans-serif;
 }
 
-body {
-  background: linear-gradient(135deg, #0a0a2a, #000);
-  color: white;
+body{
+  background:#050510;
+  color:white;
+  overflow-x:hidden;
 }
 
-/* BG glow */
-.bg {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, rgba(0,150,255,0.2), transparent);
-  animation: move 10s infinite alternate;
-  z-index: -1;
+/* 🌌 animated background */
+.bg{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background: radial-gradient(circle at 30% 30%, #1e3cff33, transparent),
+              radial-gradient(circle at 70% 70%, #00fff233, transparent);
+  animation: float 12s infinite alternate;
+  z-index:-1;
 }
 
-@keyframes move {
-  from { transform: translateY(-50px); }
-  to { transform: translateY(50px); }
+@keyframes float{
+  from{transform:translateY(-40px)}
+  to{transform:translateY(40px)}
 }
 
 /* HERO */
-.hero {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 60px;
-
-  padding: 80px 10%;
-  flex-wrap: wrap;
+.hero{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:60px;
+  padding:100px 10%;
+  flex-wrap:wrap;
 }
 
-/* LEFT */
-.profile {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  object-fit: cover;
+/* profile */
+.profile{
+  width:200px;
+  height:200px;
+  border-radius:50%;
+  object-fit:cover;
 
-  border: 4px solid white;
-  box-shadow: 0 0 40px rgba(255,255,255,0.3);
+  border:3px solid #fff;
+  box-shadow:0 0 50px #00f0ff55;
 
-  transition: 0.4s;
+  transition:.4s;
 }
 
-.profile:hover {
-  transform: scale(1.1);
+.profile:hover{
+  transform:scale(1.1) rotate(2deg);
 }
 
-/* RIGHT */
-.right h1 {
-  font-size: 40px;
+/* text glow */
+.glow-text{
+  font-size:42px;
+  text-shadow:0 0 10px #00f0ff,0 0 20px #00f0ff;
 }
 
-.sub {
-  opacity: 0.7;
-  margin: 10px 0;
+.social span{
+  display:block;
+  color:#00d9ff;
 }
 
-.social p {
-  color: #00bfff;
+/* glass effect */
+.glass{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(15px);
+  border-radius:20px;
 }
 
 /* ABOUT */
-.about {
-  text-align: center;
-  padding: 40px 20px;
+.about{
+  text-align:center;
+  padding:60px 20px;
 }
 
 /* GALLERY */
-.gallery {
-  padding: 40px 10%;
+.gallery{
+  padding:60px 10%;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
 }
 
-.grid img {
-  width: 100%;
-  border-radius: 15px;
-  transition: 0.3s;
+.grid img{
+  width:100%;
+  border-radius:15px;
+  transition:.4s;
 }
 
-.grid img:hover {
-  transform: scale(1.05);
+.grid img:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 20px #00f0ff55;
 }
 
-/* MUSIC */
-.music {
-  padding: 40px 10%;
+/* PLAYER */
+.music{
+  padding:60px 10%;
 }
 
-.player {
-  background: rgba(255,255,255,0.05);
-  padding: 20px;
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
+.player{
+  padding:20px;
 }
 
-.controls button {
-  padding: 10px;
-  margin: 5px;
-  border: none;
-  border-radius: 10px;
-  background: #00bfff;
-  color: white;
-  cursor: pointer;
+.controls button{
+  padding:12px;
+  margin:5px;
+  border:none;
+  border-radius:10px;
+  background:#00d9ff;
+  color:black;
+  cursor:pointer;
+  transition:.3s;
 }
 
-input[type="range"] {
-  width: 100%;
+.controls button:hover{
+  transform:scale(1.2);
+  background:#00fff2;
 }
 
-/* 🔥 RESPONSIVE */
-@media (max-width: 900px) {
-  .hero {
-    flex-direction: column;
-    text-align: center;
+/* slider */
+input[type="range"]{
+  width:100%;
+}
+
+/* 🔥 scroll animation */
+.reveal{
+  opacity:0;
+  transform:translateY(50px);
+  transition:1s;
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* 📱 responsive */
+@media(max-width:900px){
+  .hero{
+    flex-direction:column;
+    text-align:center;
   }
 
-  .profile {
-    width: 150px;
-    height: 150px;
+  .grid{
+    grid-template-columns:1fr;
   }
 
-  .right h1 {
-    font-size: 28px;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
+  .profile{
+    width:150px;
+    height:150px;
   }
 }
