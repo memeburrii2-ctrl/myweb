@@ -1,77 +1,97 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Universe 💖</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<meta charset="UTF-8">
+<title>My Love Music</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="sparkles">✨</div>
-    <div class="sparkles s2">💖</div>
-    <div class="sparkles s3">⭐</div>
 
-    <main class="container">
-        
-        <section class="love-section">
-            <h1 class="bounce-text">ถึง... เธอคนเก่ง 🎀</h1>
-            <p>แวะมาบอกว่ารักแกมากๆ นะครับ ขอให้โลกนี้ใจดีกับแกเหมือนที่แกใจดีกับเค้าเลย!</p>
-        </section>
+<div class="sparkle"></div>
 
-        <section class="spotify-player">
-            <div class="player-card">
-                <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=300&q=80" alt="Cover" class="cover-art">
-                
-                <div class="song-info">
-                    <h2>เพลงของเรา (Our Song)</h2>
-                    <p>ศิลปิน: คนคลั่งรัก</p>
-                </div>
+<div class="container">
 
-                <div class="progress-bar">
-                    <div class="progress"></div>
-                </div>
+  <h1>💖 For You 💖</h1>
+  <p class="love">รักนะเว้ย 💕</p>
 
-                <div class="controls">
-                    <button class="btn-icon"><i class="fas fa-backward-step"></i></button>
-                    <button class="play-btn" id="playBtn" onclick="togglePlay()"><i class="fas fa-play" id="playIcon"></i></button>
-                    <button class="btn-icon"><i class="fas fa-forward-step"></i></button>
-                </div>
-                
-                <audio id="myAudio" src="your-song-file.mp3"></audio>
-            </div>
-        </section>
+  <!-- รูป -->
+  <div class="gallery">
+    <img src="https://i.imgur.com/8Km9tLL.png">
+    <img src="https://i.imgur.com/Z6X5V6R.png">
+    <img src="https://i.imgur.com/4AiXzf8.jpeg">
+  </div>
 
-        <section class="gallery-section">
-            <h2>📸 ความทรงจำของเรา</h2>
-            <div class="grid-gallery">
-                <div class="pic-wrapper"><img src="https://images.unsplash.com/photo-1516589178581-6cd785328dc0?auto=format&fit=crop&w=300&q=80" alt="Pic1"></div>
-                <div class="pic-wrapper"><img src="https://images.unsplash.com/photo-1580477651161-12502787889e?auto=format&fit=crop&w=300&q=80" alt="Pic2"></div>
-                <div class="pic-wrapper"><img src="https://images.unsplash.com/photo-1601058269784-9dbbbfa7f416?auto=format&fit=crop&w=300&q=80" alt="Pic3"></div>
-                <div class="pic-wrapper"><img src="https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?auto=format&fit=crop&w=300&q=80" alt="Pic4"></div>
-            </div>
-        </section>
+  <!-- Player -->
+  <div class="player">
+    <img id="cover" src="https://i.imgur.com/8Km9tLL.png">
+    <h2 id="title">Song 1</h2>
 
-    </main>
+    <audio id="audio"></audio>
 
-    <script>
-        const audio = document.getElementById("myAudio");
-        const playIcon = document.getElementById("playIcon");
-        let isPlaying = false;
+    <input type="range" id="progress" value="0">
 
-        function togglePlay() {
-            if (isPlaying) {
-                audio.pause();
-                playIcon.classList.remove("fa-pause");
-                playIcon.classList.add("fa-play");
-            } else {
-                audio.play();
-                playIcon.classList.remove("fa-play");
-                playIcon.classList.add("fa-pause");
-            }
-            isPlaying = !isPlaying;
-        }
-    </script>
+    <div class="controls">
+      <button onclick="prevSong()">⏮</button>
+      <button onclick="playMusic()">▶</button>
+      <button onclick="pauseMusic()">⏸</button>
+      <button onclick="nextSong()">⏭</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let songs = [
+  {
+    name: "Song 1",
+    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    cover: "https://i.imgur.com/8Km9tLL.png"
+  },
+  {
+    name: "Song 2",
+    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+    cover: "https://i.imgur.com/Z6X5V6R.png"
+  }
+];
+
+let index = 0;
+let audio = document.getElementById("audio");
+let title = document.getElementById("title");
+let cover = document.getElementById("cover");
+let progress = document.getElementById("progress");
+
+function loadSong(i) {
+  audio.src = songs[i].src;
+  title.innerText = songs[i].name;
+  cover.src = songs[i].cover;
+}
+
+function playMusic(){ audio.play(); }
+function pauseMusic(){ audio.pause(); }
+
+function nextSong(){
+  index = (index + 1) % songs.length;
+  loadSong(index);
+  audio.play();
+}
+
+function prevSong(){
+  index = (index - 1 + songs.length) % songs.length;
+  loadSong(index);
+  audio.play();
+}
+
+audio.ontimeupdate = ()=>{
+  progress.value = (audio.currentTime / audio.duration) * 100;
+};
+
+progress.oninput = ()=>{
+  audio.currentTime = (progress.value / 100) * audio.duration;
+};
+
+loadSong(index);
+</script>
+
 </body>
 </html>
