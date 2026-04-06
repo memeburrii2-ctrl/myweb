@@ -2,51 +2,32 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>My Love Player</title>
+<title>Anime Player</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="app">
+<div class="bg"></div>
 
-  <!-- LEFT -->
-  <div class="left">
-    <h1>💖 For You</h1>
-    <p class="love">รักนะเว้ย 💕</p>
+<div class="card">
 
-    <div class="gallery">
-      <img src="https://picsum.photos/200?1">
-      <img src="https://picsum.photos/200?2">
-      <img src="https://picsum.photos/200?3">
-    </div>
-  </div>
+  <img class="cover" src="https://picsum.photos/300">
 
-  <!-- RIGHT (PLAYER) -->
-  <div class="right">
-    <div class="player">
+  <h2>My Song</h2>
+  <p>anime vibe ✨</p>
 
-      <img id="cover" src="https://picsum.photos/300">
+  <audio id="audio">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+  </audio>
 
-      <div class="info">
-        <h2 id="title">My Song</h2>
-        <p>lofi vibe</p>
-      </div>
+  <input type="range" id="progress">
 
-      <input type="range" id="progress">
-
-      <div class="controls">
-        <button onclick="prevSong()">⏮</button>
-        <button class="play" onclick="playMusic()">▶</button>
-        <button onclick="pauseMusic()">⏸</button>
-        <button onclick="nextSong()">⏭</button>
-      </div>
-
-      <audio id="audio">
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
-      </audio>
-
-    </div>
+  <div class="controls">
+    <button onclick="prev()">⏮</button>
+    <button class="play" onclick="play()">▶</button>
+    <button onclick="pause()">⏸</button>
+    <button onclick="next()">⏭</button>
   </div>
 
 </div>
@@ -55,10 +36,10 @@
 let audio = document.getElementById("audio");
 let progress = document.getElementById("progress");
 
-function playMusic(){ audio.play(); }
-function pauseMusic(){ audio.pause(); }
-function nextSong(){ audio.currentTime = 0; audio.play(); }
-function prevSong(){ audio.currentTime = 0; }
+function play(){ audio.play(); }
+function pause(){ audio.pause(); }
+function next(){ audio.currentTime = 0; audio.play(); }
+function prev(){ audio.currentTime = 0; }
 
 audio.ontimeupdate = ()=>{
   progress.value = (audio.currentTime / audio.duration) * 100;
