@@ -1,131 +1,164 @@
-/* ================= style.css ================= */
-
-/* RESET */
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:sans-serif;
+/* กำหนดสีหลักให้แก้ไขง่าย */
+:root {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --text-main: #f5f5f5;
+    --text-muted: #a0a0a0;
 }
 
-/* 🔥 BG */
-body{
-  background:#0b0b12;
-  color:white;
-  overflow-x:hidden;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* วิบวับ */
-.bg{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:radial-gradient(circle at 30% 30%, rgba(100,100,255,0.2), transparent),
-             radial-gradient(circle at 70% 70%, rgba(255,100,200,0.15), transparent);
-  animation:move 10s infinite alternate;
-  z-index:-1;
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Prompt', sans-serif; /* ใช้ฟอนต์ไทยสวยๆ */
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 50px 20px;
+    overflow-x: hidden;
 }
 
-@keyframes move{
-  0%{transform:translate(0,0);}
-  100%{transform:translate(-50px,-30px);}
+.container {
+    max-width: 700px;
+    width: 100%;
+    z-index: 1;
 }
 
-/* 🔥 layout fix */
-.container{
-  max-width:800px;
-  margin:auto;
-  padding:20px;
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 40px;
 }
 
-/* HEADER */
-.header{
-  text-align:center;
-  margin-bottom:30px;
+header h1 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
 }
 
-.header h1{
-  font-size:28px;
+.subtitle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
 }
 
-.header p{
-  opacity:0.6;
+/* About Me Section */
+.about-me {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    background-color: var(--card-bg);
+    padding: 25px;
+    border-radius: 16px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* ABOUT */
-.about{
-  text-align:center;
-  margin-bottom:30px;
+.profile-pic img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #333;
 }
 
-.about img{
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  margin-bottom:10px;
+.about-text h2 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
 }
 
-/* SECTION */
-.section{
-  margin-bottom:40px;
+.about-text p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
 }
 
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
-  gap:10px;
+/* My Vibes Gallery */
+.my-vibes {
+    margin-bottom: 40px;
 }
 
-.grid img{
-  width:100%;
-  height:100px;
-  object-fit:cover;
-  border-radius:10px;
-  transition:0.3s;
+.my-vibes h2 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
 }
 
-.grid img:hover{
-  transform:scale(1.05);
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
 }
 
-/* PLAYER */
-.player{
-  margin-top:10px;
+.gallery img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: brightness(0.8); /* ดรอปแสงรูปลงนิดนึงให้เข้ากับธีมมืด */
 }
 
-.controls{
-  display:flex;
-  gap:8px;
-  margin-bottom:10px;
+.gallery img:hover {
+    transform: scale(1.02);
+    filter: brightness(1); /* สว่างขึ้นตอนเอาเมาส์ชี้ */
 }
 
-.controls button{
-  background:rgba(255,255,255,0.08);
-  border:none;
-  color:white;
-  padding:6px 10px;
-  border-radius:6px;
-  cursor:pointer;
+/* Now Playing */
+.now-playing {
+    background-color: var(--card-bg);
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.controls button:hover{
-  background:rgba(255,255,255,0.2);
+.now-playing h2 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
 }
 
-/* progress */
-#progress{
-  width:100%;
+audio {
+    width: 100%;
+    border-radius: 8px;
+    outline: none;
 }
 
-/* ✨ fade */
-.fade{
-  opacity:0;
-  transform:translateY(20px);
-  transition:0.6s;
+/* รูปตกแต่งมุมขวาล่าง */
+.decor-img {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 180px;
+    opacity: 0.5;
+    border-radius: 10px;
+    z-index: 0;
+    pointer-events: none; /* ทำให้คลิกทะลุรูปได้ */
+    transition: opacity 0.3s;
 }
 
-.fade.show{
-  opacity:1;
-  transform:translateY(0);
+.decor-img:hover {
+    opacity: 1;
+}
+
+/* Responsive สำหรับมือถือ */
+@media (max-width: 600px) {
+    .about-me {
+        flex-direction: column;
+        text-align: center;
+    }
+    .gallery {
+        grid-template-columns: 1fr; /* ปรับให้รูปเรียงซ้อนกันแนวตั้งในมือถือ */
+    }
+    .gallery img {
+        height: auto;
+        aspect-ratio: 16/9;
+    }
+    .decor-img {
+        width: 120px;
+        opacity: 0.3;
+    }
 }
