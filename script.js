@@ -1,50 +1,17 @@
-// ================= script.js =================
-
-let audio = document.getElementById("audio");
-let progress = document.getElementById("progress");
-
-let songs = ["song1.mp3","song2.mp3"];
-let index = 0;
-
-function play(){ audio.play(); }
-function pause(){ audio.pause(); }
-
-function next(){
-  index=(index+1)%songs.length;
-  audio.src=songs[index];
-  audio.play();
-}
-
-function prev(){
-  index=(index-1+songs.length)%songs.length;
-  audio.src=songs[index];
-  audio.play();
-}
-
-/* progress */
-audio.ontimeupdate=()=>{
-  if(audio.duration){
-    progress.value=(audio.currentTime/audio.duration)*100;
-  }
-}
-
-progress.oninput=()=>{
-  if(audio.duration){
-    audio.currentTime=(progress.value/100)*audio.duration;
-  }
-}
-
-/* scroll animation */
-let elements=document.querySelectorAll(".fade");
-
-function show(){
-  elements.forEach(el=>{
-    let top=el.getBoundingClientRect().top;
-    if(top<window.innerHeight-50){
-      el.classList.add("show");
-    }
-  });
-}
-
-window.addEventListener("scroll",show);
-show();
+// ทำให้ Element ค่อยๆ ลอยขึ้นมาและชัดขึ้น (Fade-in effect) ตอนโหลดหน้าเว็บ
+document.addEventListener("DOMContentLoaded", () => {
+    const elements = document.querySelectorAll('.fade-in-element');
+    
+    elements.forEach((el, index) => {
+        // ซ่อนไว้ก่อน
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        
+        // หน่วงเวลาให้แต่ละกล่องโผล่มาไม่พร้อมกัน (ทีละนิด)
+        setTimeout(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        }, index * 200); 
+    });
+});
