@@ -1,93 +1,116 @@
 body {
   margin: 0;
-  font-family: Arial;
-  background: linear-gradient(135deg, #ff9a9e, #a1c4fd);
-  overflow: hidden;
+  font-family: "Segoe UI", sans-serif;
+  background: #0f0f0f;
   color: white;
 }
 
-/* วิบวับ */
-.sparkle::before {
-  content: "✨ ✨ ✨ ✨ ✨";
-  position: fixed;
-  width: 100%;
-  text-align: center;
-  top: 10%;
-  animation: sparkle 3s infinite linear;
+/* LAYOUT */
+.app {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
 }
 
-@keyframes sparkle {
-  0% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 0; }
+/* LEFT */
+.left {
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.container {
-  text-align: center;
-  padding: 20px;
+.left h1 {
+  font-size: 40px;
+  margin-bottom: 10px;
 }
 
-/* ข้อความรัก */
 .love {
-  font-size: 20px;
   color: #ff4d6d;
-  animation: pulse 1.5s infinite;
+  margin-bottom: 30px;
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-/* รูป */
+/* GALLERY */
 .gallery {
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 20px;
+  gap: 15px;
 }
 
 .gallery img {
-  width: 80px;
-  border-radius: 10px;
+  width: 120px;
+  border-radius: 15px;
   transition: 0.3s;
 }
 
 .gallery img:hover {
-  transform: scale(1.2) rotate(5deg);
+  transform: scale(1.1);
+}
+
+/* RIGHT */
+.right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* PLAYER */
 .player {
-  background: rgba(0,0,0,0.4);
-  padding: 20px;
+  width: 300px;
+  background: #181818;
+  padding: 25px;
   border-radius: 20px;
-  display: inline-block;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
 }
 
 .player img {
-  width: 120px;
+  width: 100%;
   border-radius: 15px;
 }
 
-/* ปุ่ม */
+.info {
+  margin: 15px 0;
+}
+
+.info h2 {
+  margin: 0;
+}
+
+.info p {
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* PROGRESS */
+#progress {
+  width: 100%;
+  margin: 10px 0;
+}
+
+/* CONTROLS */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .controls button {
-  margin: 10px;
-  padding: 12px;
+  background: #282828;
   border: none;
+  color: white;
+  padding: 10px;
   border-radius: 50%;
-  background: #1db954;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 .controls button:hover {
-  transform: scale(1.3);
-  background: #ff4d6d;
+  background: #1db954;
+  transform: scale(1.1);
 }
 
-/* progress */
-#progress {
-  width: 80%;
+/* ปุ่ม play ใหญ่ */
+.play {
+  background: #1db954;
+  color: black;
+  transform: scale(1.2);
 }
