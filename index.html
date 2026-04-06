@@ -2,29 +2,67 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>About Me</title>
+<title>My World</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="bg"></div>
+<div class="container">
 
-<div class="main">
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Hi, I'm Meme</h1>
+    <p>just a chill person who likes music & vibes</p>
+  </section>
 
-  <!-- วงกลาง -->
-  <div class="center">
-    <h1>Meme</h1>
-    <p>just me, simple & chill</p>
-  </div>
+  <!-- ABOUT -->
+  <section class="about">
+    <img src="https://picsum.photos/200" class="avatar">
+    <div>
+      <h2>About Me</h2>
+      <p>กูเป็นคนชอบฟังเพลง ชอบอะไรเงียบ ๆ เท่ ๆ เว็บนี้คือพื้นที่ของกู</p>
+    </div>
+  </section>
 
-  <!-- ของรอบ -->
-  <div class="orbit music">🎧 เพลง</div>
-  <div class="orbit code">💻 coding</div>
-  <div class="orbit vibe">🌌 vibe</div>
-  <div class="orbit anime">🎴 anime</div>
+  <!-- GALLERY -->
+  <section class="gallery">
+    <h2>My Vibes</h2>
+    <div class="grid">
+      <img src="https://picsum.photos/400?1">
+      <img src="https://picsum.photos/400?2">
+      <img src="https://picsum.photos/400?3">
+    </div>
+  </section>
+
+  <!-- MUSIC -->
+  <section class="music">
+    <h2>Now Playing</h2>
+
+    <audio id="audio">
+      <source src="song1.mp3">
+    </audio>
+
+    <input type="range" id="progress">
+
+    <div class="controls">
+      <button onclick="prev()">⏮</button>
+      <button onclick="play()">▶</button>
+      <button onclick="pause()">⏸</button>
+      <button onclick="next()">⏭</button>
+      <button onclick="toggleLoop()">🔁</button>
+    </div>
+  </section>
+
+  <!-- EXTRA -->
+  <section class="extra">
+    <h2>More About Me</h2>
+    <p>IG / TikTok / สิ่งที่ชอบ ใส่ตรงนี้</p>
+  </section>
 
 </div>
+
+<script src="script.js"></script>
 
 </body>
 </html>
