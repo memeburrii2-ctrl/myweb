@@ -1,217 +1,93 @@
-/* ตั้งค่าพื้นฐาน */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Mali', cursive; /* ฟอนต์ไทยน่ารักๆ */
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(135deg, #ff9a9e, #a1c4fd);
+  overflow: hidden;
+  color: white;
 }
 
-/* พื้นหลังธีมอะนิเมะพาสเทล */
-body {
-    background: linear-gradient(135deg, #ffc3a0 0%, #ffafbd 100%);
-    color: #4a4a4a;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    overflow-x: hidden;
-    position: relative;
+/* วิบวับ */
+.sparkle::before {
+  content: "✨ ✨ ✨ ✨ ✨";
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  top: 10%;
+  animation: sparkle 3s infinite linear;
+}
+
+@keyframes sparkle {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 .container {
-    width: 100%;
-    max-width: 500px; /* ให้ดูสวยพอดีทั้งมือถือและคอม */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-    z-index: 10;
+  text-align: center;
+  padding: 20px;
 }
 
-/* 🌟 เอฟเฟกต์วิบวับลอยไปมา */
-.sparkles {
-    position: absolute;
-    font-size: 2rem;
-    animation: floatSparkle 3s infinite ease-in-out alternate;
-    opacity: 0.6;
-    z-index: 1;
-}
-.s2 { top: 15%; right: 10%; animation-delay: 1s; font-size: 1.5rem; }
-.s3 { bottom: 20%; left: 15%; animation-delay: 2s; font-size: 2.5rem; }
-
-@keyframes floatSparkle {
-    0% { transform: translateY(0px) scale(0.8); opacity: 0.4; }
-    100% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+/* ข้อความรัก */
+.love {
+  font-size: 20px;
+  color: #ff4d6d;
+  animation: pulse 1.5s infinite;
 }
 
-/* 💌 กล่องบอกรัก */
-.love-section {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(10px);
-    padding: 25px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
-    border: 2px dashed #ff85a2;
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
 
-.bounce-text {
-    color: #ff4d6d;
-    margin-bottom: 10px;
-    animation: bounce 2s infinite;
+/* รูป */
+.gallery {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px;
 }
 
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+.gallery img {
+  width: 80px;
+  border-radius: 10px;
+  transition: 0.3s;
 }
 
-/* 🎵 เครื่องเล่นเพลง Spotify Mode */
-.spotify-player {
-    background: #181818;
-    color: white;
-    width: 100%;
-    border-radius: 25px;
-    padding: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-    transition: transform 0.3s ease;
+.gallery img:hover {
+  transform: scale(1.2) rotate(5deg);
 }
 
-.spotify-player:hover {
-    transform: translateY(-5px); /* ลูกเล่นขยับกล่องตอนเอาเมาส์ชี้ */
+/* PLAYER */
+.player {
+  background: rgba(0,0,0,0.4);
+  padding: 20px;
+  border-radius: 20px;
+  display: inline-block;
 }
 
-.player-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.player img {
+  width: 120px;
+  border-radius: 15px;
 }
 
-.cover-art {
-    width: 220px;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    margin-bottom: 20px;
-    transition: all 0.4s ease;
+/* ปุ่ม */
+.controls button {
+  margin: 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 50%;
+  background: #1db954;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-/* ลูกเล่นรูปหน้าปก */
-.cover-art:hover {
-    transform: scale(1.05) rotate(2deg);
+.controls button:hover {
+  transform: scale(1.3);
+  background: #ff4d6d;
 }
 
-.song-info {
-    text-align: center;
-    margin-bottom: 15px;
-    width: 100%;
-}
-
-.song-info h2 { font-size: 1.3rem; margin-bottom: 5px; }
-.song-info p { color: #b3b3b3; font-size: 0.9rem; }
-
-/* หลอดเพลง */
-.progress-bar {
-    width: 100%;
-    height: 6px;
-    background: #4f4f4f;
-    border-radius: 5px;
-    margin-bottom: 25px;
-    cursor: pointer;
-}
-
-.progress {
-    width: 45%; /* แกล้งๆ สมมติว่าเพลงเล่นไปแล้ว 45% */
-    height: 100%;
-    background: #1db954; /* สีเขียว Spotify */
-    border-radius: 5px;
-    position: relative;
-    transition: background 0.3s;
-}
-
-.progress-bar:hover .progress {
-    background: #1ed760;
-}
-
-/* ปุ่มกดต่างๆ */
-.controls {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-.btn-icon {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.btn-icon:hover {
-    color: #1db954;
-    transform: scale(1.2); /* ลูกเล่นขยายปุ่ม */
-}
-
-.play-btn {
-    background: white;
-    color: black;
-    border: none;
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    font-size: 1.5rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.play-btn:hover {
-    transform: scale(1.15);
-    background: #1db954;
-    color: white;
-    box-shadow: 0 5px 15px rgba(29, 185, 84, 0.5);
-}
-
-/* 📸 แกลลอรี่รูป */
-.gallery-section {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.gallery-section h2 {
-    color: #fff;
-    text-shadow: 2px 2px 5px rgba(255, 105, 180, 0.5);
-    margin-bottom: 20px;
-}
-
-.grid-gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
-.pic-wrapper {
-    overflow: hidden;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.grid-gallery img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.4s ease, filter 0.4s ease;
-}
-
-/* ลูกเล่นเวลาเอาเมาส์ชี้รูป */
-.grid-gallery img:hover {
-    transform: scale(1.15);
-    filter: brightness(1.1);
+/* progress */
+#progress {
+  width: 80%;
 }
