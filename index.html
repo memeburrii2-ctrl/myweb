@@ -1,3 +1,4 @@
+<!-- ================= index.html ================= -->
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -10,49 +11,62 @@
 
 <body>
 
-<div class="header fade">
-  <h1>Hi, I'm Meme</h1>
-  <p>just a chill person who likes music & vibes</p>
+<!-- 🔥 background effect -->
+<div class="bg"></div>
 
-  <div class="profile">
+<!-- 🔥 main container -->
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header fade">
+    <h1>Hi, I'm Meme</h1>
+    <p>just a chill person who likes music & vibes</p>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="about fade">
     <img src="https://picsum.photos/200">
-    <div>
-      <p>กูเป็นคนธรรมดา ๆ ชอบฟังเพลง เงียบ ๆ เท่ ๆ</p>
+    <p>กูเป็นคนธรรมดา ๆ ชอบฟังเพลง เงียบ ๆ เท่ ๆ</p>
+  </div>
+
+  <!-- VIBES -->
+  <div class="section fade">
+    <h2>My Vibes</h2>
+    <div class="grid">
+      <img src="https://picsum.photos/300?1">
+      <img src="https://picsum.photos/300?2">
+      <img src="https://picsum.photos/300?3">
     </div>
   </div>
-</div>
 
-<div class="section fade">
-  <h2>My Vibes</h2>
-  <div class="grid">
-    <img src="https://picsum.photos/300?1">
-    <img src="https://picsum.photos/300?2">
-    <img src="https://picsum.photos/300?3">
+  <!-- PLAYER -->
+  <div class="section fade">
+    <h2>Now Playing</h2>
+
+    <audio id="audio">
+      <source src="song1.mp3">
+    </audio>
+
+    <div class="player">
+      <div class="controls">
+        <button onclick="prev()">‹</button>
+        <button onclick="play()">▶</button>
+        <button onclick="pause()">⏸</button>
+        <button onclick="next()">›</button>
+      </div>
+
+      <input type="range" id="progress" value="0">
+    </div>
   </div>
-</div>
 
-<div class="section fade">
-  <h2>Now Playing</h2>
-
-  <audio id="audio">
-    <source src="song1.mp3">
-  </audio>
-
-  <div class="controls">
-    <button onclick="prev()">Prev</button>
-    <button onclick="play()">Play</button>
-    <button onclick="pause()">Pause</button>
-    <button onclick="next()">Next</button>
-    <input type="range" id="progress">
+  <!-- MORE -->
+  <div class="section fade">
+    <h2>More</h2>
+    <p>พื้นที่เขียนอะไรของมึง</p>
   </div>
-</div>
 
-<div class="section fade">
-  <h2>More</h2>
-  <p>พื้นที่เขียนอะไรของมึง</p>
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
