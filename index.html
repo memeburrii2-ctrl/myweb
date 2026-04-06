@@ -1,3 +1,4 @@
+<!-- ================= index.html (แก้แล้ว) ================= -->
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -8,35 +9,39 @@
 </head>
 <body>
 
-<!-- 🌈 BG -->
 <div class="bg"></div>
 
 <!-- 👤 PROFILE -->
 <div class="profile-box">
+
   <img src="images/IMG_20260406_124948_090.webp" class="profile-img">
 
   <div class="profile-info">
     <h1>ji</h1>
-    <p>late nights & music</p>
+    <p class="bio">late nights & music</p>
 
     <div class="social">
-      <p>IG: ipxngsxk</p>
-      <p>TikTok: fipxngsxk</p>
+      <a href="https://www.instagram.com/ipxngsxk?igsh=N21yMDV1bm85YXJp" target="_blank">IG: ipxngsxk</a>
+      <a href="https://www.tiktok.com/@fipxngsxk?_r=1&_t=ZS-95JOa74bEhx" target="_blank">TikTok: fipxngsxk</a>
     </div>
   </div>
+
 </div>
 
 <!-- 🎧 MUSIC -->
 <div class="music-box">
 
+  <div class="song-title">now playing</div>
+
   <audio id="audio" src="music/song.mp3"></audio>
 
-  <div class="controls">
-    <button onclick="playSong()">Play</button>
-    <button onclick="pauseSong()">Pause</button>
-  </div>
-
   <input type="range" id="progress" value="0">
+
+  <div class="controls">
+    <button onclick="prevSong()">‹</button>
+    <button id="playBtn" onclick="togglePlay()">▶</button>
+    <button onclick="nextSong()">›</button>
+  </div>
 
 </div>
 
