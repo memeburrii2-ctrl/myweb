@@ -1,35 +1,49 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: linear-gradient(135deg, #ffd6e0, #cce7ff);
+  background: #121212;
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
 
-.card {
-  background: white;
+.player {
+  background: #1e1e1e;
   padding: 30px;
   border-radius: 20px;
+  width: 300px;
   text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 h1 {
-  color: #ff6f91;
+  color: #1db954;
 }
 
-button {
-  padding: 10px 15px;
-  margin: 5px;
+#title {
+  margin: 10px 0;
+  color: #ccc;
+}
+
+.controls button {
+  margin: 10px;
+  padding: 10px;
+  font-size: 18px;
   border: none;
-  background: #ff9aa2;
-  color: white;
-  border-radius: 10px;
+  border-radius: 50%;
+  background: #1db954;
+  color: black;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-button:hover {
-  background: #ff6f91;
+.controls button:hover {
+  transform: scale(1.2);
+}
+
+#progress {
+  width: 100%;
+  margin-top: 10px;
 }
