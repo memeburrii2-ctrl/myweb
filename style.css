@@ -1,3 +1,5 @@
+/* ================= style.css (แก้แล้ว) ================= */
+
 *{
   margin:0;
   padding:0;
@@ -7,11 +9,12 @@
 
 body{
   height:100vh;
-  overflow:hidden;
   background:#0b0f1a;
+  color:white;
+  overflow:hidden;
 }
 
-/* 🌈 BG */
+/* BG */
 .bg{
   position:fixed;
   width:100%;
@@ -25,48 +28,60 @@ body{
 /* 👤 PROFILE */
 .profile-box{
   position:absolute;
-  top:40px;
-  left:40px;
+  top:50px;
+  left:50px;
   display:flex;
   align-items:center;
-  gap:20px;
+  gap:30px;
 }
 
+/* 🔥 ขยายรูป */
 .profile-img{
-  width:90px;
-  height:90px;
+  width:140px;
+  height:140px;
   border-radius:50%;
   object-fit:cover;
-  border:2px solid rgba(255,255,255,0.1);
+  border:2px solid rgba(255,255,255,0.15);
 }
 
+/* 🔥 ขยายตัวหนังสือ */
 .profile-info h1{
-  color:#fff;
-  font-size:24px;
+  font-size:40px;
+  font-weight:600;
 }
 
-.profile-info p{
+.bio{
   color:#aaa;
-  font-size:13px;
+  font-size:18px;
+  margin-top:5px;
 }
 
+/* social */
 .social{
-  margin-top:8px;
+  margin-top:15px;
 }
 
-.social p{
+.social a{
+  display:block;
   color:#4cc9f0;
-  font-size:13px;
+  font-size:16px;
+  text-decoration:none;
+  margin-bottom:5px;
+  transition:0.2s;
+}
+
+.social a:hover{
+  color:white;
 }
 
 /* 🎧 MUSIC */
 .music-box{
   position:fixed;
   bottom:30px;
-  left:40px;
+  left:50px;
 
-  width:260px;
-  padding:15px;
+  width:280px;
+  padding:18px;
 
   background:rgba(255,255,255,0.05);
   backdrop-filter:blur(10px);
@@ -74,38 +89,63 @@ body{
   border-radius:15px;
 }
 
-.controls{
-  display:flex;
-  gap:10px;
-  margin-bottom:10px;
-}
-
-.controls button{
-  flex:1;
-  padding:6px;
-  border:none;
-  border-radius:8px;
-  background:#1e2a38;
-  color:white;
-  cursor:pointer;
+.song-title{
+  font-size:13px;
+  color:#aaa;
+  margin-bottom:8px;
 }
 
 #progress{
   width:100%;
+  margin:10px 0;
+}
+
+.controls{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+}
+
+.controls button{
+  width:45px;
+  height:45px;
+  border:none;
+  border-radius:50%;
+  background:#1e2a38;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
 }
 
 /* 📱 responsive */
 @media(max-width:768px){
 
   .profile-box{
-    top:20px;
-    left:20px;
+    top:25px;
+    left:25px;
+    gap:15px;
+  }
+
+  .profile-img{
+    width:90px;
+    height:90px;
+  }
+
+  .profile-info h1{
+    font-size:24px;
+  }
+
+  .bio{
+    font-size:14px;
+  }
+
+  .social a{
+    font-size:13px;
   }
 
   .music-box{
-    left:20px;
-    bottom:20px;
-    width:220px;
+    left:25px;
+    width:230px;
   }
 
 }
