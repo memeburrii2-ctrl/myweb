@@ -2,68 +2,27 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My World</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- 🌈 Background -->
 <div class="bg"></div>
 
-<!-- HERO -->
-<section class="hero">
+<!-- ☰ Menu -->
+<div class="menu-btn" onclick="toggleMenu()">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
 
-  <div class="profile-box">
-    <img src="images/IMG_20260406_124948_090.webp" class="profile">
-  </div>
-
-  <div class="info">
-    <h1 class="glow-text">Hi, I'm จิ</h1>
-    <p>20 yrs • chill • vibe</p>
-
-    <div class="social">
-      <span>IG: ipxngsxk</span>
-      <span>TikTok: fipxngsxk</span>
-    </div>
-  </div>
-
-</section>
-
-<!-- ABOUT -->
-<section class="about reveal">
-  <h2>About Me</h2>
-  <p>กูเป็นคนธรรมดา ๆ ชอบฟังเพลง เงียบ ๆ ชิล ๆ โลกส่วนตัวสูงนิดนึง 🖤</p>
-</section>
-
-<!-- VIBES -->
-<section class="gallery reveal">
-  <h2>My Vibes</h2>
-
-  <div class="grid">
-    <img src="https://picsum.photos/400/300?1">
-    <img src="https://picsum.photos/400/300?2">
-    <img src="https://picsum.photos/400/300?3">
-  </div>
-
-</section>
-
-<!-- PLAYER -->
-<section class="music reveal">
-  <h2>Now Playing</h2>
-
-  <div class="player glass">
-    <audio id="audio" src="music/song.mp3"></audio>
-
-    <div class="controls">
-      <button onclick="prevSong()">⏮</button>
-      <button onclick="playSong()">▶</button>
-      <button onclick="pauseSong()">⏸</button>
-      <button onclick="nextSong()">⏭</button>
-    </div>
-
-    <input type="range" id="progress" value="0">
-  </div>
-</section>
+<!-- Menu Panel -->
+<div class="menu" id="menu">
+  <a href="#">Home</a>
+  <a href="#">About</a>
+  <a href="#">Music</a>
+</div>
 
 <script src="script.js"></script>
 </body>
