@@ -1,1 +1,33 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>Cute Music</title>
 
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="card">
+  <h1>🎵 เว็บฟังเพลง 🎵</h1>
+
+  <audio id="music">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+  </audio>
+
+  <button onclick="playMusic()">เล่น</button>
+  <button onclick="pauseMusic()">หยุด</button>
+</div>
+
+<script>
+function playMusic() {
+  document.getElementById("music").play();
+}
+function pauseMusic() {
+  document.getElementById("music").pause();
+}
+</script>
+
+</body>
+</html>
