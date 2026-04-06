@@ -1,4 +1,4 @@
-// ================= script.js (เหมือนเดิม ใช้ได้) =================
+// ================= script.js =================
 
 const audio = document.getElementById("audio");
 const progress = document.getElementById("progress");
