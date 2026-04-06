@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>Anime Player</title>
+<title>For You 💖</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -10,24 +10,41 @@
 
 <div class="bg"></div>
 
-<div class="card">
+<div class="app">
 
-  <img class="cover" src="https://picsum.photos/300">
+  <div class="left">
+    <h1>For You 💖</h1>
+    <p class="desc">ทุกเพลงนี้ให้เธอ</p>
 
-  <h2>My Song</h2>
-  <p>anime vibe ✨</p>
+    <div class="gallery">
+      <img src="https://picsum.photos/200?1">
+      <img src="https://picsum.photos/200?2">
+      <img src="https://picsum.photos/200?3">
+    </div>
+  </div>
 
-  <audio id="audio">
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
-  </audio>
+  <div class="right">
 
-  <input type="range" id="progress">
+    <div class="player">
+      <img src="https://picsum.photos/300" class="cover">
 
-  <div class="controls">
-    <button onclick="prev()">⏮</button>
-    <button class="play" onclick="play()">▶</button>
-    <button onclick="pause()">⏸</button>
-    <button onclick="next()">⏭</button>
+      <h2>My Song</h2>
+      <p class="artist">lofi vibe</p>
+
+      <audio id="audio">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+      </audio>
+
+      <input type="range" id="progress">
+
+      <div class="controls">
+        <button onclick="prev()">⏮</button>
+        <button class="play" onclick="play()">▶</button>
+        <button onclick="pause()">⏸</button>
+        <button onclick="next()">⏭</button>
+      </div>
+    </div>
+
   </div>
 
 </div>
