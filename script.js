@@ -1,83 +1,39 @@
-window.onload = () => {
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const question = document.getElementById("question");
+const sub = document.getElementById("sub");
 
-  let noCount = 0;
+let noCount = 0;
 
-  const yesBtn = document.getElementById("yesBtn");
-  const noBtn = document.getElementById("noBtn");
-  const text = document.getElementById("text");
-  const question = document.getElementById("question");
+const texts = [
+  "น้องรักพี่ไหม 🥺",
+  "แน่ใจหรอ 😢",
+  "อย่าทำแบบนี้เลยนะ 💔",
+  "พี่เสียใจนะ 😭",
+  "ขออีกครั้งได้ไหม 💗",
+  "นะๆๆๆ 🥹"
+];
 
-  const messages = [
-    "ลองคิดอีกทีนะ 🥺",
-    "พี่เสียใจนะ 😢",
-    "ไม่รักจริงหรอ...",
-    "ใจร้ายจังเลย 😭",
-    "รักพี่หน่อยนะ 💔",
-    "งั้นพี่รักน้องก็ได้ 🥹"
-  ];
+noBtn.addEventListener("click", () => {
+  noCount++;
 
-  yesBtn.onclick = () => {
-    question.innerText = "พี่ก็รักน้องนะ 💖";
-    text.innerText = "น่ารักที่สุดเลย";
+  // 🔥 เปลี่ยนข้อความ
+  question.textContent = texts[noCount % texts.length];
 
-    yesBtn.style.display = "none";
-    noBtn.style.display = "none";
+  // 🔥 ปุ่ม YES ใหญ่ขึ้น
+  let size = 1 + (noCount * 0.2);
+  yesBtn.style.transform = `scale(${size})`;
 
-    createHearts();
-  };
+  // 🔥 ปุ่ม NO เล็กลง
+  let noSize = 1 - (noCount * 0.1);
+  if(noSize < 0.4) noSize = 0.4;
+  noBtn.style.transform = `scale(${noSize})`;
 
-  noBtn.onclick = () => {
-    noCount++;
+  // 🔥 ข้อความล่าง
+  sub.textContent = "เลือกดีๆนะ 💗";
+});
 
-    text.innerText = messages[Math.min(noCount-1, messages.length-1)];
-
-    // ขยายปุ่มรัก
-    yesBtn.style.transform = `scale(${1 + noCount * 0.2})`;
-
-    // ปุ่มไม่จาง
-    noBtn.style.opacity = 0.6 - (noCount * 0.1);
-
-    // ขยับหนี
-    noBtn.style.transform =
-      `translate(${Math.random()*150-75}px, ${Math.random()*80-40}px)`;
-  };
-
-  // 🦋
-  const container = document.querySelector(".butterflies");
-
-  function createButterfly(){
-    const b = document.createElement("div");
-    b.classList.add("butterfly");
-
-    b.style.left = Math.random()*100 + "vw";
-    b.style.animationDuration = (5 + Math.random()*5) + "s";
-
-    container.appendChild(b);
-
-    setTimeout(()=>b.remove(),10000);
-  }
-
-  setInterval(createButterfly, 800);
-
-  // 💖
-  function createHearts(){
-    for(let i=0;i<20;i++){
-      const h = document.createElement("div");
-      h.innerText="💖";
-      h.style.position="fixed";
-      h.style.left=Math.random()*100+"vw";
-      h.style.top="100vh";
-      h.style.fontSize="20px";
-
-      document.body.appendChild(h);
-
-      h.animate([
-        {transform:"translateY(0)",opacity:1},
-        {transform:"translateY(-120vh)",opacity:0}
-      ],{duration:3000});
-
-      setTimeout(()=>h.remove(),3000);
-    }
-  }
-
-};
+yesBtn.addEventListener("click", () => {
+  question.textContent = "เย้ รู้ว่ารัก 💖";
+  sub.textContent = "น่ารักที่สุดเลย 😳";
+});
