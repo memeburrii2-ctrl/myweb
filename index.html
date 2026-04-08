@@ -3,26 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Love</title>
+<title>Ji</title>
+
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<!-- 🎨 background -->
 <div class="bg"></div>
 
-<!-- 💬 คำถาม -->
-<div class="container">
-  <h1 id="question">น้องรักพี่ไหม 🥺</h1>
+<!-- ☰ menu -->
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
 
-  <div class="buttons">
-    <button id="yesBtn">รัก 💖</button>
-    <button id="noBtn">ไม่ 😢</button>
+<div class="menu" id="menu">
+  <a href="#">หน้าแรก</a>
+  <a href="#">เกี่ยวกับ</a>
+  <a href="#">เพลง</a>
+</div>
+
+<!-- 👤 profile -->
+<div class="profile">
+  <img src="images/profile.webp">
+
+  <div class="info">
+    <h2>Ji</h2>
+    <p class="user">@ipxngsxk</p>
+
+    <div class="links">
+      <a href="https://www.instagram.com/ipxngsxk" target="_blank">Instagram</a>
+      <a href="https://www.tiktok.com/@fipxngsxk" target="_blank">TikTok</a>
+    </div>
   </div>
+</div>
 
-  <p id="sub">ตอบดีๆนะ 💗</p>
+<!-- 💬 center -->
+<div class="center">
+  <h1>ยินดีที่ได้รู้จัก 💗</h1>
+</div>
+
+<!-- 🎵 music -->
+<div class="music">
+  <audio id="audio" src="music/song.mp3"></audio>
+
+  <button onclick="prev()">⏮</button>
+  <button onclick="play()">▶</button>
+  <button onclick="pause()">⏸</button>
+  <button onclick="next()">⏭</button>
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
