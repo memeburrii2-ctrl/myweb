@@ -2,75 +2,92 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:sans-serif;
+  font-family: "Prompt", sans-serif;
 }
 
-body{
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  color:#FFFFFF;
+/* 🔥 แก้แถบขาว */
+html,body{
+  height:100%;
+  background:#6495ED;
   overflow:hidden;
 }
 
-/* 🌈 background 3 สี */
+/* 🎨 พื้นหลังเนียน */
 .bg{
   position:fixed;
   width:100%;
   height:100%;
   z-index:0;
   background:
-    radial-gradient(circle at 30% 30%, #6495ED55, transparent 40%),
-    radial-gradient(circle at 70% 70%, #FFCCFF55, transparent 40%),
+    radial-gradient(circle at 20% 20%, #FFCCFF55, transparent 40%),
+    radial-gradient(circle at 80% 70%, #FFFFFF22, transparent 40%),
     #6495ED;
 }
 
-/* container */
+/* 📦 กลางจอจริง */
 .container{
   position:relative;
   z-index:10;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
   text-align:center;
+  padding:20px;
 }
 
-/* text */
+/* 🧠 text */
 h1{
-  font-size:42px;
-  margin-bottom:20px;
+  font-size:clamp(28px,5vw,50px);
+  color:#FFFFFF;
 }
 
-#text{
-  margin-top:15px;
+#subtitle{
+  margin-top:10px;
   color:#FFCCFF;
+  font-size:16px;
 }
 
-/* buttons */
+/* 🎯 ปุ่ม */
 .buttons{
+  margin-top:30px;
   display:flex;
   gap:20px;
+  flex-wrap:wrap;
   justify-content:center;
 }
 
 button{
-  padding:15px 30px;
   border:none;
   border-radius:999px;
-  font-size:18px;
+  padding:18px 40px;
+  font-size:20px;
   cursor:pointer;
   transition:0.3s;
 }
 
+/* 💖 ปุ่มรัก */
 #yesBtn{
   background:#FFCCFF;
   color:#000;
+  box-shadow:0 0 20px #FFCCFF;
 }
 
+/* ❌ ปุ่มไม่ */
 #noBtn{
   background:#FFFFFF;
   color:#000;
+  opacity:0.8;
 }
 
-/* 🦋 butterflies */
+/* 📩 text */
+#text{
+  margin-top:20px;
+  color:#FFFFFF;
+}
+
+/* 🦋 */
 .butterflies{
   position:fixed;
   width:100%;
@@ -81,22 +98,17 @@ button{
 
 .butterfly{
   position:absolute;
-  width:14px;
-  height:14px;
+  width:12px;
+  height:12px;
   border-radius:50%;
   background:#FFCCFF;
   box-shadow:
     0 0 10px #FFCCFF,
     0 0 20px #6495ED;
-  opacity:0.8;
   animation:fly linear infinite;
 }
 
 @keyframes fly{
-  0%{
-    transform:translateY(100vh) translateX(0);
-  }
-  100%{
-    transform:translateY(-10vh) translateX(60px);
-  }
+  0%{transform:translateY(100vh);}
+  100%{transform:translateY(-10vh);}
 }
