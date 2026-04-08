@@ -2,113 +2,74 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family: "Prompt", sans-serif;
+  font-family:sans-serif;
 }
 
-/* 🔥 แก้แถบขาว */
-html,body{
-  height:100%;
-  background:#6495ED;
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   overflow:hidden;
 }
 
-/* 🎨 พื้นหลังเนียน */
+/* 🎨 พื้นหลัง */
 .bg{
   position:fixed;
   width:100%;
   height:100%;
-  z-index:0;
   background:
-    radial-gradient(circle at 20% 20%, #FFCCFF55, transparent 40%),
-    radial-gradient(circle at 80% 70%, #FFFFFF22, transparent 40%),
+    radial-gradient(circle at 20% 30%, #FFCCFF66, transparent),
+    radial-gradient(circle at 80% 70%, #FFFFFF55, transparent),
     #6495ED;
 }
 
-/* 📦 กลางจอจริง */
+/* 📦 container */
 .container{
-  position:relative;
-  z-index:10;
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
   text-align:center;
+  z-index:2;
   padding:20px;
 }
 
-/* 🧠 text */
+/* 💬 ข้อความ */
 h1{
-  font-size:clamp(28px,5vw,50px);
-  color:#FFFFFF;
+  font-size:32px;
+  margin-bottom:30px;
 }
 
-#subtitle{
-  margin-top:10px;
-  color:#FFCCFF;
-  font-size:16px;
-}
-
-/* 🎯 ปุ่ม */
+/* 🔘 ปุ่ม */
 .buttons{
-  margin-top:30px;
   display:flex;
-  gap:20px;
-  flex-wrap:wrap;
   justify-content:center;
+  gap:20px;
+  flex-wrap:wrap; /* 🔥 แก้ปุ่มทับ */
 }
 
 button{
+  padding:15px 25px;
   border:none;
   border-radius:999px;
-  padding:18px 40px;
-  font-size:20px;
+  font-size:18px;
   cursor:pointer;
-  transition:0.3s;
+  transition:0.2s;
 }
 
-/* 💖 ปุ่มรัก */
 #yesBtn{
   background:#FFCCFF;
-  color:#000;
-  box-shadow:0 0 20px #FFCCFF;
 }
 
-/* ❌ ปุ่มไม่ */
 #noBtn{
   background:#FFFFFF;
-  color:#000;
-  opacity:0.8;
 }
 
-/* 📩 text */
-#text{
-  margin-top:20px;
-  color:#FFFFFF;
-}
+/* 📱 มือถือ */
+@media(max-width:480px){
+  h1{
+    font-size:24px;
+  }
 
-/* 🦋 */
-.butterflies{
-  position:fixed;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-  z-index:1;
-}
-
-.butterfly{
-  position:absolute;
-  width:12px;
-  height:12px;
-  border-radius:50%;
-  background:#FFCCFF;
-  box-shadow:
-    0 0 10px #FFCCFF,
-    0 0 20px #6495ED;
-  animation:fly linear infinite;
-}
-
-@keyframes fly{
-  0%{transform:translateY(100vh);}
-  100%{transform:translateY(-10vh);}
+  button{
+    font-size:16px;
+    padding:12px 20px;
+  }
 }
