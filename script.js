@@ -1,39 +1,28 @@
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const question = document.getElementById("question");
-const sub = document.getElementById("sub");
+const menu = document.getElementById("menu");
 
-let noCount = 0;
+function toggleMenu(){
+  if(menu.style.right === "0px"){
+    menu.style.right = "-220px";
+  }else{
+    menu.style.right = "0px";
+  }
+}
 
-const texts = [
-  "น้องรักพี่ไหม 🥺",
-  "แน่ใจหรอ 😢",
-  "อย่าทำแบบนี้เลยนะ 💔",
-  "พี่เสียใจนะ 😭",
-  "ขออีกครั้งได้ไหม 💗",
-  "นะๆๆๆ 🥹"
-];
+/* 🎵 music */
+const audio = document.getElementById("audio");
 
-noBtn.addEventListener("click", () => {
-  noCount++;
+function play(){
+  audio.play();
+}
 
-  // 🔥 เปลี่ยนข้อความ
-  question.textContent = texts[noCount % texts.length];
+function pause(){
+  audio.pause();
+}
 
-  // 🔥 ปุ่ม YES ใหญ่ขึ้น
-  let size = 1 + (noCount * 0.2);
-  yesBtn.style.transform = `scale(${size})`;
+function next(){
+  alert("ใส่หลายเพลงก่อน 😏");
+}
 
-  // 🔥 ปุ่ม NO เล็กลง
-  let noSize = 1 - (noCount * 0.1);
-  if(noSize < 0.4) noSize = 0.4;
-  noBtn.style.transform = `scale(${noSize})`;
-
-  // 🔥 ข้อความล่าง
-  sub.textContent = "เลือกดีๆนะ 💗";
-});
-
-yesBtn.addEventListener("click", () => {
-  question.textContent = "เย้ รู้ว่ารัก 💖";
-  sub.textContent = "น่ารักที่สุดเลย 😳";
-});
+function prev(){
+  alert("ยังไม่มีเพลงก่อนหน้า");
+}
