@@ -10,17 +10,35 @@ function toggleMenu(){
 
 /* 🎵 music */
 const audio = document.getElementById("audio");
+const disc = document.getElementById("disc");
+const icon = document.getElementById("icon");
+const progress = document.getElementById("progress");
 
-function play(){
-  audio.play();
+let isPlaying = false;
+
+function togglePlay(){
+  if(isPlaying){
+    audio.pause();
+    disc.style.animationPlayState = "paused";
+    icon.textContent = "▶";
+  }else{
+    audio.play();
+    disc.style.animationPlayState = "running";
+    icon.textContent = "||";
+  }
+  isPlaying = !isPlaying;
 }
 
-function pause(){
-  audio.pause();
-}
+audio.addEventListener("timeupdate", ()=>{
+  progress.value = (audio.currentTime / audio.duration) * 100 || 0;
+});
+
+progress.addEventListener("input", ()=>{
+  audio.currentTime = (progress.value / 100) * audio.duration;
+});
 
 function next(){
-  alert("ใส่หลายเพลงก่อน 😏");
+  alert("ใส่ playlist ก่อน 😏");
 }
 
 function prev(){
