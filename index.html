@@ -4,49 +4,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ji</title>
+<title>รักกูไหม</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="bg"></div>
 
-<!-- 👤 PROFILE -->
-<div class="profile">
+<div class="container">
 
-  <img src="images/IMG_20260406_124948_090.webp" class="avatar">
+  <h1 id="question">รักกูไหม 😳</h1>
 
-  <div class="info">
-    <h1>ipxngsxk</h1>
-    <p class="sub">just.ji</p>
-
-    <div class="bio">
-      late nights / music / quiet
-    </div>
-
-    <div class="links">
-      <a href="https://www.instagram.com/ipxngsxk" target="_blank">Instagram</a>
-      <a href="https://www.tiktok.com/@fipxngsxk" target="_blank">TikTok</a>
-    </div>
-
+  <div class="buttons">
+    <button id="yesBtn" onclick="yes()">รัก 💖</button>
+    <button id="noBtn" onclick="no()">ไม่ 😒</button>
   </div>
 
-</div>
-
-<!-- 🎧 PLAYER -->
-<div class="player">
-
-  <audio id="audio" src="music/song.mp3"></audio>
-
-  <div class="song">Now Playing</div>
-
-  <input type="range" id="progress" value="0">
-
-  <div class="controls">
-    <button onclick="prevSong()">⏮</button>
-    <button id="playBtn" onclick="togglePlay()">▶</button>
-    <button onclick="nextSong()">⏭</button>
-  </div>
+  <p id="text"></p>
 
 </div>
 
