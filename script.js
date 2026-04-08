@@ -1,64 +1,96 @@
-let noCount = 0;
+window.onload = () => {
 
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const text = document.getElementById("text");
+  let noCount = 0;
 
-const messages = [
-  "ลองคิดดีๆ 🥺",
-  "ไม่จริงป่ะ 😭",
-  "ตอบใหม่ได้มั้ย...",
-  "กูเสียใจนะ 😢",
-  "งั้นกูรักมึงฝ่ายเดียวก็ได้ 💔",
-  "ใจร้ายว่ะ 🥹",
-  "รักเถอะนะ 😭💖"
-];
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+  const text = document.getElementById("text");
+  const question = document.getElementById("question");
 
-function no(){
-  noCount++;
+  const messages = [
+    "ลองคิดดีๆ 🥺",
+    "ไม่จริงป่ะ 😭",
+    "ตอบใหม่ได้มั้ย...",
+    "กูเสียใจนะ 😢",
+    "ใจร้ายว่ะ 🥹",
+    "รักเถอะนะ 😭💖"
+  ];
 
-  text.innerText = messages[Math.min(noCount-1, messages.length-1)];
+  // 👉 YES
+  yesBtn.onclick = () => {
+    question.innerText = "รู้อยู่แล้ว 💖";
+    text.innerText = "รักเหมือนกันนะ";
 
-  // yes ใหญ่ขึ้น
-  let yesSize = 18 + (noCount * 5);
-  yesBtn.style.fontSize = yesSize + "px";
+    yesBtn.style.display = "none";
+    noBtn.style.display = "none";
 
-  // no เล็กลง
-  let noSize = 18 - (noCount * 2);
-  if(noSize < 10) noSize = 10;
-  noBtn.style.fontSize = noSize + "px";
+    createHearts();
+  };
 
-  // ขยับหนี
-  noBtn.style.transform =
-    `translate(${Math.random()*100-50}px, ${Math.random()*50-25}px)`;
-}
+  // 👉 NO
+  noBtn.onclick = () => {
+    noCount++;
 
-function yes(){
-  document.getElementById("question").innerText = "รู้อยู่แล้ว 💖";
-  text.innerText = "รักเหมือนกันนะ";
-  yesBtn.style.display = "none";
-  noBtn.style.display = "none";
-}
+    text.innerText = messages[Math.min(noCount-1, messages.length-1)];
 
-/* 🦋 butterfly system */
-const container = document.querySelector(".butterflies");
+    // yes ใหญ่ขึ้น
+    let yesSize = 18 + (noCount * 6);
+    yesBtn.style.fontSize = yesSize + "px";
 
-function createButterfly(){
-  const b = document.createElement("div");
-  b.classList.add("butterfly");
+    // no เล็กลง
+    let noSize = 18 - (noCount * 2);
+    if(noSize < 10) noSize = 10;
+    noBtn.style.fontSize = noSize + "px";
 
-  b.style.left = Math.random() * 100 + "vw";
+    // หนี
+    noBtn.style.transform =
+      `translate(${Math.random()*120-60}px, ${Math.random()*60-30}px)`;
+  };
 
-  const duration = 6 + Math.random() * 5;
-  b.style.animationDuration = duration + "s";
+  // 🦋 butterflies
+  const container = document.querySelector(".butterflies");
 
-  const size = 10 + Math.random() * 10;
-  b.style.width = size + "px";
-  b.style.height = size + "px";
+  function createButterfly(){
+    const b = document.createElement("div");
+    b.classList.add("butterfly");
 
-  container.appendChild(b);
+    b.style.left = Math.random() * 100 + "vw";
 
-  setTimeout(()=> b.remove(), duration * 1000);
-}
+    const duration = 6 + Math.random() * 5;
+    b.style.animationDuration = duration + "s";
 
-setInterval(createButterfly, 700);
+    container.appendChild(b);
+
+    setTimeout(()=> b.remove(), duration * 1000);
+  }
+
+  setInterval(createButterfly, 700);
+
+
+  // 💖 hearts effect
+  function createHearts(){
+    for(let i=0;i<20;i++){
+      const h = document.createElement("div");
+      h.innerText = "💖";
+      h.style.position = "fixed";
+      h.style.left = Math.random()*100+"vw";
+      h.style.top = "100vh";
+      h.style.fontSize = "20px";
+      h.style.zIndex = "999";
+
+      document.body.appendChild(h);
+
+      let duration = 3 + Math.random()*2;
+
+      h.animate([
+        {transform:"translateY(0)", opacity:1},
+        {transform:"translateY(-120vh)", opacity:0}
+      ],{
+        duration:duration*1000
+      });
+
+      setTimeout(()=>h.remove(), duration*1000);
+    }
+  }
+
+};
