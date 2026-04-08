@@ -10,7 +10,7 @@
 
 <body>
 
-<!-- 🎨 background -->
+<!-- 🎨 BG -->
 <div class="bg"></div>
 
 <!-- ☰ menu -->
@@ -44,12 +44,26 @@
 
 <!-- 🎵 music -->
 <div class="music">
+
+  <div class="disc" id="disc"></div>
+
+  <div class="song-info">
+    <p id="songName">ไม่ใช่ไม่รัก</p>
+    <input type="range" id="progress" value="0">
+  </div>
+
+  <div class="controls">
+    <button onclick="prev()">⏮</button>
+
+    <button id="toggleBtn" onclick="togglePlay()">
+      <span id="icon">▶</span>
+    </button>
+
+    <button onclick="next()">⏭</button>
+  </div>
+
   <audio id="audio" src="music/song.mp3"></audio>
 
-  <button onclick="prev()">⏮</button>
-  <button onclick="play()">▶</button>
-  <button onclick="pause()">⏸</button>
-  <button onclick="next()">⏭</button>
 </div>
 
 <script src="script.js"></script>
