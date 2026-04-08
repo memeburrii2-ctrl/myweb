@@ -2,74 +2,136 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:sans-serif;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 body{
   height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
   overflow:hidden;
+  color:#333;
 }
 
-/* 🎨 พื้นหลัง */
+/* 🎨 beloved style */
 .bg{
   position:fixed;
   width:100%;
   height:100%;
   background:
-    radial-gradient(circle at 20% 30%, #FFCCFF66, transparent),
-    radial-gradient(circle at 80% 70%, #FFFFFF55, transparent),
-    #6495ED;
+    linear-gradient(135deg,#FFFFFF,#FFCCFF);
 }
 
-/* 📦 container */
-.container{
-  text-align:center;
-  z-index:2;
-  padding:20px;
+/* ☰ menu */
+.menu-btn{
+  position:fixed;
+  top:20px;
+  right:20px;
+  font-size:26px;
+  cursor:pointer;
+  z-index:100;
 }
 
-/* 💬 ข้อความ */
-h1{
-  font-size:32px;
-  margin-bottom:30px;
+.menu{
+  position:fixed;
+  top:0;
+  right:-220px;
+  width:220px;
+  height:100%;
+  background:#ffffff;
+  box-shadow:-5px 0 20px rgba(0,0,0,0.1);
+  display:flex;
+  flex-direction:column;
+  padding:30px;
+  transition:0.3s;
 }
 
-/* 🔘 ปุ่ม */
-.buttons{
+.menu a{
+  margin:15px 0;
+  text-decoration:none;
+  color:#333;
+  font-size:18px;
+}
+
+/* 👤 profile */
+.profile{
+  position:fixed;
+  top:20px;
+  left:20px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.profile img{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid #fff;
+  box-shadow:0 5px 15px rgba(255, 192, 203, 0.5);
+}
+
+.info h2{
+  font-size:22px;
+}
+
+.user{
+  font-size:14px;
+  color:#777;
+}
+
+.links a{
+  display:inline-block;
+  margin-right:10px;
+  font-size:14px;
+  color:#ff69b4;
+  text-decoration:none;
+}
+
+/* 💬 center */
+.center{
+  height:100vh;
   display:flex;
   justify-content:center;
-  gap:20px;
-  flex-wrap:wrap; /* 🔥 แก้ปุ่มทับ */
+  align-items:center;
 }
 
-button{
-  padding:15px 25px;
-  border:none;
+.center h1{
+  font-size:42px;
+  font-weight:600;
+  color:#ff69b4;
+}
+
+/* 🎵 music */
+.music{
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:10px;
+  background:#ffffffcc;
+  backdrop-filter:blur(10px);
+  padding:10px 20px;
   border-radius:999px;
-  font-size:18px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.music button{
+  border:none;
+  background:#ffccff;
+  padding:10px;
+  border-radius:50%;
   cursor:pointer;
-  transition:0.2s;
 }
 
-#yesBtn{
-  background:#FFCCFF;
-}
-
-#noBtn{
-  background:#FFFFFF;
-}
-
-/* 📱 มือถือ */
-@media(max-width:480px){
-  h1{
-    font-size:24px;
+/* 📱 responsive */
+@media(max-width:600px){
+  .profile img{
+    width:60px;
+    height:60px;
   }
 
-  button{
-    font-size:16px;
-    padding:12px 20px;
+  .center h1{
+    font-size:28px;
   }
 }
