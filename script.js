@@ -1,131 +1,62 @@
-const WEBHOOK_URL = 'https://discord.com/api/webhooks/1495112170541940856/B-QhAY2Y0ERaY7eTW9XhMKBKjOcbRCHp4Z6oHgbX3r2y6QoVxeRZPHy-lclX-ZQNdt9O';
-
-// ─── PAGE NAVIGATION ───
-let prevPage = 'page-home';
-
-function goPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  prevPage = document.querySelector('.page.active')?.id || 'page-home';
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0, 0);
+// PAGE
+function goPage(id){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo(0,0);
 }
 
-function goBack() {
-  goPage(prevPage);
+// MENU
+function toggleMenu(){
+  document.getElementById("sidebar").classList.toggle("open");
+  document.getElementById("overlay").classList.toggle("open");
 }
 
-// ─── MENU ───
-function toggleMenu() {
-  document.getElementById('sidebar').classList.toggle('open');
-  document.getElementById('overlay').classList.toggle('open');
-  document.getElementById('menuBtn').classList.toggle('open');
+function closeMenu(){
+  document.getElementById("sidebar").classList.remove("open");
+  document.getElementById("overlay").classList.remove("open");
 }
 
-function closeMenu() {
-  document.getElementById('sidebar')?.classList.remove('open');
-  document.getElementById('overlay')?.classList.remove('open');
-  document.getElementById('menuBtn')?.classList.remove('open');
+// MODAL
+function openMsg(){
+  document.getElementById("modal").classList.add("open");
+  document.getElementById("modalOverlay").classList.add("open");
+  document.body.style.overflow="hidden";
 }
 
-// ─── MESSAGE MODAL ───
-function openMsg() {
-  document.getElementById('msgModal').classList.add('open');
-  document.getElementById('modalOverlay').classList.add('open');
-  document.getElementById('successScreen').classList.remove('show');
-  document.querySelector('.modal-header').style.display = '';
-  document.querySelector('.modal-body').style.display = '';
+function closeMsg(){
+  document.getElementById("modal").classList.remove("open");
+  document.getElementById("modalOverlay").classList.remove("open");
+  document.body.style.overflow="";
 }
 
-function closeMsg() {
-  document.getElementById('msgModal').classList.remove('open');
-  document.getElementById('modalOverlay').classList.remove('open');
-  // reset
-  setTimeout(() => {
-    document.getElementById('msgText').value = '';
-    document.getElementById('senderName').value = '';
-    document.getElementById('charCount').textContent = '0';
-    document.getElementById('sendBtnText').textContent = 'ส่งข้อความ 💌';
-    document.getElementById('sendBtn').disabled = false;
-    document.getElementById('successScreen').classList.remove('show');
-    document.querySelector('.modal-header').style.display = '';
-    document.querySelector('.modal-body').style.display = '';
-  }, 400);
-}
+// COUNT
+const msg=document.getElementById("msg");
+const count=document.getElementById("count");
 
-document.getElementById('msgText').addEventListener('input', function () {
-  document.getElementById('charCount').textContent = this.value.length;
+msg.addEventListener("input",()=>{
+  count.textContent=msg.value.length;
 });
 
-// ─── SEND TO DISCORD ───
-async function sendMessage() {
-  const name = document.getElementById('senderName').value.trim() || 'ไม่ระบุชื่อ';
-  const msg = document.getElementById('msgText').value.trim();
-  const btn = document.getElementById('sendBtn');
-  const btnText = document.getElementById('sendBtnText');
+// SEND
+function send(){
+  const text=msg.value.trim();
+  if(!text)return;
 
-  if (!msg) {
-    document.getElementById('msgText').style.borderColor = '#e75480';
-    document.getElementById('msgText').placeholder = '⚠️ กรุณาพิมพ์ข้อความก่อน...';
-    setTimeout(() => {
-      document.getElementById('msgText').style.borderColor = '';
-      document.getElementById('msgText').placeholder = 'พิมพ์ข้อความที่นี่...';
-    }, 2000);
-    return;
-  }
+  const btn=document.getElementById("sendBtn");
+  btn.innerText="กำลังส่ง...";
+  btn.disabled=true;
 
-  // Loading state
-  btn.disabled = true;
-  btnText.innerHTML = '<span class="btn-spinner"></span>กำลังส่ง...';
-
-  const now = new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' });
-
-  const payload = {
-    embeds: [{
-      title: '💌 มีข้อความใหม่เข้ามา!',
-      color: 0xe75480,
-      fields: [
-        { name: '👤 จาก', value: name, inline: true },
-        { name: '🕐 เวลา', value: now, inline: true },
-        { name: '💬 ข้อความ', value: msg }
-      ],
-      footer: { text: 'Pinkgram • ส่งจากเว็บโปรไฟล์ 🌸' },
-      thumbnail: { url: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/72x72/1f338.png' }
-    }]
-  };
-
-  try {
-    const res = await fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-
-    if (res.ok) {
-      // Hide form, show success
-      document.querySelector('.modal-header').style.display = 'none';
-      document.querySelector('.modal-body').style.display = 'none';
-      document.getElementById('successScreen').classList.add('show');
-      setTimeout(closeMsg, 3000);
-    } else {
-      throw new Error();
-    }
-  } catch {
-    btnText.textContent = '❌ ส่งไม่สำเร็จ ลองใหม่';
-    btn.disabled = false;
-    setTimeout(() => { btnText.textContent = 'ส่งข้อความ 💌'; }, 2500);
-  }
+  setTimeout(()=>{
+    alert("ส่งแล้ว 💌");
+    closeMsg();
+    msg.value="";
+    count.textContent=0;
+    btn.innerText="ส่งข้อความ";
+    btn.disabled=false;
+  },800);
 }
 
-// ─── TABS ───
-document.querySelectorAll('.tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-  });
+// ESC ปิด
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape") closeMsg();
 });
-
-// ─── BOTTOM NAV ───
-function setNav(el) {
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  el.classList.add('active');
-}
