@@ -1,72 +1,130 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ji</title>
-
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pinkgram - Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
 </head>
-
 <body>
 
-<!-- 🎨 BG -->
-<div class="bg"></div>
+  <!-- Overlay -->
+  <div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
-<!-- ☰ menu -->
-<div class="menu-btn" onclick="toggleMenu()">☰</div>
-
-<div class="menu" id="menu">
-  <a href="#">หน้าแรก</a>
-  <a href="#">เกี่ยวกับ</a>
-  <a href="#">เพลง</a>
-</div>
-
-<!-- 👤 profile -->
-<div class="profile">
-  <img src="images/profile.webp">
-
-  <div class="info">
-    <h2>Ji</h2>
-    <p class="user">@ipxngsxk</p>
-
-    <div class="links">
-      <a href="https://www.instagram.com/ipxngsxk" target="_blank">Instagram</a>
-      <a href="https://www.tiktok.com/@fipxngsxk" target="_blank">TikTok</a>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="s-avatar">🌸</div>
+      <h3>Nong Mimi</h3>
+      <p>@mimi.world</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="active"><span class="icon">🏠</span> หน้าหลัก</a>
+      <a href="#"><span class="icon">🔍</span> ค้นหา</a>
+      <a href="#"><span class="icon">📷</span> รูปภาพ</a>
+      <a href="#"><span class="icon">❤️</span> การแจ้งเตือน</a>
+      <a href="#"><span class="icon">💬</span> ข้อความ</a>
+      <a href="#"><span class="icon">🔖</span> บันทึก</a>
+      <a href="#"><span class="icon">⚙️</span> ตั้งค่า</a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn">ออกจากระบบ</button>
     </div>
   </div>
-</div>
 
-<!-- 💬 center -->
-<div class="center">
-  <h1>ยินดีที่ได้รู้จัก 💗</h1>
-</div>
-
-<!-- 🎵 music -->
-<div class="music">
-
-  <div class="disc" id="disc"></div>
-
-  <div class="song-info">
-    <p id="songName">ไม่ใช่ไม่รัก</p>
-    <input type="range" id="progress" value="0">
-  </div>
-
-  <div class="controls">
-    <button onclick="prev()">⏮</button>
-
-    <button id="toggleBtn" onclick="togglePlay()">
-      <span id="icon">▶</span>
+  <!-- Top Nav -->
+  <nav class="topnav">
+    <span class="logo">Pinkgram</span>
+    <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
     </button>
+  </nav>
 
-    <button onclick="next()">⏭</button>
+  <!-- Cover -->
+  <div class="cover"></div>
+
+  <!-- Profile -->
+  <div class="profile-section">
+    <div class="avatar-wrap">
+      <div class="avatar">🌸</div>
+      <div class="avatar-badge">✓</div>
+    </div>
+    <div class="profile-name">Nong Mimi</div>
+    <div class="profile-handle">@mimi.world · กรุงเทพฯ 🇹🇭</div>
+    <div class="profile-bio">✨ ชอบกาแฟ ดอกไม้ และพระอาทิตย์ตก 🌷<br>Live slow. Love pink. Stay soft. 🎀</div>
+    <div class="profile-stats">
+      <div class="stat"><span class="stat-num">248</span><span class="stat-label">โพสต์</span></div>
+      <div class="stat"><span class="stat-num">12.4K</span><span class="stat-label">ผู้ติดตาม</span></div>
+      <div class="stat"><span class="stat-num">381</span><span class="stat-label">กำลังติดตาม</span></div>
+    </div>
+    <div class="action-btns">
+      <button class="btn-follow" id="followBtn">ติดตาม</button>
+      <button class="btn-msg">ส่งข้อความ</button>
+    </div>
   </div>
 
-  <audio id="audio" src="music/song.mp3"></audio>
+  <!-- Story Highlights -->
+  <div class="highlights">
+    <div class="highlight-item">
+      <div class="highlight-ring"><div class="highlight-inner"><span class="highlight-emoji">🌸</span></div></div>
+      <span class="highlight-label">ดอกไม้</span>
+    </div>
+    <div class="highlight-item">
+      <div class="highlight-ring"><div class="highlight-inner"><span class="highlight-emoji">☕</span></div></div>
+      <span class="highlight-label">คาเฟ่</span>
+    </div>
+    <div class="highlight-item">
+      <div class="highlight-ring"><div class="highlight-inner"><span class="highlight-emoji">🐾</span></div></div>
+      <span class="highlight-label">น้องแมว</span>
+    </div>
+    <div class="highlight-item">
+      <div class="highlight-ring"><div class="highlight-inner"><span class="highlight-emoji">✈️</span></div></div>
+      <span class="highlight-label">ท่องเที่ยว</span>
+    </div>
+    <div class="highlight-item">
+      <div class="highlight-ring"><div class="highlight-inner"><span class="highlight-emoji">🎂</span></div></div>
+      <span class="highlight-label">ของหวาน</span>
+    </div>
+    <div class="highlight-item">
+      <div class="highlight-ring"><div class="highlight-inner"><span class="highlight-emoji">🎨</span></div></div>
+      <span class="highlight-label">ศิลปะ</span>
+    </div>
+  </div>
 
-</div>
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active">⊞ โพสต์</button>
+    <button class="tab">♡ ถูกใจ</button>
+    <button class="tab">🏷 แท็ก</button>
+  </div>
 
-<script src="script.js"></script>
+  <!-- Photo Grid -->
+  <div class="grid-section">
+    <div class="photo-grid">
+      <div class="grid-item"><div class="grid-bg c1">🌸</div><div class="grid-overlay">❤️ 842 💬 21</div></div>
+      <div class="grid-item"><div class="grid-bg c2">☕</div><div class="grid-overlay">❤️ 1.2K 💬 48</div></div>
+      <div class="grid-item"><div class="grid-bg c3">🌷</div><div class="grid-overlay">❤️ 634 💬 15</div></div>
+      <div class="grid-item"><div class="grid-bg c4">🐱</div><div class="grid-overlay">❤️ 2.1K 💬 93</div></div>
+      <div class="grid-item"><div class="grid-bg c5">🍰</div><div class="grid-overlay">❤️ 987 💬 37</div></div>
+      <div class="grid-item"><div class="grid-bg c6">🌅</div><div class="grid-overlay">❤️ 1.5K 💬 62</div></div>
+      <div class="grid-item"><div class="grid-bg c7">🎀</div><div class="grid-overlay">❤️ 743 💬 28</div></div>
+      <div class="grid-item"><div class="grid-bg c8">🌺</div><div class="grid-overlay">❤️ 891 💬 33</div></div>
+      <div class="grid-item"><div class="grid-bg c9">✨</div><div class="grid-overlay">❤️ 1.1K 💬 54</div></div>
+    </div>
+  </div>
 
+  <div class="spacer"></div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <button class="nav-item active"><span class="nav-icon">🏠</span>หน้าหลัก</button>
+    <button class="nav-item"><span class="nav-icon">🔍</span>ค้นหา</button>
+    <button class="nav-item"><span class="nav-icon">➕</span>โพสต์</button>
+    <button class="nav-item"><span class="nav-icon">🔔</span>แจ้งเตือน</button>
+    <button class="nav-item"><span class="nav-icon">👤</span>โปรไฟล์</button>
+  </nav>
+
+  <script src="script.js"></script>
 </body>
 </html>
