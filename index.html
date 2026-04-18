@@ -1,62 +1,82 @@
-// PAGE
-function goPage(id){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  window.scrollTo(0,0);
-}
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pinkgram</title>
 
-// MENU
-function toggleMenu(){
-  document.getElementById("sidebar").classList.toggle("open");
-  document.getElementById("overlay").classList.toggle("open");
-}
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
 
-function closeMenu(){
-  document.getElementById("sidebar").classList.remove("open");
-  document.getElementById("overlay").classList.remove("open");
-}
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
-// MODAL
-function openMsg(){
-  document.getElementById("modal").classList.add("open");
-  document.getElementById("modalOverlay").classList.add("open");
-  document.body.style.overflow="hidden";
-}
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="s-avatar">🌸</div>
+    <h3>Nong Mimi</h3>
+    <p>@mimi.world</p>
+  </div>
 
-function closeMsg(){
-  document.getElementById("modal").classList.remove("open");
-  document.getElementById("modalOverlay").classList.remove("open");
-  document.body.style.overflow="";
-}
+  <nav class="sidebar-nav">
+    <a href="#" onclick="goPage('home')">🏠 หน้าหลัก</a>
+    <a href="#" onclick="goPage('social')">🔗 โซเชียล</a>
+    <a href="#" onclick="openMsg()">💌 ส่งข้อความ</a>
+  </nav>
+</div>
 
-// COUNT
-const msg=document.getElementById("msg");
-const count=document.getElementById("count");
+<!-- TOP -->
+<div class="topnav">
+  <span class="logo">Pinkgram</span>
+  <button class="menu-btn" onclick="toggleMenu()">☰</button>
+</div>
 
-msg.addEventListener("input",()=>{
-  count.textContent=msg.value.length;
-});
+<!-- PAGE HOME -->
+<div class="page active" id="home">
 
-// SEND
-function send(){
-  const text=msg.value.trim();
-  if(!text)return;
+  <div class="cover"></div>
 
-  const btn=document.getElementById("sendBtn");
-  btn.innerText="กำลังส่ง...";
-  btn.disabled=true;
+  <div class="profile">
+    <div class="avatar">🌸</div>
+    <h2>Nong Mimi</h2>
+    <p>@mimi.world</p>
 
-  setTimeout(()=>{
-    alert("ส่งแล้ว 💌");
-    closeMsg();
-    msg.value="";
-    count.textContent=0;
-    btn.innerText="ส่งข้อความ";
-    btn.disabled=false;
-  },800);
-}
+    <div class="actions">
+      <button class="btn primary" onclick="goPage('social')">ติดตาม</button>
+      <button class="btn outline" onclick="openMsg()">ส่งข้อความ</button>
+    </div>
+  </div>
 
-// ESC ปิด
-document.addEventListener("keydown",e=>{
-  if(e.key==="Escape") closeMsg();
-});
+</div>
+
+<!-- PAGE SOCIAL -->
+<div class="page" id="social">
+
+  <div class="social">
+    <a href="#" class="card ig">Instagram →</a>
+    <a href="#" class="card tt">TikTok →</a>
+    <!-- ❌ ไม่มีข้อความลับแล้ว -->
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeMsg()"></div>
+
+<div class="modal" id="modal">
+  <h3>💌 ส่งข้อความ</h3>
+
+  <input id="name" placeholder="ชื่อ (ไม่ใส่ก็ได้)">
+  <textarea id="msg" maxlength="500" placeholder="พิมพ์ข้อความ..."></textarea>
+
+  <div class="char"><span id="count">0</span>/500</div>
+
+  <button class="btn primary" id="sendBtn" onclick="send()">ส่งข้อความ</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
