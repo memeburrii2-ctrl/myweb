@@ -12,6 +12,22 @@
   <!-- Overlay -->
   <div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
+  <!-- Message Modal -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeMsg()"></div>
+  <div class="msg-modal" id="msgModal">
+    <div class="modal-header">
+      <h3>💌 ส่งข้อความถึง Mimi</h3>
+      <button class="modal-close" onclick="closeMsg()">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="text" id="senderName" placeholder="ชื่อของคุณ (ไม่ระบุก็ได้)" maxlength="50"/>
+      <textarea id="msgText" placeholder="พิมพ์ข้อความที่นี่..." maxlength="500"></textarea>
+      <div class="char-count"><span id="charCount">0</span>/500</div>
+      <button class="send-btn" id="sendBtn" onclick="sendMessage()">ส่งข้อความ 💌</button>
+      <div class="send-status" id="sendStatus"></div>
+    </div>
+  </div>
+
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <div class="sidebar-header">
@@ -60,7 +76,7 @@
     </div>
     <div class="action-btns">
       <button class="btn-follow" id="followBtn">ติดตาม</button>
-      <button class="btn-msg">ส่งข้อความ</button>
+      <button class="btn-msg" onclick="openMsg()">ส่งข้อความ</button>
     </div>
   </div>
 
