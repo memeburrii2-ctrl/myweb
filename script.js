@@ -37,7 +37,7 @@ function renderFollowers() {
   const btn = document.getElementById('followBtn');
   if (btn) {
     if (isFollowing) {
-      btn.textContent = 'ติดตามแล้ว ✓';
+      btn.textContent = 'ติดตามแล้ว';
       btn.classList.add('following');
     } else {
       btn.textContent = 'ติดตาม';
