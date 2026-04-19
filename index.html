@@ -187,7 +187,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 </head>
 <body>
 
-<!-- AUTH -->
 <div id="authScreen" class="auth-screen">
   <div class="auth-brand">
     <div class="brand-mark">T</div>
@@ -228,7 +227,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   </div>
 </div>
 
-<!-- SETUP -->
 <div id="setupScreen" class="setup-screen" style="display:none">
   <div class="setup-wrap">
     <div class="setup-av" id="setupAv">?</div>
@@ -241,7 +239,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   </div>
 </div>
 
-<!-- APP -->
 <div id="appScreen">
   <nav class="topnav">
     <span class="logo">TWIN</span>
@@ -294,7 +291,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   </nav>
 </div>
 
-<!-- COMPOSE -->
 <div class="mo" id="moC" onclick="closeCompose()"></div>
 <div class="compose-modal" id="composeModal">
   <div class="mo-handle"></div>
@@ -320,7 +316,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   </div>
 </div>
 
-<!-- COMMENTS -->
 <div class="mo" id="moM" onclick="closeCmt()"></div>
 <div class="cmt-modal" id="cmtModal">
   <div class="mo-handle"></div>
@@ -343,7 +338,7 @@ import{getAuth,signInWithRedirect,getRedirectResult,GoogleAuthProvider,createUse
 import{getFirestore,collection,doc,addDoc,setDoc,getDoc,getDocs,updateDoc,deleteDoc,onSnapshot,query,orderBy,where,arrayUnion,arrayRemove,serverTimestamp,increment}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 const FB={apiKey:"AIzaSyC5TOexOb8gjZC7h5sXt9AxCv4zJtiJVfY",authDomain:"test-9c725.firebaseapp.com",projectId:"test-9c725",storageBucket:"test-9c725.firebasestorage.app",messagingSenderId:"1050038962565",appId:"1:1050038962565:web:e9231b412b5a4289071cec"};
-const ADMIN='REPLACE_WITH_YOUR_UID';
+const ADMIN='3xkZTJBE85gLhRJfGhe24eK7IjE2';
 const WHP='https://discord.com/api/webhooks/1495252264233861130/OKUCCeg9f0z6buFGtyW3bVK73tSFSXTGTD1iiXHFqyfu-SM6-92i9wSnW2egMgJ6KyRr';
 const app=initializeApp(FB);
 const auth=getAuth(app);
@@ -550,4 +545,3 @@ window.setNav=el=>{document.querySelectorAll('.nav-item').forEach(n=>n.classList
 </script>
 </body>
 </html>
-
