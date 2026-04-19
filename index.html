@@ -50,6 +50,11 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
         แกลเลอรี
       </a>
+      <a href="threads.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="13" y2="14"/></svg>
+        Threads
+        <span style="margin-left:auto;font-size:.62rem;background:var(--accent);color:white;padding:2px 7px;border-radius:10px;font-weight:800">NEW</span>
+      </a>
     </nav>
     <div class="sb-foot">
       <div class="sb-follow-count">
@@ -123,6 +128,11 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="26" height="26"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
       <span>แกลเลอรี</span>
     </div>
+    <a href="threads.html" class="qcard" style="text-decoration:none;position:relative">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="26" height="26"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="13" y2="14"/></svg>
+      <span>Threads</span>
+      <span style="position:absolute;top:8px;right:8px;font-size:.55rem;background:var(--accent);color:white;padding:1px 5px;border-radius:6px;font-weight:800">NEW</span>
+    </a>
   </div>
 
   <div class="spacer"></div>
@@ -148,6 +158,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
       <span>ข้อความ</span>
     </button>
+    <a href="threads.html" class="nav-item" style="text-decoration:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="13" y2="14"/></svg>
+      <span>Threads</span>
+    </a>
   </nav>
 </div>
 
@@ -312,17 +326,4 @@
     <div id="photoPreviewWrap" style="display:none">
       <img id="photoPreview" src="" alt="preview" style="width:100%;border-radius:12px;margin-bottom:10px;max-height:180px;object-fit:cover"/>
     </div>
-    <button class="send-btn" id="photoSendBtn" onclick="sendPhoto()"><span id="photoSendTxt">ส่งรูป</span></button>
-    <div class="photo-note">รูปจะส่งตรงถึงจิผ่าน Discord</div>
-  </div>
-  <div id="photoSuccessView" class="success-view hidden">
-    <div class="success-ring"><div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="36" height="36"><polyline points="20 6 9 17 4 12"/></svg></div></div>
-    <div class="success-sparks"><span style="--d:0s">✦</span><span style="--d:.15s">✦</span><span style="--d:.3s">✦</span><span style="--d:.45s">✦</span></div>
-    <h3>ส่งรูปแล้ว!</h3>
-    <p>จิจะเห็นรูปของคุณเร็วๆ นี้</p>
-  </div>
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
+    <button class="send-btn" id="photoSendBtn" onclick="sendPhoto()
