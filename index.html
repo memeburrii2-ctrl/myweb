@@ -3,186 +3,310 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-  <title>Pinkgram</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <title>ipxngsxk</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Noto+Sans+Thai:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-  <!-- ════════════ PAGE: HOME ════════════ -->
-  <div class="page active" id="page-home">
+<!-- ══════════ PAGE: HOME ══════════ -->
+<div class="page active" id="page-home">
 
-    <div class="overlay" id="overlay" onclick="closeMenu()"></div>
-    <div class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <div class="s-avatar">🌸</div>
-        <h3>Nong Mimi</h3>
-        <p>@mimi.world</p>
-      </div>
-      <nav class="sidebar-nav">
-        <a href="#" class="active" onclick="closeMenu()"><span class="icon">🏠</span> หน้าหลัก</a>
-        <a href="#" onclick="goPage('page-social'); closeMenu()"><span class="icon">🔗</span> โซเชียล</a>
-        <a href="#" onclick="openMsg(); closeMenu()"><span class="icon">💬</span> ส่งข้อความ</a>
-        <a href="#"><span class="icon">🔖</span> บันทึก</a>
-        <a href="#"><span class="icon">⚙️</span> ตั้งค่า</a>
-      </nav>
-      <div class="sidebar-footer">
-        <button class="logout-btn">ออกจากระบบ</button>
+  <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+  <div class="sidebar" id="sidebar">
+    <div class="sb-head">
+      <div class="sb-av">J</div>
+      <div>
+        <div class="sb-name">จิ</div>
+        <div class="sb-handle">@ipxngsxk</div>
       </div>
     </div>
-
-    <nav class="topnav">
-      <span class="logo">Pinkgram</span>
-      <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </button>
+    <nav class="sb-nav">
+      <a href="#" class="active" onclick="closeMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        หน้าหลัก
+      </a>
+      <a href="#" onclick="goPage('page-music'); closeMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        เพลง
+      </a>
+      <a href="#" onclick="goPage('page-social'); closeMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+        โซเชียล
+      </a>
+      <a href="#" onclick="openMsg(); closeMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        ข้อความ
+      </a>
     </nav>
-
-    <div class="cover">
-      <span class="sp s1">✦</span><span class="sp s2">✦</span>
-      <span class="sp s3">✦</span><span class="sp s4">✦</span>
+    <div class="sb-foot">
+      <button class="logout-btn">ออกจากระบบ</button>
     </div>
-
-    <div class="profile-section">
-      <div class="avatar-wrap">
-        <div class="avatar-ring"><div class="avatar">🌸</div></div>
-        <div class="avatar-badge">✓</div>
-      </div>
-      <div class="profile-name">Nong Mimi</div>
-      <div class="profile-handle">@mimi.world · กรุงเทพฯ 🇹🇭</div>
-      <div class="profile-bio">✨ ชอบกาแฟ ดอกไม้ และพระอาทิตย์ตก 🌷<br>Live slow. Love pink. Stay soft. 🎀</div>
-      <div class="profile-stats">
-        <div class="stat"><span class="stat-num">248</span><span class="stat-label">โพสต์</span></div>
-        <div class="stat"><span class="stat-num">12.4K</span><span class="stat-label">ผู้ติดตาม</span></div>
-        <div class="stat"><span class="stat-num">381</span><span class="stat-label">กำลังติดตาม</span></div>
-      </div>
-      <div class="action-btns">
-        <button class="btn-follow" onclick="goPage('page-social')">ติดตาม 🔗</button>
-        <button class="btn-msg" onclick="openMsg()">ส่งข้อความ 💌</button>
-      </div>
-    </div>
-
-    <div class="highlights">
-      <div class="hl-item"><div class="hl-ring"><div class="hl-inner">🌸</div></div><span>ดอกไม้</span></div>
-      <div class="hl-item"><div class="hl-ring"><div class="hl-inner">☕</div></div><span>คาเฟ่</span></div>
-      <div class="hl-item"><div class="hl-ring"><div class="hl-inner">🐾</div></div><span>น้องแมว</span></div>
-      <div class="hl-item"><div class="hl-ring"><div class="hl-inner">✈️</div></div><span>ท่องเที่ยว</span></div>
-      <div class="hl-item"><div class="hl-ring"><div class="hl-inner">🎂</div></div><span>ของหวาน</span></div>
-      <div class="hl-item"><div class="hl-ring"><div class="hl-inner">🎨</div></div><span>ศิลปะ</span></div>
-    </div>
-
-    <div class="tabs">
-      <button class="tab active">⊞ โพสต์</button>
-      <button class="tab">♡ ถูกใจ</button>
-      <button class="tab">🏷 แท็ก</button>
-    </div>
-
-    <div class="photo-grid">
-      <div class="grid-item c1"><span>🌸</span><div class="gi-overlay">❤️ 842 💬 21</div></div>
-      <div class="grid-item c2"><span>☕</span><div class="gi-overlay">❤️ 1.2K 💬 48</div></div>
-      <div class="grid-item c3"><span>🌷</span><div class="gi-overlay">❤️ 634 💬 15</div></div>
-      <div class="grid-item c4"><span>🐱</span><div class="gi-overlay">❤️ 2.1K 💬 93</div></div>
-      <div class="grid-item c5"><span>🍰</span><div class="gi-overlay">❤️ 987 💬 37</div></div>
-      <div class="grid-item c6"><span>🌅</span><div class="gi-overlay">❤️ 1.5K 💬 62</div></div>
-      <div class="grid-item c7"><span>🎀</span><div class="gi-overlay">❤️ 743 💬 28</div></div>
-      <div class="grid-item c8"><span>🌺</span><div class="gi-overlay">❤️ 891 💬 33</div></div>
-      <div class="grid-item c9"><span>✨</span><div class="gi-overlay">❤️ 1.1K 💬 54</div></div>
-    </div>
-
-    <div class="spacer"></div>
-
-    <nav class="bottom-nav">
-      <button class="nav-item active" onclick="setNav(this)"><span>🏠</span>หน้าหลัก</button>
-      <button class="nav-item" onclick="setNav(this);goPage('page-social')"><span>🔗</span>โซเชียล</button>
-      <button class="nav-item" onclick="openMsg()"><span>💌</span>ข้อความ</button>
-      <button class="nav-item" onclick="setNav(this)"><span>🔔</span>แจ้งเตือน</button>
-      <button class="nav-item" onclick="setNav(this)"><span>👤</span>โปรไฟล์</button>
-    </nav>
   </div>
 
-  <!-- ════════════ PAGE: SOCIAL ════════════ -->
-  <div class="page" id="page-social">
-    <nav class="topnav">
-      <button class="back-btn" onclick="goBack()">← กลับ</button>
-      <span class="logo" style="font-size:clamp(1rem,3vw,1.2rem)">ติดตาม Mimi</span>
-      <span style="width:60px"></span>
-    </nav>
+  <nav class="topnav">
+    <span class="logo">ipxngsxk</span>
+    <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-    <div class="social-page">
-      <div class="social-hero">
-        <div class="social-avatar">🌸</div>
-        <h2>Nong Mimi</h2>
-        <p>ติดตามผ่านช่องทางที่ชอบได้เลยนะคะ 💕</p>
+  <div class="cover">
+    <div class="cover-grad"></div>
+    <div class="cover-noise"></div>
+  </div>
+
+  <div class="profile-section">
+    <div class="avatar-wrap">
+      <div class="avatar-ring">
+        <div class="avatar">J</div>
       </div>
+      <div class="online-dot"></div>
+    </div>
 
-      <div class="social-cards">
-        <a href="https://www.instagram.com/ipxngsxk?igsh=N21yMDV1bm85YXJp" target="_blank" class="social-card ig">
-          <div class="sc-icon">
-            <svg viewBox="0 0 24 24" fill="white" width="26" height="26"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          </div>
-          <div class="sc-info">
-            <span class="sc-name">Instagram</span>
-            <span class="sc-handle">@ipxngsxk</span>
-          </div>
-          <span class="sc-arr">→</span>
-        </a>
+    <div class="profile-name">จิ</div>
+    <div class="profile-handle">@ipxngsxk</div>
+    <div class="profile-bio">
+      อายุ <span class="age-counter" id="ageCounter">--</span> ปี &nbsp;·&nbsp; เกิด 15 ก.ย. 2549
+    </div>
 
-        <a href="https://www.tiktok.com/@fipxngsxk?_r=1&_t=ZS-95eCsY9k7ZV" target="_blank" class="social-card tt">
-          <div class="sc-icon">
-            <svg viewBox="0 0 24 24" fill="white" width="26" height="26"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.77 1.52V6.75a4.85 4.85 0 01-1-.06z"/></svg>
-          </div>
-          <div class="sc-info">
-            <span class="sc-name">TikTok</span>
-            <span class="sc-handle">@fipxngsxk</span>
-          </div>
-          <span class="sc-arr">→</span>
-        </a>
+    <div class="profile-stats">
+      <div class="stat"><span class="stat-num">248</span><span class="stat-label">โพสต์</span></div>
+      <div class="stat"><span class="stat-num">12.4K</span><span class="stat-label">ผู้ติดตาม</span></div>
+      <div class="stat"><span class="stat-num">381</span><span class="stat-label">ติดตาม</span></div>
+    </div>
 
-        <div class="social-card coming">
-          <div class="sc-icon" style="font-size:1.4rem">💬</div>
-          <div class="sc-info">
-            <span class="sc-name" style="color:#999">WeChat</span>
-            <span class="sc-handle" style="color:#bbb">เร็วๆ นี้...</span>
-          </div>
-          <span class="sc-badge">Coming Soon</span>
+    <div class="action-btns">
+      <button class="btn-primary" onclick="goPage('page-social')">ติดตาม</button>
+      <button class="btn-secondary" onclick="openMsg()">ข้อความ</button>
+    </div>
+  </div>
+
+  <!-- Photo submit grid -->
+  <div class="section-title">ส่งรูปให้จิ</div>
+  <div class="photo-grid">
+    <div class="submit-card main-card" onclick="openPhoto()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span>ส่งรูปให้จิ</span>
+    </div>
+    <div class="submit-card" onclick="openPhoto()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      <span>อัปโหลด</span>
+    </div>
+    <div class="submit-card" onclick="openMsg()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      <span>ข้อความ</span>
+    </div>
+    <div class="submit-card" onclick="goPage('page-music')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      <span>เพลง</span>
+    </div>
+    <div class="submit-card" onclick="goPage('page-social')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+      <span>โซเชียล</span>
+    </div>
+    <div class="submit-card" onclick="openMsg()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      <span>ฝากรัก</span>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="setNav(this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+      <span>หน้าหลัก</span>
+    </button>
+    <button class="nav-item" onclick="setNav(this);goPage('page-music')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      <span>เพลง</span>
+    </button>
+    <button class="nav-item" onclick="openPhoto()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span>รูป</span>
+    </button>
+    <button class="nav-item" onclick="setNav(this);goPage('page-social')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+      <span>โซเชียล</span>
+    </button>
+    <button class="nav-item" onclick="setNav(this);openMsg()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      <span>ข้อความ</span>
+    </button>
+  </nav>
+</div>
+
+<!-- ══════════ PAGE: MUSIC ══════════ -->
+<div class="page" id="page-music">
+  <nav class="topnav">
+    <button class="back-btn" onclick="goBack()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="15 18 9 12 15 6"/></svg>
+      กลับ
+    </button>
+    <span class="logo" style="font-size:1rem;letter-spacing:.08em">MUSIC</span>
+    <span style="width:60px"></span>
+  </nav>
+
+  <div class="music-page">
+    <div class="music-header">
+      <div class="music-disc" id="musicDisc">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="music-info">
+        <div class="music-title" id="musicTitle">เลือกเพลง</div>
+        <div class="music-artist" id="musicArtist">— แตะเพื่อเล่น —</div>
+      </div>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="time-row">
+        <span id="timeCur">0:00</span>
+        <span id="timeTot">0:00</span>
+      </div>
+    </div>
+
+    <div class="music-controls">
+      <button class="ctrl-btn" onclick="prevTrack()">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2"/></svg>
+      </button>
+      <button class="play-btn" id="playBtn" onclick="togglePlay()">
+        <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor" width="32" height="32"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor" width="32" height="32" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+      </button>
+      <button class="ctrl-btn" onclick="nextTrack()">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2"/></svg>
+      </button>
+    </div>
+
+    <audio id="audioPlayer"></audio>
+
+    <div class="playlist-label">รายการเพลง</div>
+    <div class="playlist" id="playlist">
+      <!-- เพิ่มเพลงได้ที่นี่ใน script.js → TRACKS array -->
+    </div>
+  </div>
+  <div class="spacer"></div>
+</div>
+
+<!-- ══════════ PAGE: SOCIAL ══════════ -->
+<div class="page" id="page-social">
+  <nav class="topnav">
+    <button class="back-btn" onclick="goBack()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="15 18 9 12 15 6"/></svg>
+      กลับ
+    </button>
+    <span class="logo" style="font-size:1rem;letter-spacing:.08em">SOCIAL</span>
+    <span style="width:60px"></span>
+  </nav>
+
+  <div class="social-page">
+    <div class="social-hero">
+      <div class="social-av">J</div>
+      <h2>จิ</h2>
+      <p>ติดตามผ่านช่องทางที่ชอบได้เลยนะ</p>
+    </div>
+    <div class="social-cards">
+      <a href="https://www.instagram.com/ipxngsxk?igsh=N21yMDV1bm85YXJp" target="_blank" class="social-card ig">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24" fill="white" width="24" height="24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         </div>
+        <div class="sc-info"><span class="sc-name">Instagram</span><span class="sc-handle">@ipxngsxk</span></div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2.5" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@fipxngsxk?_r=1&_t=ZS-95eCsY9k7ZV" target="_blank" class="social-card tt">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24" fill="white" width="24" height="24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.77 1.52V6.75a4.85 4.85 0 01-1-.06z"/></svg>
+        </div>
+        <div class="sc-info"><span class="sc-name">TikTok</span><span class="sc-handle">@fipxngsxk</span></div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2.5" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <div class="social-card coming">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="24" height="24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+        </div>
+        <div class="sc-info"><span class="sc-name" style="color:#555">WeChat</span><span class="sc-handle" style="color:#777">เร็วๆ นี้</span></div>
+        <span class="sc-badge">Soon</span>
       </div>
     </div>
-    <div class="spacer"></div>
   </div>
+  <div class="spacer"></div>
+</div>
 
-  <!-- ════════════ MODAL: ส่งข้อความ ════════════ -->
-  <div class="modal-overlay" id="modalOverlay" onclick="closeMsg()"></div>
-
-  <div class="msg-modal" id="msgModal">
-    <!-- FORM VIEW -->
-    <div id="formView">
-      <div class="modal-handle"></div>
-      <div class="modal-header">
-        <h3>💌 ส่งข้อความถึง Mimi</h3>
-        <button class="modal-close" onclick="closeMsg()">✕</button>
-      </div>
-      <input type="text" id="senderName" placeholder="ชื่อของคุณ (ไม่ระบุก็ได้)" maxlength="50"/>
-      <textarea id="msgText" placeholder="พิมพ์ข้อความที่นี่..." maxlength="500"></textarea>
-      <div class="char-count"><span id="charCount">0</span>/500</div>
-      <button class="send-btn" id="sendBtn" onclick="sendMessage()">
-        <span id="sendBtnText">ส่งข้อความ 💌</span>
+<!-- ══════════ MODAL: ข้อความ ══════════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeMsg()"></div>
+<div class="msg-modal" id="msgModal">
+  <div id="formView">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h3>ฝากข้อความถึงจิ</h3>
+      <button class="modal-close" onclick="closeMsg()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
-
-    <!-- SUCCESS VIEW -->
-    <div id="successView" class="success-view hidden">
-      <div class="success-ring">
-        <span class="success-icon">💌</span>
-      </div>
-      <div class="success-sparks">
-        <span>✦</span><span>🌸</span><span>✦</span><span>💕</span><span>✦</span><span>🌸</span>
-      </div>
-      <h3>ส่งสำเร็จแล้ว!</h3>
-      <p>Mimi จะได้รับข้อความของคุณเร็วๆ นี้ 💕</p>
-    </div>
+    <input type="text" id="senderName" placeholder="ชื่อของคุณ (ไม่ระบุก็ได้)" maxlength="50"/>
+    <textarea id="msgText" placeholder="พิมพ์ข้อความที่นี่..." maxlength="500"></textarea>
+    <div class="char-count"><span id="charCount">0</span>/500</div>
+    <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+      <span id="sendBtnText">ส่งข้อความ</span>
+    </button>
   </div>
+  <div id="successView" class="success-view hidden">
+    <div class="success-ring"><div class="success-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="40" height="40"><polyline points="20 6 9 17 4 12"/></svg>
+    </div></div>
+    <div class="success-sparks">
+      <span style="--d:0s">✦</span><span style="--d:.15s">✦</span>
+      <span style="--d:.3s">✦</span><span style="--d:.45s">✦</span>
+    </div>
+    <h3>ส่งแล้ว!</h3>
+    <p>จิจะได้รับข้อความเร็วๆ นี้</p>
+  </div>
+</div>
 
-  <script src="script.js"></script>
+<!-- ══════════ MODAL: ส่งรูป ══════════ -->
+<div class="modal-overlay" id="photoOverlay" onclick="closePhoto()"></div>
+<div class="msg-modal" id="photoModal">
+  <div id="photoFormView">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h3>ส่งรูปให้จิ</h3>
+      <button class="modal-close" onclick="closePhoto()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <input type="text" id="photoSender" placeholder="ชื่อของคุณ (ไม่ระบุก็ได้)" maxlength="50"/>
+    <input type="text" id="photoCaption" placeholder="คำบรรยาย (ไม่ระบุก็ได้)" maxlength="100"/>
+
+    <label class="file-label" for="photoFile" id="fileLabel">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span id="fileLabelText">แตะเพื่อเลือกรูป</span>
+    </label>
+    <input type="file" id="photoFile" accept="image/*" style="display:none" onchange="onFileSelect(event)"/>
+
+    <div id="photoPreviewWrap" style="display:none">
+      <img id="photoPreview" src="" alt="preview" style="width:100%;border-radius:12px;margin-bottom:10px;max-height:200px;object-fit:cover"/>
+    </div>
+
+    <button class="send-btn" id="photoSendBtn" onclick="sendPhoto()">
+      <span id="photoSendTxt">ส่งรูป</span>
+    </button>
+    <div class="photo-note">รูปจะถูกส่งเป็น URL ไปยัง Discord ของจิ</div>
+  </div>
+  <div id="photoSuccessView" class="success-view hidden">
+    <div class="success-ring"><div class="success-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="40" height="40"><polyline points="20 6 9 17 4 12"/></svg>
+    </div></div>
+    <div class="success-sparks">
+      <span style="--d:0s">✦</span><span style="--d:.15s">✦</span>
+      <span style="--d:.3s">✦</span><span style="--d:.45s">✦</span>
+    </div>
+    <h3>ส่งรูปแล้ว!</h3>
+    <p>จิจะเห็นรูปของคุณเร็วๆ นี้</p>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
