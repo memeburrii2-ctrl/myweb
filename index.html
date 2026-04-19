@@ -337,7 +337,15 @@ import{initializeApp}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-ap
 import{getAuth,signInWithRedirect,getRedirectResult,GoogleAuthProvider,createUserWithEmailAndPassword,signInWithEmailAndPassword,signInAnonymously,onAuthStateChanged,signOut,updateProfile}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
 import{getFirestore,collection,doc,addDoc,setDoc,getDoc,getDocs,updateDoc,deleteDoc,onSnapshot,query,orderBy,where,arrayUnion,arrayRemove,serverTimestamp,increment}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
-const FB={apiKey:"AIzaSyC5TOexOb8gjZC7h5sXt9AxCv4zJtiJVfY",authDomain:"test-9c725.firebaseapp.com",projectId:"test-9c725",storageBucket:"test-9c725.firebasestorage.app",messagingSenderId:"1050038962565",appId:"1:1050038962565:web:e9231b412b5a4289071cec"};
+const FB = {
+  apiKey: "AIzaSyDcLM4TpX8l6vYXHoyiv9hmv1T-HqvFK9o",
+  authDomain: "test-cf9ca.firebaseapp.com",
+  projectId: "test-cf9ca",
+  storageBucket: "test-cf9ca.firebasestorage.app",
+  messagingSenderId: "1002452623705",
+  appId: "1:1002452623705:web:c5c58d53d4053bd25aec48",
+  measurementId: "G-X0CDCSXSS5"
+};
 const ADMIN='3xkZTJBE85gLhRJfGhe24eK7IjE2';
 const WHP='https://discord.com/api/webhooks/1495252264233861130/OKUCCeg9f0z6buFGtyW3bVK73tSFSXTGTD1iiXHFqyfu-SM6-92i9wSnW2egMgJ6KyRr';
 const app=initializeApp(FB);
@@ -392,7 +400,7 @@ window.doEmailLogin=async()=>{
   const e=document.getElementById('lE').value.trim(),p=document.getElementById('lP').value,er=document.getElementById('lErr');
   if(!e||!p){er.textContent='กรุณากรอกให้ครบ';return}
   try{await signInWithEmailAndPassword(auth,e,p)}
-  catch(err){er.textContent=err.code.includes('password')||err.code.includes('credential')?'อีเมลหรือรหัสผ่านไม่ถูกต้อง':'เกิดข้อผิดพลาด: '+err.code}
+  catch(err){er.textContent=err.code.includes('password')||err.code.includes('credential')?'อีเมลหรือรหัสผ่านไม่ถูกต้อง':'พังเพราะ: '+err.code}
 };
 window.doReg=async()=>{
   const n=document.getElementById('rN').value.trim(),e=document.getElementById('rE').value.trim(),p=document.getElementById('rP').value,er=document.getElementById('rErr');
@@ -404,7 +412,7 @@ window.doReg=async()=>{
     const c=await createUserWithEmailAndPassword(auth,e,p);
     await updateProfile(c.user,{displayName:n});
     await setDoc(doc(db,'users',c.user.uid),{uid:c.user.uid,name:n,email:e,bio:'',birthdate:'',followers:[],following:[],postCount:0,createdAt:serverTimestamp()});
-  }catch(err){er.textContent=err.code==='auth/email-already-in-use'?'อีเมลนี้ถูกใช้แล้ว':'เกิดข้อผิดพลาด'}
+  }catch(err){er.textContent=err.code==='auth/email-already-in-use'?'อีเมลนี้ถูกใช้แล้ว':'พังเพราะ: '+err.code}
 };
 window.doAnon=async()=>{try{await signInAnonymously(auth)}catch(e){showToast('เกิดข้อผิดพลาด')}};
 
