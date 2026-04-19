@@ -1,9 +1,8 @@
 // ════════════════════════════════════════
 //  WEBHOOKS (แยก รูป vs ข้อความ)
 // ════════════════════════════════════════
-const WEBHOOK_MSG   = 'https://discord.com/api/webhooks/1495252264233861130/OKUCCeg9f0z6buFGtyW3bVK73tSFSXTGTD1iiXHFqyfu-SM6-92i9wSnW2egMgJ6KyRr';
+const WEBHOOK_MSG   = 'https://discord.com/api/webhooks/1495112170541940856/B-QhAY2Y0ERaY7eTW9XhMKBKjOcbRCHp4Z6oHgbX3r2y6QoVxeRZPHy-lclX-ZQNdt9O';
 const WEBHOOK_PHOTO = 'https://discord.com/api/webhooks/1495252264233861130/OKUCCeg9f0z6buFGtyW3bVK73tSFSXTGTD1iiXHFqyfu-SM6-92i9wSnW2egMgJ6KyRr';
-// ↑ ถ้ามี webhook แยก ให้เปลี่ยน WEBHOOK_PHOTO เป็น URL ใหม่
 
 // ════════════════════════════════════════
 //  AGE COUNTER - เกิด 15/09/2006
@@ -22,9 +21,12 @@ setInterval(updateAge, 500);
 // ════════════════════════════════════════
 //  FOLLOW BUTTON (เก็บสถานะ + นับจำนวน)
 // ════════════════════════════════════════
-const BASE_FOLLOWERS = 12400;
-let followCount  = parseInt(localStorage.getItem('followCount')  || BASE_FOLLOWERS);
+const BASE_FOLLOWERS = 0;
+let followCount  = parseInt(localStorage.getItem('followCount') ?? BASE_FOLLOWERS);
 let isFollowed   = localStorage.getItem('isFollowed') === 'true';
+
+// ถ้ายังไม่เคยตั้งค่า ให้ใช้ BASE_FOLLOWERS
+if (localStorage.getItem('followCount') === null) followCount = BASE_FOLLOWERS;
 
 function formatCount(n) {
   if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
@@ -80,7 +82,7 @@ function closeSendPicker() {
 //  MUSIC PLAYER
 // ════════════════════════════════════════
 const TRACKS = [
-  // { title: 'ชื่อเพลง', artist: 'ศิลปิน', src: 'URL หรือ path ไฟล์ mp3' },
+  { title: 'แพ้ใจ', artist: 'เสก โลโซ', src: 'แพ้ใจ เสก โลโซ.mp3' },
 ];
 
 let curTrack = 0;
@@ -338,5 +340,4 @@ async function sendPhoto() {
 function setNav(el) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   el.classList.add('active');
-    }
-    
+             }
