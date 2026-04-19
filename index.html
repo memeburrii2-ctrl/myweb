@@ -5,194 +5,329 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
   <title>TWIN</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Noto+Sans+Thai:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="twin.css"/>
+  <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #08080e;
+  --bg2:     #0f0f18;
+  --bg3:     #16161f;
+  --border:  #22222e;
+  --accent:  #7c5cbf;
+  --accent2: #a07ce0;
+  --cyan:    #4ecdc4;
+  --pink:    #ff6b9d;
+  --gold:    #ffd93d;
+  --green:   #4caf50;
+  --white:   #eeeaff;
+  --muted:   #4a4a62;
+  --text:    #a8a4c8;
+}
+
+html, body { height:100%; font-family:'Noto Sans Thai','Syne',sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; -webkit-text-size-adjust:100%; }
+
+/* ── AUTH SCREEN ── */
+.auth-screen {
+  min-height:100dvh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:24px 20px; max-width:420px; margin:0 auto;
+}
+.auth-logo { text-align:center; margin-bottom:32px; }
+.auth-logo-icon {
+  width:64px; height:64px; border-radius:20px; margin:0 auto 14px;
+  background:linear-gradient(135deg,var(--accent),var(--cyan));
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Syne',sans-serif; font-weight:800; font-size:1.4rem; color:white;
+  box-shadow:0 8px 28px rgba(124,92,191,.5);
+}
+.auth-logo h1 { font-family:'Syne',sans-serif; font-weight:800; font-size:2rem; color:var(--white); letter-spacing:.08em; }
+.auth-logo p { color:var(--muted); font-size:.82rem; margin-top:4px; }
+
+.auth-tabs { display:flex; gap:0; background:var(--bg3); border-radius:12px; padding:4px; margin-bottom:20px; width:100%; }
+.auth-tab { flex:1; padding:9px; background:none; border:none; color:var(--muted); font-family:'Noto Sans Thai',sans-serif; font-size:.85rem; font-weight:700; border-radius:9px; cursor:pointer; transition:all .2s; }
+.auth-tab.active { background:var(--accent); color:white; }
+
+.auth-form { width:100%; display:flex; flex-direction:column; gap:10px; }
+.auth-input {
+  width:100%; padding:12px 16px; background:var(--bg3); border:1px solid var(--border);
+  border-radius:12px; color:var(--white); font-family:'Noto Sans Thai',sans-serif;
+  font-size:.9rem; outline:none; transition:border-color .2s, box-shadow .2s;
+}
+.auth-input::placeholder { color:var(--muted); }
+.auth-input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(124,92,191,.15); }
+
+.btn-google {
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  width:100%; padding:12px; background:var(--bg3); border:1px solid var(--border);
+  border-radius:12px; color:var(--white); font-family:'Noto Sans Thai',sans-serif;
+  font-size:.9rem; font-weight:700; cursor:pointer; transition:all .2s;
+}
+.btn-google:hover { border-color:#4285F4; }
+
+.btn-primary-full {
+  width:100%; padding:13px; background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:white; border:none; border-radius:12px; font-family:'Noto Sans Thai',sans-serif;
+  font-size:.95rem; font-weight:800; cursor:pointer;
+  box-shadow:0 4px 18px rgba(124,92,191,.4); transition:all .2s;
+}
+.btn-primary-full:hover { transform:translateY(-1px); box-shadow:0 8px 26px rgba(124,92,191,.6); }
+.btn-primary-full:disabled { opacity:.5; cursor:not-allowed; transform:none; }
+
+.btn-anon {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  width:100%; padding:11px; background:transparent; border:1px solid var(--border);
+  border-radius:12px; color:var(--muted); font-family:'Noto Sans Thai',sans-serif;
+  font-size:.85rem; font-weight:600; cursor:pointer; transition:all .2s;
+}
+.btn-anon:hover { border-color:var(--muted); color:var(--text); }
+
+.auth-divider { display:flex; align-items:center; gap:12px; color:var(--muted); font-size:.75rem; }
+.auth-divider::before, .auth-divider::after { content:''; flex:1; height:1px; background:var(--border); }
+.auth-note { font-size:.72rem; color:var(--muted); text-align:center; }
+.auth-error { color:#ff6b6b; font-size:.78rem; text-align:center; min-height:18px; }
+
+/* ── SETUP SCREEN ── */
+.setup-screen { min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:24px 20px; }
+.setup-wrap { width:100%; max-width:380px; display:flex; flex-direction:column; align-items:center; gap:12px; }
+.setup-av {
+  width:80px; height:80px; border-radius:50%; margin-bottom:6px;
+  background:linear-gradient(135deg,var(--accent),var(--cyan));
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Syne',sans-serif; font-weight:800; font-size:2rem; color:white;
+  box-shadow:0 8px 24px rgba(124,92,191,.4);
+}
+.setup-wrap h2 { font-family:'Syne',sans-serif; font-weight:800; font-size:1.4rem; color:var(--white); }
+.setup-wrap p { color:var(--muted); font-size:.82rem; margin-bottom:4px; }
+.setup-wrap .auth-input { width:100%; }
+.setup-wrap .btn-primary-full { width:100%; margin-top:6px; }
+
+/* ── TOP NAV ── */
+.topnav {
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:13px clamp(14px,4vw,20px);
+  background:rgba(8,8,14,.92); backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  max-width:600px; margin:0 auto; width:100%;
+}
+.logo { font-family:'Syne',sans-serif; font-weight:800; font-size:1.3rem; letter-spacing:.08em; color:var(--white); }
+.topnav-right { display:flex; align-items:center; gap:10px; }
+.icon-btn { background:none; border:none; color:var(--text); cursor:pointer; padding:6px; border-radius:8px; display:flex; align-items:center; justify-content:center; transition:all .2s; }
+.icon-btn:hover { background:var(--bg3); color:var(--white); }
+.my-av-btn {
+  width:32px; height:32px; border-radius:50%; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Syne',sans-serif; font-weight:800; font-size:.85rem; color:white;
+  border:2px solid var(--accent);
+}
+
+/* ── PAGES ── */
+.page { max-width:600px; margin:0 auto; min-height:calc(100dvh - 110px); }
+.page-header { padding:14px 18px; border-bottom:1px solid var(--border); }
+.page-header h2 { font-family:'Syne',sans-serif; font-weight:800; color:var(--white); font-size:1.1rem; }
+.profile-header { padding:12px 18px; border-bottom:1px solid var(--border); }
+
+.feed-tabs { display:flex; border-bottom:1px solid var(--border); }
+.feed-tab { flex:1; padding:13px; background:none; border:none; border-bottom:2px solid transparent; color:var(--muted); font-family:'Noto Sans Thai',sans-serif; font-size:.85rem; font-weight:700; cursor:pointer; transition:all .2s; }
+.feed-tab.active { color:var(--white); border-bottom-color:var(--accent); }
+
+/* ── BOTTOM NAV ── */
+.bottom-nav {
+  position:fixed; bottom:0; left:0; right:0;
+  background:rgba(8,8,14,.97); backdrop-filter:blur(16px);
+  border-top:1px solid var(--border);
+  display:flex; padding:8px 0 6px; z-index:50;
+  max-width:600px; margin:0 auto;
+}
+/* Fix for centering on wide screens */
+@media (min-width:600px) {
+  .bottom-nav { left:50%; transform:translateX(-50%); }
+  .topnav { left:50%; transform:translateX(-50%); }
+}
+.nav-item {
+  flex:1; display:flex; flex-direction:column; align-items:center; gap:2px;
+  background:none; border:none; color:var(--muted); cursor:pointer;
+  font-size:clamp(.52rem,1.7vw,.62rem); font-family:'Noto Sans Thai',sans-serif;
+  font-weight:700; transition:all .2s; text-decoration:none; padding:2px 0;
+}
+.nav-item:hover { color:var(--text); }
+.nav-item.active { color:var(--accent2); }
+.compose-center {
+  background:linear-gradient(135deg,var(--accent),var(--accent2)) !important;
+  color:white !important; width:44px; height:44px; border-radius:50% !important;
+  margin-top:-8px; box-shadow:0 4px 16px rgba(124,92,191,.5);
+  padding:0 !important; flex:none !important;
+}
+.spacer { height:80px; }
+
+/* ── AVATAR COLORS ── */
+.av { width:38px; height:38px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:800; font-size:.9rem; color:white; }
+.av-sm { width:28px; height:28px; font-size:.72rem; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:800; color:white; }
+
+/* ── POST CARD ── */
+.post-card { padding:14px 18px; border-bottom:1px solid var(--border); transition:background .15s; animation:fadeIn .25s ease both; }
+.post-card:hover { background:rgba(255,255,255,.015); }
+.post-pinned { border-left:3px solid var(--gold); background:rgba(255,217,61,.04); }
+@keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+
+.post-top { display:flex; gap:10px; margin-bottom:8px; }
+.post-meta { flex:1; min-width:0; }
+.post-name { font-weight:700; font-size:.88rem; color:var(--white); display:flex; align-items:center; gap:5px; cursor:pointer; }
+.post-name:hover { color:var(--accent2); }
+.post-handle { font-size:.72rem; color:var(--muted); font-family:'Space Mono',monospace; }
+.post-time { font-size:.68rem; color:var(--muted); font-family:'Space Mono',monospace; }
+.anon-badge { font-size:.62rem; background:var(--bg3); border:1px solid var(--border); color:var(--muted); padding:1px 6px; border-radius:6px; }
+.admin-badge { font-size:.62rem; background:rgba(255,217,61,.15); border:1px solid var(--gold); color:var(--gold); padding:1px 6px; border-radius:6px; }
+.pin-badge { font-size:.62rem; color:var(--gold); }
+
+.post-more { background:none; border:none; color:var(--muted); cursor:pointer; padding:4px; border-radius:6px; transition:all .2s; font-size:.85rem; }
+.post-more:hover { background:var(--bg3); color:var(--white); }
+
+.post-body { padding-left:48px; }
+.post-text { font-size:clamp(.85rem,2.5vw,.92rem); line-height:1.65; color:var(--white); margin-bottom:10px; white-space:pre-wrap; word-break:break-word; }
+.post-img { width:100%; border-radius:12px; max-height:300px; object-fit:cover; margin-bottom:10px; cursor:pointer; }
+
+.post-actions { display:flex; gap:4px; }
+.act-btn {
+  display:flex; align-items:center; gap:4px;
+  background:none; border:none; color:var(--muted);
+  cursor:pointer; font-size:.76rem; font-family:'Noto Sans Thai',sans-serif;
+  font-weight:600; padding:6px 10px; border-radius:20px;
+  transition:all .2s; min-width:52px;
+}
+.act-btn:hover { background:var(--bg3); }
+.act-btn.liked { color:var(--pink); }
+.act-btn.liked svg { fill:var(--pink); }
+.act-btn.reposted { color:var(--green); }
+.act-btn svg { transition:transform .15s; }
+.act-btn:active svg { transform:scale(1.3); }
+
+/* ── DROPDOWN MENU ── */
+.dropdown { position:relative; }
+.dropdown-menu {
+  position:absolute; right:0; top:100%; background:var(--bg2);
+  border:1px solid var(--border); border-radius:12px; padding:6px;
+  min-width:160px; z-index:100; box-shadow:0 8px 32px rgba(0,0,0,.5);
+  animation:fadeIn .15s ease both;
+}
+.dropdown-item {
+  display:flex; align-items:center; gap:8px; padding:10px 12px;
+  color:var(--text); font-size:.84rem; font-weight:600; cursor:pointer;
+  border-radius:8px; transition:background .15s; background:none; border:none;
+  width:100%; text-align:left; font-family:'Noto Sans Thai',sans-serif;
+}
+.dropdown-item:hover { background:var(--bg3); color:var(--white); }
+.dropdown-item.danger { color:#ff6b6b; }
+.dropdown-item.danger:hover { background:rgba(255,107,107,.1); }
+
+/* ── PROFILE PAGE ── */
+.profile-cover { height:clamp(80px,18vw,120px); background:linear-gradient(135deg,#1a0a2e,#0d1b3e,#0a1628); position:relative; overflow:hidden; }
+.profile-cover-noise { position:absolute; inset:0; background-image:radial-gradient(ellipse at 30% 50%,rgba(124,92,191,.3) 0%,transparent 60%),radial-gradient(ellipse at 80% 30%,rgba(78,205,196,.2) 0%,transparent 50%); }
+.profile-info { padding:0 18px 16px; background:var(--bg2); border-bottom:1px solid var(--border); }
+.profile-av-wrap { margin-top:-30px; margin-bottom:10px; }
+.profile-av-lg {
+  width:clamp(60px,14vw,76px); height:clamp(60px,14vw,76px);
+  border-radius:50%; border:3px solid var(--bg2);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Syne',sans-serif; font-weight:800;
+  font-size:clamp(22px,6vw,30px); color:white;
+}
+.profile-name-lg { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(1.1rem,4vw,1.3rem); color:var(--white); }
+.profile-handle-lg { font-size:.75rem; color:var(--muted); font-family:'Space Mono',monospace; margin-bottom:6px; }
+.profile-bio-lg { font-size:clamp(.8rem,2.5vw,.88rem); color:var(--text); margin-bottom:10px; line-height:1.6; }
+.profile-stats { display:flex; gap:20px; margin-bottom:12px; }
+.pstat { text-align:center; }
+.pstat-num { display:block; font-family:'Syne',sans-serif; font-weight:800; font-size:1rem; color:var(--white); }
+.pstat-label { font-size:.68rem; color:var(--muted); letter-spacing:.04em; }
+.profile-actions { display:flex; gap:8px; }
+.btn-follow-sm {
+  flex:1; padding:9px; border-radius:9px;
+  font-family:'Noto Sans Thai',sans-serif; font-weight:700; font-size:.85rem;
+  cursor:pointer; transition:all .2s; border:none;
+  background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white;
+  box-shadow:0 3px 12px rgba(124,92,191,.35);
+}
+.btn-follow-sm.following { background:var(--bg3); border:1px solid var(--border); color:var(--muted); box-shadow:none; }
+.btn-edit-sm { flex:1; padding:9px; border-radius:9px; font-family:'Noto Sans Thai',sans-serif; font-weight:700; font-size:.85rem; cursor:pointer; background:var(--bg3); border:1px solid var(--border); color:var(--text); transition:all .2s; }
+.btn-edit-sm:hover { border-color:var(--accent2); color:var(--accent2); }
+
+/* ── COMPOSE MODAL ── */
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.7); backdrop-filter:blur(6px); opacity:0; pointer-events:none; transition:opacity .3s; z-index:199; }
+.modal-overlay.open { opacity:1; pointer-events:all; }
+.compose-modal {
+  position:fixed; bottom:-110%; left:0; right:0;
+  background:var(--bg2); border-radius:22px 22px 0 0;
+  border-top:1px solid var(--border); max-height:90dvh; overflow-y:auto;
+  padding:10px 18px clamp(24px,6vw,40px);
+  transition:bottom .4s cubic-bezier(.77,0,.18,1); z-index:200;
+  box-shadow:0 -8px 48px rgba(0,0,0,.7);
+  max-width:600px; margin:0 auto;
+}
+.compose-modal.open { bottom:0; }
+@media (min-width:600px) { .compose-modal { left:50%; transform:translateX(-50%); } }
+
+.modal-handle { width:34px; height:3px; background:var(--border); border-radius:3px; margin:0 auto 14px; }
+.compose-header { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.compose-av { width:36px; height:36px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:800; font-size:.9rem; color:white; }
+.compose-name { font-weight:700; font-size:.9rem; color:var(--white); }
+.modal-close { background:var(--bg3); border:1px solid var(--border); width:30px; height:30px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:.8rem; transition:all .2s; margin-left:auto; }
+.modal-close:hover { border-color:var(--accent); color:var(--accent2); }
+
+.compose-input { width:100%; background:transparent; border:none; color:var(--white); font-family:'Noto Sans Thai',sans-serif; font-size:.95rem; outline:none; resize:none; min-height:80px; line-height:1.6; }
+.compose-input::placeholder { color:var(--muted); }
+.compose-footer { display:flex; align-items:center; gap:10px; padding-top:12px; border-top:1px solid var(--border); margin-top:10px; }
+.char-left { font-family:'Space Mono',monospace; font-size:.72rem; color:var(--muted); margin-left:auto; }
+.post-btn { background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; border:none; border-radius:20px; padding:9px 22px; font-family:'Noto Sans Thai',sans-serif; font-size:.88rem; font-weight:800; cursor:pointer; box-shadow:0 3px 14px rgba(124,92,191,.4); transition:all .2s; }
+.post-btn:hover { transform:translateY(-1px); }
+.post-btn:disabled { opacity:.5; cursor:not-allowed; transform:none; }
+
+/* ── COMMENT MODAL ── */
+.cmt-modal {
+  position:fixed; bottom:-110%; left:0; right:0;
+  background:var(--bg2); border-radius:22px 22px 0 0;
+  border-top:1px solid var(--border); max-height:85dvh;
+  display:flex; flex-direction:column;
+  padding:10px 0 0;
+  transition:bottom .4s cubic-bezier(.77,0,.18,1); z-index:200;
+  box-shadow:0 -8px 48px rgba(0,0,0,.7);
+  max-width:600px; margin:0 auto;
+}
+.cmt-modal.open { bottom:0; }
+@media (min-width:600px) { .cmt-modal { left:50%; transform:translateX(-50%); } }
+.cmt-header { display:flex; align-items:center; justify-content:space-between; padding:0 18px 12px; border-bottom:1px solid var(--border); }
+.cmt-header h3 { font-family:'Syne',sans-serif; font-weight:800; font-size:1rem; color:var(--white); }
+.cmt-list { flex:1; overflow-y:auto; padding:12px 18px; display:flex; flex-direction:column; gap:10px; }
+.cmt-item { display:flex; gap:9px; animation:fadeIn .2s ease both; }
+.cmt-bubble { background:var(--bg3); border:1px solid var(--border); border-radius:12px; padding:8px 12px; flex:1; }
+.cmt-name { font-size:.72rem; font-weight:700; color:var(--accent2); margin-bottom:3px; }
+.cmt-text { font-size:.84rem; color:var(--text); line-height:1.5; }
+.cmt-time { font-size:.62rem; color:var(--muted); margin-top:3px; font-family:'Space Mono',monospace; }
+.cmt-composer { display:flex; gap:8px; padding:12px 18px; border-top:1px solid var(--border); align-items:center; }
+.cmt-av { width:30px; height:30px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:800; font-size:.75rem; color:white; }
+.cmt-input { flex:1; background:var(--bg3); border:1px solid var(--border); border-radius:20px; padding:9px 14px; color:var(--white); font-family:'Noto Sans Thai',sans-serif; font-size:.85rem; outline:none; transition:border-color .2s; }
+.cmt-input:focus { border-color:var(--accent); }
+.cmt-send { background:var(--accent); border:none; color:white; width:34px; height:34px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all .2s; }
+.cmt-send:hover { background:var(--accent2); }
+
+/* ── MISC ── */
+.loading-wrap { display:flex; align-items:center; justify-content:center; gap:10px; padding:48px 20px; color:var(--muted); font-size:.85rem; }
+.spin { width:20px; height:20px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin .7s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.empty-state { text-align:center; padding:60px 20px; color:var(--muted); font-size:.88rem; }
+.back-btn { display:flex; align-items:center; gap:5px; background:var(--bg3); border:1px solid var(--border); color:var(--text); padding:7px 13px; border-radius:20px; cursor:pointer; font-family:'Noto Sans Thai',sans-serif; font-size:.82rem; font-weight:600; transition:all .2s; }
+.back-btn:hover { border-color:var(--accent); color:var(--accent2); }
+.toast { position:fixed; bottom:90px; left:50%; transform:translateX(-50%) translateY(60px); background:var(--bg3); border:1px solid var(--border); color:var(--white); padding:9px 20px; border-radius:20px; font-size:.82rem; font-weight:600; z-index:999; transition:transform .3s cubic-bezier(.17,.67,.35,1.3); white-space:nowrap; box-shadow:0 8px 32px rgba(0,0,0,.5); pointer-events:none; }
+.toast.show { transform:translateX(-50%) translateY(0); }
+
+@media (min-width:600px) {
+  body { background:#04040a; }
+  #appScreen { max-width:600px; margin:0 auto; box-shadow:0 0 80px rgba(124,92,191,.08); min-height:100dvh; background:var(--bg); }
+}
+
+</style>
 </head>
 <body>
 
 <!-- ══════════════════════════════════════
      AUTH SCREEN
-══════════════════════════════════════ -->
-<div id="authScreen" class="auth-screen">
-  <div class="auth-logo">
-    <div class="auth-logo-icon">TW</div>
-    <h1>TWIN</h1>
-    <p>เชื่อมต่อ · แบ่งปัน · เป็นตัวเอง</p>
-  </div>
-
-  <!-- Tab switcher -->
-  <div class="auth-tabs">
-    <button class="auth-tab active" onclick="switchAuthTab('login')">เข้าสู่ระบบ</button>
-    <button class="auth-tab" onclick="switchAuthTab('register')">สมัครสมาชิก</button>
-  </div>
-
-  <!-- Login -->
-  <div id="loginForm" class="auth-form">
-    <button class="btn-google" onclick="loginGoogle()">
-      <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-      เข้าสู่ระบบด้วย Google
-    </button>
-    <div class="auth-divider"><span>หรือ</span></div>
-    <input type="email" id="loginEmail" placeholder="อีเมล" class="auth-input"/>
-    <input type="password" id="loginPass" placeholder="รหัสผ่าน" class="auth-input"/>
-    <button class="btn-primary-full" onclick="loginEmail()">เข้าสู่ระบบ</button>
-    <button class="btn-anon" onclick="loginAnon()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      เข้าแบบไม่ระบุตัวตน
-    </button>
-    <div id="loginError" class="auth-error"></div>
-  </div>
-
-  <!-- Register -->
-  <div id="registerForm" class="auth-form" style="display:none">
-    <button class="btn-google" onclick="loginGoogle()">
-      <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-      สมัครด้วย Google
-    </button>
-    <div class="auth-divider"><span>หรือ</span></div>
-    <input type="text" id="regName" placeholder="ชื่อที่แสดง" class="auth-input" maxlength="20"/>
-    <input type="email" id="regEmail" placeholder="อีเมล" class="auth-input"/>
-    <input type="password" id="regPass" placeholder="รหัสผ่าน (อย่างน้อย 6 ตัว)" class="auth-input"/>
-    <div class="auth-note">1 อีเมล = สูงสุด 3 แอคเคาท์</div>
-    <button class="btn-primary-full" onclick="registerEmail()">สมัครสมาชิก</button>
-    <div id="regError" class="auth-error"></div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════
-     SETUP PROFILE (ครั้งแรก)
-══════════════════════════════════════ -->
-<div id="setupScreen" class="setup-screen" style="display:none">
-  <div class="setup-wrap">
-    <div class="setup-av" id="setupAv">?</div>
-    <h2>ตั้งค่าโปรไฟล์</h2>
-    <p>ทำได้ครั้งเดียว แก้ได้ทีหลัง</p>
-    <input type="text" id="setupName" placeholder="ชื่อที่แสดง" class="auth-input" maxlength="20" oninput="previewSetupAv()"/>
-    <input type="text" id="setupBio" placeholder="ไบโอ (ไม่บังคับ)" class="auth-input" maxlength="80"/>
-    <input type="date" id="setupBirth" class="auth-input" placeholder="วันเกิด"/>
-    <button class="btn-primary-full" onclick="saveProfile()">เริ่มใช้งาน TWIN</button>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════
-     MAIN APP
-══════════════════════════════════════ -->
-<div id="appScreen" style="display:none">
-
-  <!-- TOP NAV -->
-  <nav class="topnav" id="topnav">
-    <span class="logo">TWIN</span>
-    <div class="topnav-right">
-      <button class="icon-btn" onclick="openCompose()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      </button>
-      <div class="my-av-btn" id="myAvBtn" onclick="goProfile(currentUser?.uid)"></div>
-    </div>
-  </nav>
-
-  <!-- PAGES -->
-  <div id="feedPage" class="page active">
-    <div class="feed-tabs">
-      <button class="feed-tab active" onclick="switchFeed(this,'all')">ทั้งหมด</button>
-      <button class="feed-tab" onclick="switchFeed(this,'following')">กำลังติดตาม</button>
-    </div>
-    <div id="pinnedPosts"></div>
-    <div id="feedList">
-      <div class="loading-wrap"><div class="spin"></div><span>กำลังโหลด...</span></div>
-    </div>
-  </div>
-
-  <div id="profilePage" class="page" style="display:none">
-    <div class="profile-header">
-      <button class="back-btn" onclick="goBack()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg>
-        กลับ
-      </button>
-    </div>
-    <div id="profileContent"></div>
-  </div>
-
-  <div id="notifPage" class="page" style="display:none">
-    <div class="page-header"><h2>การแจ้งเตือน</h2></div>
-    <div id="notifList"><div class="empty-state"><p>ยังไม่มีการแจ้งเตือน</p></div></div>
-  </div>
-
-  <!-- BOTTOM NAV -->
-  <nav class="bottom-nav">
-    <button class="nav-item active" onclick="showPage('feedPage',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
-      <span>หน้าหลัก</span>
-    </button>
-    <button class="nav-item" onclick="showPage('feedPage',this);switchFeed(document.querySelectorAll('.feed-tab')[1],'following')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-      <span>ติดตาม</span>
-    </button>
-    <button class="nav-item compose-center" onclick="openCompose()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="24" height="24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-    </button>
-    <button class="nav-item" onclick="showPage('notifPage',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-      <span>แจ้งเตือน</span>
-    </button>
-    <button class="nav-item" onclick="goProfile(currentUser?.uid);showPage('profilePage',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      <span>โปรไฟล์</span>
-    </button>
-  </nav>
-
-</div>
-
-<!-- ══════════════════════════════════════
-     COMPOSE MODAL
-══════════════════════════════════════ -->
-<div class="modal-overlay" id="composeOverlay" onclick="closeCompose()"></div>
-<div class="compose-modal" id="composeModal">
-  <div class="modal-handle"></div>
-  <div class="compose-header">
-    <div class="compose-av" id="composeAv"></div>
-    <div>
-      <div class="compose-name" id="composeName"></div>
-      <div style="font-size:.72rem;color:var(--muted)">โพสต์สาธารณะ</div>
-    </div>
-    <button class="modal-close" onclick="closeCompose()">✕</button>
-  </div>
-  <textarea id="composeText" class="compose-input" placeholder="คิดอะไรอยู่?" maxlength="500" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
-  <div id="composeImgPreview" style="display:none">
-    <img id="composeImg" style="width:100%;border-radius:12px;max-height:200px;object-fit:cover"/>
-    <button onclick="removeImg()" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);border:none;color:white;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:1rem">✕</button>
-  </div>
-  <div class="compose-footer">
-    <label for="composeFile" class="icon-btn" title="เพิ่มรูป">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-    </label>
-    <input type="file" id="composeFile" accept="image/*,video/*" style="display:none" onchange="onComposeFile(event)"/>
-    <span class="char-left" id="charLeft">500</span>
-    <button class="post-btn" onclick="submitPost()"><span id="postBtnTxt">โพสต์</span></button>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════
-     COMMENT MODAL
-══════════════════════════════════════ -->
-<div class="modal-overlay" id="cmtOverlay" onclick="closeCmt()"></div>
-<div class="cmt-modal" id="cmtModal">
-  <div class="modal-handle"></div>
-  <div class="cmt-header">
-    <h3>คอมเมนต์</h3>
-    <button class="modal-close" onclick="closeCmt()">✕</button>
-  </div>
-  <div id="cmtList" class="cmt-list"></div>
-  <div class="cmt-composer">
-    <div class="cmt-av" id="cmtMyAv"></div>
-    <input type="text" id="cmtInput" class="cmt-input" placeholder="เขียนคอมเมนต์..." maxlength="300" onkeydown="if(event.key==='Enter')submitCmt()"/>
-    <button class="cmt-send" onclick="submitCmt()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-    </button>
-  </div>
-</div>
-
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
-
-<script type="module" src="twin.js"></script>
-</body>
-</html>
+═════════════════════════════════════
