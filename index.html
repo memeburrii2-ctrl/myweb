@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>TWIN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Noto+Sans+Thai:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="twin.css"/>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     AUTH SCREEN
+══════════════════════════════════════ -->
+<div id="authScreen" class="auth-screen">
+  <div class="auth-logo">
+    <div class="auth-logo-icon">TW</div>
+    <h1>TWIN</h1>
+    <p>เชื่อมต่อ · แบ่งปัน · เป็นตัวเอง</p>
+  </div>
+
+  <!-- Tab switcher -->
+  <div class="auth-tabs">
+    <button class="auth-tab active" onclick="switchAuthTab('login')">เข้าสู่ระบบ</button>
+    <button class="auth-tab" onclick="switchAuthTab('register')">สมัครสมาชิก</button>
+  </div>
+
+  <!-- Login -->
+  <div id="loginForm" class="auth-form">
+    <button class="btn-google" onclick="loginGoogle()">
+      <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      เข้าสู่ระบบด้วย Google
+    </button>
+    <div class="auth-divider"><span>หรือ</span></div>
+    <input type="email" id="loginEmail" placeholder="อีเมล" class="auth-input"/>
+    <input type="password" id="loginPass" placeholder="รหัสผ่าน" class="auth-input"/>
+    <button class="btn-primary-full" onclick="loginEmail()">เข้าสู่ระบบ</button>
+    <button class="btn-anon" onclick="loginAnon()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      เข้าแบบไม่ระบุตัวตน
+    </button>
+    <div id="loginError" class="auth-error"></div>
+  </div>
+
+  <!-- Register -->
+  <div id="registerForm" class="auth-form" style="display:none">
+    <button class="btn-google" onclick="loginGoogle()">
+      <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      สมัครด้วย Google
+    </button>
+    <div class="auth-divider"><span>หรือ</span></div>
+    <input type="text" id="regName" placeholder="ชื่อที่แสดง" class="auth-input" maxlength="20"/>
+    <input type="email" id="regEmail" placeholder="อีเมล" class="auth-input"/>
+    <input type="password" id="regPass" placeholder="รหัสผ่าน (อย่างน้อย 6 ตัว)" class="auth-input"/>
+    <div class="auth-note">1 อีเมล = สูงสุด 3 แอคเคาท์</div>
+    <button class="btn-primary-full" onclick="registerEmail()">สมัครสมาชิก</button>
+    <div id="regError" class="auth-error"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SETUP PROFILE (ครั้งแรก)
+══════════════════════════════════════ -->
+<div id="setupScreen" class="setup-screen" style="display:none">
+  <div class="setup-wrap">
+    <div class="setup-av" id="setupAv">?</div>
+    <h2>ตั้งค่าโปรไฟล์</h2>
+    <p>ทำได้ครั้งเดียว แก้ได้ทีหลัง</p>
+    <input type="text" id="setupName" placeholder="ชื่อที่แสดง" class="auth-input" maxlength="20" oninput="previewSetupAv()"/>
+    <input type="text" id="setupBio" placeholder="ไบโอ (ไม่บังคับ)" class="auth-input" maxlength="80"/>
+    <input type="date" id="setupBirth" class="auth-input" placeholder="วันเกิด"/>
+    <button class="btn-primary-full" onclick="saveProfile()">เริ่มใช้งาน TWIN</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     MAIN APP
+══════════════════════════════════════ -->
+<div id="appScreen" style="display:none">
+
+  <!-- TOP NAV -->
+  <nav class="topnav" id="topnav">
+    <span class="logo">TWIN</span>
+    <div class="topnav-right">
+      <button class="icon-btn" onclick="openCompose()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="my-av-btn" id="myAvBtn" onclick="goProfile(currentUser?.uid)"></div>
+    </div>
+  </nav>
+
+  <!-- PAGES -->
+  <div id="feedPage" class="page active">
+    <div class="feed-tabs">
+      <button class="feed-tab active" onclick="switchFeed(this,'all')">ทั้งหมด</button>
+      <button class="feed-tab" onclick="switchFeed(this,'following')">กำลังติดตาม</button>
+    </div>
+    <div id="pinnedPosts"></div>
+    <div id="feedList">
+      <div class="loading-wrap"><div class="spin"></div><span>กำลังโหลด...</span></div>
+    </div>
+  </div>
+
+  <div id="profilePage" class="page" style="display:none">
+    <div class="profile-header">
+      <button class="back-btn" onclick="goBack()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg>
+        กลับ
+      </button>
+    </div>
+    <div id="profileContent"></div>
+  </div>
+
+  <div id="notifPage" class="page" style="display:none">
+    <div class="page-header"><h2>การแจ้งเตือน</h2></div>
+    <div id="notifList"><div class="empty-state"><p>ยังไม่มีการแจ้งเตือน</p></div></div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="showPage('feedPage',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+      <span>หน้าหลัก</span>
+    </button>
+    <button class="nav-item" onclick="showPage('feedPage',this);switchFeed(document.querySelectorAll('.feed-tab')[1],'following')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      <span>ติดตาม</span>
+    </button>
+    <button class="nav-item compose-center" onclick="openCompose()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="24" height="24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+    <button class="nav-item" onclick="showPage('notifPage',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+      <span>แจ้งเตือน</span>
+    </button>
+    <button class="nav-item" onclick="goProfile(currentUser?.uid);showPage('profilePage',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>โปรไฟล์</span>
+    </button>
+  </nav>
+
+</div>
+
+<!-- ══════════════════════════════════════
+     COMPOSE MODAL
+══════════════════════════════════════ -->
+<div class="modal-overlay" id="composeOverlay" onclick="closeCompose()"></div>
+<div class="compose-modal" id="composeModal">
+  <div class="modal-handle"></div>
+  <div class="compose-header">
+    <div class="compose-av" id="composeAv"></div>
+    <div>
+      <div class="compose-name" id="composeName"></div>
+      <div style="font-size:.72rem;color:var(--muted)">โพสต์สาธารณะ</div>
+    </div>
+    <button class="modal-close" onclick="closeCompose()">✕</button>
+  </div>
+  <textarea id="composeText" class="compose-input" placeholder="คิดอะไรอยู่?" maxlength="500" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+  <div id="composeImgPreview" style="display:none">
+    <img id="composeImg" style="width:100%;border-radius:12px;max-height:200px;object-fit:cover"/>
+    <button onclick="removeImg()" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);border:none;color:white;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:1rem">✕</button>
+  </div>
+  <div class="compose-footer">
+    <label for="composeFile" class="icon-btn" title="เพิ่มรูป">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+    </label>
+    <input type="file" id="composeFile" accept="image/*,video/*" style="display:none" onchange="onComposeFile(event)"/>
+    <span class="char-left" id="charLeft">500</span>
+    <button class="post-btn" onclick="submitPost()"><span id="postBtnTxt">โพสต์</span></button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     COMMENT MODAL
+══════════════════════════════════════ -->
+<div class="modal-overlay" id="cmtOverlay" onclick="closeCmt()"></div>
+<div class="cmt-modal" id="cmtModal">
+  <div class="modal-handle"></div>
+  <div class="cmt-header">
+    <h3>คอมเมนต์</h3>
+    <button class="modal-close" onclick="closeCmt()">✕</button>
+  </div>
+  <div id="cmtList" class="cmt-list"></div>
+  <div class="cmt-composer">
+    <div class="cmt-av" id="cmtMyAv"></div>
+    <input type="text" id="cmtInput" class="cmt-input" placeholder="เขียนคอมเมนต์..." maxlength="300" onkeydown="if(event.key==='Enter')submitCmt()"/>
+    <button class="cmt-send" onclick="submitCmt()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script type="module" src="twin.js"></script>
+</body>
+</html>
