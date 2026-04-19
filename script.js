@@ -66,9 +66,9 @@ renderFollowers();
 //  ── เพิ่มเพลงได้ที่ TRACKS ──
 // ════════════════════════════════════════
 const TRACKS = [
-  // { title: 'ชื่อเพลง', artist: 'ศิลปิน', src: 'songs/song1.mp3' },
+  { title: 'แพ้ใจ', artist: 'เสก โลโซ', src: 'แพ้ใจ เสก โลโซ.mp3' },
+  { title: 'ชื่อเพลงที่สอง', artist: 'ศิลปินที่สอง', src: 'เพลงที่สอง.mp3' }
 ];
-
 let curTrack = 0, isPlaying = false;
 const audio = document.getElementById('audioPlayer');
 
