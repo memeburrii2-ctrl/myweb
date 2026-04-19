@@ -15,7 +15,7 @@
   <div class="overlay" id="overlay" onclick="closeMenu()"></div>
   <div class="sidebar" id="sidebar">
     <div class="sb-head">
-      <div class="sb-av"><img src="images/IMG_20260418_230406_822.webp" alt="จิ" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/></div>
+      <div class="sb-av">J</div>
       <div>
         <div class="sb-name">จิ</div>
         <div class="sb-handle">@ipxngsxk</div>
@@ -34,7 +34,30 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
         โซเชียล
       </a>
+      <a href="#" onclick="openMsg(); closeMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        ส่งข้อความ
+      </a>
+      <a href="#" onclick="openPhoto(); closeMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        ส่งรูป
+      </a>
+      <a href="#" onclick="goPage('page-about'); closeMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        เกี่ยวกับจิ
+      </a>
+      <a href="#" onclick="goPage('page-gallery'); closeMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        แกลเลอรี
+      </a>
     </nav>
+    <div class="sb-foot">
+      <div class="sb-follow-count">
+        <span class="sb-fc-num" id="sbFollowNum">0</span>
+        <span class="sb-fc-label">ผู้ติดตาม</span>
+      </div>
+      <button class="logout-btn">ออกจากระบบ</button>
+    </div>
   </div>
 
   <nav class="topnav">
@@ -51,50 +74,79 @@
 
   <div class="profile-section">
     <div class="avatar-wrap">
-      <div class="avatar-ring">
-        <div class="avatar"><img src="images/IMG_20260418_230406_822.webp" alt="จิ" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/></div>
-      </div>
+      <div class="avatar-ring"><div class="avatar">J</div></div>
       <div class="online-dot"></div>
     </div>
 
-    <div class="profile-name">จิ</div>
-    <div class="profile-handle">@ipxngsxk</div>
-    <div class="profile-bio">
-      อายุ <span class="age-display" id="ageCounter">--</span> ปี &nbsp;·&nbsp; เกิด 15 ก.ย. 2549
-    </div>
+    <div class="profile-right">
+      <div class="profile-name">จิ</div>
+      <div class="profile-handle">@ipxngsxk</div>
+      <div class="profile-bio">อายุ <span class="age-counter" id="ageCounter">--</span> ปี · เกิด 15 ก.ย. 2549</div>
 
-    <div class="profile-stats">
-      <div class="stat stat-follow" onclick="handleFollow()">
-        <span class="stat-num" id="followerCount">0</span>
-        <span class="stat-label">ผู้ติดตาม</span>
+      <div class="follower-row">
+        <div class="follower-count">
+          <span class="fc-num" id="followerNum">0</span>
+          <span class="fc-label">ผู้ติดตาม</span>
+        </div>
       </div>
-    </div>
 
-    <div class="action-btns">
-      <button class="btn-primary" id="followBtn" onclick="handleFollow()">ติดตาม</button>
-      <button class="btn-secondary" onclick="openSendPicker()">ส่งหาจิ</button>
+      <div class="action-btns">
+        <button class="btn-primary" id="followBtn" onclick="handleFollow()">ติดตาม</button>
+        <button class="btn-secondary" onclick="openMsg()">ส่งหาจิ</button>
+      </div>
     </div>
   </div>
 
+  <!-- Quick access cards -->
+  <div class="quick-cards">
+    <div class="qcard" onclick="goPage('page-music')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="26" height="26"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      <span>เพลง</span>
+    </div>
+    <div class="qcard" onclick="goPage('page-social')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="26" height="26"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+      <span>โซเชียล</span>
+    </div>
+    <div class="qcard" onclick="openMsg()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="26" height="26"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      <span>ส่งข้อความ</span>
+    </div>
+    <div class="qcard" onclick="openPhoto()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="26" height="26"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span>ส่งรูป</span>
+    </div>
+    <div class="qcard" onclick="goPage('page-about')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="26" height="26"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>เกี่ยวกับ</span>
+    </div>
+    <div class="qcard" onclick="goPage('page-gallery')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="26" height="26"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <span>แกลเลอรี</span>
+    </div>
+  </div>
 
   <div class="spacer"></div>
 
   <nav class="bottom-nav">
     <button class="nav-item active" onclick="setNav(this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
       <span>หน้าหลัก</span>
     </button>
     <button class="nav-item" onclick="setNav(this);goPage('page-music')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
       <span>เพลง</span>
     </button>
+    <button class="nav-item" onclick="openPhoto()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span>รูป</span>
+    </button>
     <button class="nav-item" onclick="setNav(this);goPage('page-social')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
       <span>โซเชียล</span>
     </button>
-    <button class="nav-item" onclick="openSendPicker()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
-      <span>ส่งหาจิ</span>
+    <button class="nav-item" onclick="setNav(this);openMsg()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      <span>ข้อความ</span>
     </button>
   </nav>
 </div>
@@ -103,42 +155,37 @@
 <div class="page" id="page-music">
   <nav class="topnav">
     <button class="back-btn" onclick="goBack()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="15 18 9 12 15 6"/></svg>
-      กลับ
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg> กลับ
     </button>
-    <span class="logo" style="font-size:1rem;letter-spacing:.08em">MUSIC</span>
+    <span class="logo" style="font-size:.95rem;letter-spacing:.1em">MUSIC</span>
     <span style="width:60px"></span>
   </nav>
-
   <div class="music-page">
-    <div class="disc-wrap">
+    <div class="music-header">
       <div class="music-disc" id="musicDisc">
-        <img src="images/IMG_20260418_230406_822.webp" alt="cover" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="music-info">
+        <div class="music-title" id="musicTitle">เลือกเพลง</div>
+        <div class="music-artist" id="musicArtist">— แตะเพื่อเล่น —</div>
       </div>
     </div>
-    <div class="music-meta">
-      <div class="music-title" id="musicTitle">— ไม่มีเพลง —</div>
-      <div class="music-artist" id="musicArtist">เพิ่มเพลงใน script.js</div>
-    </div>
-
     <div class="progress-wrap">
-      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
       <div class="time-row"><span id="timeCur">0:00</span><span id="timeTot">0:00</span></div>
     </div>
-
     <div class="music-controls">
       <button class="ctrl-btn" onclick="prevTrack()">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2"/></svg>
       </button>
       <button class="play-btn" id="playBtn" onclick="togglePlay()">
-        <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor" width="32" height="32"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        <svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor" width="32" height="32" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+        <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor" width="28" height="28" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
       </button>
       <button class="ctrl-btn" onclick="nextTrack()">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2"/></svg>
       </button>
     </div>
-
     <audio id="audioPlayer"></audio>
     <div class="playlist-label">รายการเพลง</div>
     <div class="playlist" id="playlist"></div>
@@ -150,72 +197,78 @@
 <div class="page" id="page-social">
   <nav class="topnav">
     <button class="back-btn" onclick="goBack()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="15 18 9 12 15 6"/></svg>
-      กลับ
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg> กลับ
     </button>
-    <span class="logo" style="font-size:1rem;letter-spacing:.08em">SOCIAL</span>
+    <span class="logo" style="font-size:.95rem;letter-spacing:.1em">SOCIAL</span>
     <span style="width:60px"></span>
   </nav>
-
   <div class="social-page">
     <div class="social-hero">
-      <div class="social-av">
-        <img src="images/IMG_20260418_230406_822.webp" alt="จิ" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>
-      </div>
+      <div class="social-av">J</div>
       <h2>จิ</h2>
       <p>ติดตามผ่านช่องทางที่ชอบได้เลยนะ</p>
     </div>
     <div class="social-cards">
-      <!-- Instagram -->
       <a href="https://www.instagram.com/ipxngsxk?igsh=N21yMDV1bm85YXJp" target="_blank" class="social-card ig">
-        <div class="sc-icon">
-          <svg viewBox="0 0 24 24" fill="white" width="24" height="24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        </div>
+        <div class="sc-icon"><svg viewBox="0 0 24 24" fill="white" width="22" height="22"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
         <div class="sc-info"><span class="sc-name">Instagram</span><span class="sc-handle">@ipxngsxk</span></div>
-        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2.5" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2.5" width="18" height="18"><polyline points="9 18 15 12 9 6"/></svg>
       </a>
-      <!-- TikTok -->
       <a href="https://www.tiktok.com/@fipxngsxk?_r=1&_t=ZS-95eCsY9k7ZV" target="_blank" class="social-card tt">
-        <div class="sc-icon">
-          <svg viewBox="0 0 24 24" fill="white" width="24" height="24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.77 1.52V6.75a4.85 4.85 0 01-1-.06z"/></svg>
-        </div>
+        <div class="sc-icon"><svg viewBox="0 0 24 24" fill="white" width="22" height="22"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.77 1.52V6.75a4.85 4.85 0 01-1-.06z"/></svg></div>
         <div class="sc-info"><span class="sc-name">TikTok</span><span class="sc-handle">@fipxngsxk</span></div>
-        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2.5" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2.5" width="18" height="18"><polyline points="9 18 15 12 9 6"/></svg>
       </a>
-      <!-- Discord Group -->
-      <a href="https://discord.gg/SCyDmzNG3" target="_blank" class="social-card dc">
-        <div class="sc-icon">
-          <svg viewBox="0 0 24 24" fill="white" width="24" height="24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.031.056a19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-        </div>
-        <div class="sc-info"><span class="sc-name">Discord</span><span class="sc-handle">เข้าร่วมกลุ่ม</span></div>
-        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2.5" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg>
-      </a>
+      <div class="social-card coming">
+        <div class="sc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+        <div class="sc-info"><span class="sc-name" style="color:#555">WeChat</span><span class="sc-handle" style="color:#444">เร็วๆ นี้</span></div>
+        <span class="sc-badge">Soon</span>
+      </div>
     </div>
   </div>
   <div class="spacer"></div>
 </div>
 
-<!-- ══════════ PICKER: ส่งหาจิ ══════════ -->
-<div class="modal-overlay" id="pickerOverlay" onclick="closeSendPicker()"></div>
-<div class="picker-sheet" id="pickerSheet">
-  <div class="modal-handle"></div>
-  <div class="picker-title">ส่งหาจิ</div>
-  <div class="picker-options">
-    <button class="picker-opt" onclick="closeSendPicker();openMsg()">
-      <div class="picker-icon msg-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-      </div>
-      <span class="picker-label">ส่งข้อความ</span>
-      <span class="picker-sub">ฝากข้อความถึงจิ</span>
+<!-- ══════════ PAGE: ABOUT ══════════ -->
+<div class="page" id="page-about">
+  <nav class="topnav">
+    <button class="back-btn" onclick="goBack()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg> กลับ
     </button>
-    <button class="picker-opt" onclick="closeSendPicker();openPhoto()">
-      <div class="picker-icon img-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-      </div>
-      <span class="picker-label">ส่งรูป</span>
-      <span class="picker-sub">ส่งรูปให้จิดู</span>
-    </button>
+    <span class="logo" style="font-size:.95rem;letter-spacing:.1em">ABOUT</span>
+    <span style="width:60px"></span>
+  </nav>
+  <div class="about-page">
+    <div class="about-card">
+      <div class="about-av">J</div>
+      <h2>จิ</h2>
+      <p class="about-sub">@ipxngsxk</p>
+      <div class="about-age">อายุ <span id="aboutAge">--</span> ปี</div>
+    </div>
+    <div class="about-info">
+      <div class="info-row"><span class="info-label">ชื่อ</span><span class="info-val">จิ</span></div>
+      <div class="info-row"><span class="info-label">วันเกิด</span><span class="info-val">15 กันยายน 2549</span></div>
+      <div class="info-row"><span class="info-label">อายุ</span><span class="info-val"><span id="aboutAgeInline">--</span> ปี</span></div>
+      <div class="info-row"><span class="info-label">Instagram</span><span class="info-val">@ipxngsxk</span></div>
+      <div class="info-row"><span class="info-label">TikTok</span><span class="info-val">@fipxngsxk</span></div>
+    </div>
   </div>
+  <div class="spacer"></div>
+</div>
+
+<!-- ══════════ PAGE: GALLERY ══════════ -->
+<div class="page" id="page-gallery">
+  <nav class="topnav">
+    <button class="back-btn" onclick="goBack()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg> กลับ
+    </button>
+    <span class="logo" style="font-size:.95rem;letter-spacing:.1em">GALLERY</span>
+    <span style="width:60px"></span>
+  </nav>
+  <div class="gallery-page">
+    <p class="gallery-empty">รูปภาพจะแสดงที่นี่ เร็วๆ นี้ค่ะ</p>
+  </div>
+  <div class="spacer"></div>
 </div>
 
 <!-- ══════════ MODAL: ข้อความ ══════════ -->
@@ -225,25 +278,16 @@
     <div class="modal-handle"></div>
     <div class="modal-header">
       <h3>ฝากข้อความถึงจิ</h3>
-      <button class="modal-close" onclick="closeMsg()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      <button class="modal-close" onclick="closeMsg()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <input type="text" id="senderName" placeholder="ชื่อของคุณ (ไม่ระบุก็ได้)" maxlength="50"/>
     <textarea id="msgText" placeholder="พิมพ์ข้อความที่นี่..." maxlength="500"></textarea>
     <div class="char-count"><span id="charCount">0</span>/500</div>
-    <button class="send-btn" id="sendBtn" onclick="sendMessage()">
-      <span id="sendBtnText">ส่งข้อความ</span>
-    </button>
+    <button class="send-btn" id="sendBtn" onclick="sendMessage()"><span id="sendBtnText">ส่งข้อความ</span></button>
   </div>
   <div id="successView" class="success-view hidden">
-    <div class="success-ring"><div class="success-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="40" height="40"><polyline points="20 6 9 17 4 12"/></svg>
-    </div></div>
-    <div class="success-sparks">
-      <span style="--d:0s">✦</span><span style="--d:.15s">✦</span>
-      <span style="--d:.3s">✦</span><span style="--d:.45s">✦</span>
-    </div>
+    <div class="success-ring"><div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="36" height="36"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+    <div class="success-sparks"><span style="--d:0s">✦</span><span style="--d:.15s">✦</span><span style="--d:.3s">✦</span><span style="--d:.45s">✦</span></div>
     <h3>ส่งแล้ว!</h3>
     <p>จิจะได้รับข้อความเร็วๆ นี้</p>
   </div>
@@ -256,33 +300,24 @@
     <div class="modal-handle"></div>
     <div class="modal-header">
       <h3>ส่งรูปให้จิ</h3>
-      <button class="modal-close" onclick="closePhoto()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      <button class="modal-close" onclick="closePhoto()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <input type="text" id="photoSender" placeholder="ชื่อของคุณ (ไม่ระบุก็ได้)" maxlength="50"/>
     <input type="text" id="photoCaption" placeholder="คำบรรยาย (ไม่ระบุก็ได้)" maxlength="100"/>
     <label class="file-label" for="photoFile" id="fileLabel">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
       <span id="fileLabelText">แตะเพื่อเลือกรูป</span>
     </label>
     <input type="file" id="photoFile" accept="image/*" style="display:none" onchange="onFileSelect(event)"/>
     <div id="photoPreviewWrap" style="display:none">
-      <img id="photoPreview" src="" alt="preview" style="width:100%;border-radius:12px;margin-bottom:10px;max-height:200px;object-fit:cover"/>
+      <img id="photoPreview" src="" alt="preview" style="width:100%;border-radius:12px;margin-bottom:10px;max-height:180px;object-fit:cover"/>
     </div>
-    <button class="send-btn" id="photoSendBtn" onclick="sendPhoto()">
-      <span id="photoSendTxt">ส่งรูป</span>
-    </button>
-    <div class="photo-note">รูปจะถูกส่งตรงไปยัง Discord ของจิ</div>
+    <button class="send-btn" id="photoSendBtn" onclick="sendPhoto()"><span id="photoSendTxt">ส่งรูป</span></button>
+    <div class="photo-note">รูปจะส่งตรงถึงจิผ่าน Discord</div>
   </div>
   <div id="photoSuccessView" class="success-view hidden">
-    <div class="success-ring"><div class="success-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="40" height="40"><polyline points="20 6 9 17 4 12"/></svg>
-    </div></div>
-    <div class="success-sparks">
-      <span style="--d:0s">✦</span><span style="--d:.15s">✦</span>
-      <span style="--d:.3s">✦</span><span style="--d:.45s">✦</span>
-    </div>
+    <div class="success-ring"><div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="36" height="36"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+    <div class="success-sparks"><span style="--d:0s">✦</span><span style="--d:.15s">✦</span><span style="--d:.3s">✦</span><span style="--d:.45s">✦</span></div>
     <h3>ส่งรูปแล้ว!</h3>
     <p>จิจะเห็นรูปของคุณเร็วๆ นี้</p>
   </div>
