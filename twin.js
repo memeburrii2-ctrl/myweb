@@ -1,6 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import {
-  getAuth, signInWithPopup, GoogleAuthProvider,
+  getAuth, signInWithPopup, signInWithRedirect, getRedirectResult, GoogleAuthProvider,
   createUserWithEmailAndPassword, signInWithEmailAndPassword,
   signInAnonymously, onAuthStateChanged, signOut, updateProfile
 } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
@@ -27,6 +27,11 @@ const WEBHOOK_MSG   = 'https://discord.com/api/webhooks/1495112170541940856/B-Qh
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
+
+// Check redirect result on page load
+getRedirectResult(auth).then(result => {
+  if (result?.user) console.log('Google login OK:', result.user.uid);
+}).catch(e => console.error('Redirect error:', e));
 
 // ── GLOBALS ──
 window.currentUser = null;
@@ -143,8 +148,8 @@ window.switchAuthTab = function(tab) {
 
 window.loginGoogle = async function() {
   try {
-    await signInWithPopup(auth, new GoogleAuthProvider());
-  } catch(e) { showToast('Login ไม่สำเร็จ'); }
+    await signInWithRedirect(auth, new GoogleAuthProvider());
+  } catch(e) { showToast('Login ไม่สำเร็จ: ' + e.message); }
 };
 
 window.loginEmail = async function() {
@@ -491,140 +496,4 @@ window.submitCmt = async function() {
   if (!currentUser||!currentCmtPostId) return;
   const input=document.getElementById('cmtInput');
   const text=input.value.trim(); if(!text) return;
-  input.value='';
-  await addDoc(collection(db,'posts',currentCmtPostId,'comments'),{
-    text, uid:currentUser.uid, name:myProfile.name,
-    isAnon:myProfile.isAnon||false, createdAt:serverTimestamp()
-  });
-  await updateDoc(doc(db,'posts',currentCmtPostId),{commentCount:increment(1)}).catch(()=>{});
-};
-
-// ════════════════════════════════════════
-// PROFILE
-// ════════════════════════════════════════
-window.goProfile = async function(uid) {
-  if (!uid) return;
-  viewingUid=uid;
-  showPage('profilePage');
-  document.getElementById('profileContent').innerHTML='<div class="loading-wrap"><div class="spin"></div></div>';
-
-  const pSnap=await getDoc(doc(db,'users',uid));
-  if (!pSnap.exists()) { document.getElementById('profileContent').innerHTML='<div class="empty-state"><p>ไม่พบผู้ใช้</p></div>'; return; }
-  const p={uid,...pSnap.data()};
-  const isMe=uid===currentUser?.uid;
-  const isAdmin=currentUser?.uid===ADMIN_UID;
-  const isFollowing=(myProfile?.following||[]).includes(uid);
-
-  // Age
-  let ageStr='';
-  if (p.birthdate) {
-    const b=new Date(p.birthdate);
-    const age=((Date.now()-b)/(365.25*24*3600*1000));
-    ageStr=`<span style="font-family:'Space Mono',monospace;color:var(--cyan);font-size:.82rem">อายุ ${age.toFixed(9)} ปี</span>`;
-  }
-
-  // Post count
-  const postsSnap=await getDocs(query(collection(db,'posts'),where('uid','==',uid)));
-  const postCount=postsSnap.size;
-  const followerCount=(p.followers||[]).length;
-  const followingCount=(p.following||[]).length;
-
-  let anonUidHtml='';
-  if (p.isAnon && isAdmin) anonUidHtml=`<div style="font-size:.68rem;color:var(--muted);font-family:'Space Mono',monospace;margin-top:4px">UID: ${uid}</div>`;
-
-  document.getElementById('profileContent').innerHTML=`
-    <div class="profile-cover"><div class="profile-cover-noise"></div></div>
-    <div class="profile-info">
-      <div class="profile-av-wrap">
-        <div class="profile-av-lg" style="background:${getAvatarColor(p.isAnon?'?':p.name)}">${getInitial(p.isAnon?'?':p.name)}</div>
-      </div>
-      <div class="profile-name-lg">${p.isAnon?'ไม่ระบุตัวตน':esc(p.name)} ${uid===ADMIN_UID?'<span class="admin-badge">ADMIN</span>':''}</div>
-      <div class="profile-handle-lg">@${uid.substr(0,10)}</div>
-      ${ageStr}
-      ${p.bio?`<div class="profile-bio-lg">${esc(p.bio)}</div>`:''}
-      ${anonUidHtml}
-      <div class="profile-stats">
-        <div class="pstat"><span class="pstat-num">${postCount}</span><span class="pstat-label">โพสต์</span></div>
-        <div class="pstat"><span class="pstat-num">${followerCount}</span><span class="pstat-label">ผู้ติดตาม</span></div>
-        <div class="pstat"><span class="pstat-num">${followingCount}</span><span class="pstat-label">ติดตาม</span></div>
-      </div>
-      <div class="profile-actions">
-        ${isMe
-          ? `<button class="btn-edit-sm" onclick="openEditProfile()">แก้ไขโปรไฟล์</button>`
-          : `<button class="btn-follow-sm ${isFollowing?'following':''}" onclick="followUser('${uid}',this)">${isFollowing?'กำลังติดตาม':'ติดตาม'}</button>`
-        }
-        ${isAdmin&&!isMe ? `<button class="btn-edit-sm" style="color:#ff6b6b;border-color:#ff6b6b" onclick="banUser('${uid}')">แบน</button>` : ''}
-      </div>
-    </div>
-    <div id="profilePosts"></div>`;
-
-  // Load posts
-  const userPosts=postsSnap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
-  document.getElementById('profilePosts').innerHTML=userPosts.length
-    ? userPosts.map(p=>renderPost(p,false)).join('')
-    : '<div class="empty-state"><p>ยังไม่มีโพสต์</p></div>';
-};
-
-window.followUser = async function(uid, btn) {
-  closeAllMenus();
-  if (!currentUser||uid===currentUser.uid) return;
-  const myRef=doc(db,'users',currentUser.uid);
-  const theirRef=doc(db,'users',uid);
-  const isF=(myProfile?.following||[]).includes(uid);
-  if (isF) {
-    await updateDoc(myRef,{following:arrayRemove(uid)});
-    await updateDoc(theirRef,{followers:arrayRemove(currentUser.uid)});
-    myProfile.following=(myProfile.following||[]).filter(x=>x!==uid);
-    if(btn){btn.textContent='ติดตาม';btn.classList.remove('following');}
-    showToast('เลิกติดตามแล้ว');
-  } else {
-    await updateDoc(myRef,{following:arrayUnion(uid)});
-    await updateDoc(theirRef,{followers:arrayUnion(currentUser.uid)});
-    myProfile.following=[...(myProfile.following||[]),uid];
-    if(btn){btn.textContent='กำลังติดตาม';btn.classList.add('following');}
-    showToast('ติดตามแล้ว ✓');
-  }
-};
-
-window.banUser = async function(uid) {
-  if (!confirm('แบนผู้ใช้นี้?')) return;
-  await updateDoc(doc(db,'users',uid),{banned:true});
-  showToast('แบนแล้ว');
-};
-
-window.openEditProfile = function() {
-  const name=prompt('ชื่อใหม่:',myProfile.name);
-  if (!name||!name.trim()) return;
-  const bio=prompt('ไบโอใหม่:',myProfile.bio||'');
-  updateDoc(doc(db,'users',currentUser.uid),{name:name.trim(),bio:bio||''}).then(()=>{
-    myProfile.name=name.trim(); myProfile.bio=bio||'';
-    updateMyAvUI(); showToast('อัปเดตแล้ว'); goProfile(currentUser.uid);
-  });
-};
-
-// ════════════════════════════════════════
-// PAGE NAV
-// ════════════════════════════════════════
-window.showPage = function(pageId, navBtn) {
-  document.querySelectorAll('.page').forEach(p=>{p.style.display='none';p.classList.remove('active');});
-  const page=document.getElementById(pageId);
-  page.style.display='block'; page.classList.add('active');
-  if (navBtn) { document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active')); navBtn.classList.add('active'); }
-  window.scrollTo(0,0);
-};
-
-window.goBack = function() { showPage('feedPage'); };
-
-// ════════════════════════════════════════
-// LOGOUT
-// ════════════════════════════════════════
-window.logout = async function() {
-  await signOut(auth);
-  myProfile=null; currentFeed='all';
-  if (feedUnsub) feedUnsub();
-};
-
-// getAdminUID helper — แสดง UID ของตัวเองใน console
-onAuthStateChanged(auth,user=>{
-  if(user) console.log('Your UID:',user.uid);
-});
+  input.valu
