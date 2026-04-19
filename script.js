@@ -11,7 +11,7 @@ const BIRTH = new Date('2006-09-15T00:00:00+07:00');
 
 function updateAge() {
   const diff = (Date.now() - BIRTH) / (365.25 * 24 * 3600 * 1000);
-  const str  = diff.toFixed(9);
+  const str  = diff.toFixed(1);
   const el1  = document.getElementById('ageCounter');
   const el2  = document.getElementById('aboutAge');
   const el3  = document.getElementById('aboutAgeInline');
