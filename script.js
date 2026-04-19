@@ -1,119 +1,99 @@
 // ════════════════════════════════════════
-//  WEBHOOKS (แยก รูป vs ข้อความ)
+//  WEBHOOKS — แยก 2 ห้อง
 // ════════════════════════════════════════
 const WEBHOOK_MSG   = 'https://discord.com/api/webhooks/1495112170541940856/B-QhAY2Y0ERaY7eTW9XhMKBKjOcbRCHp4Z6oHgbX3r2y6QoVxeRZPHy-lclX-ZQNdt9O';
 const WEBHOOK_PHOTO = 'https://discord.com/api/webhooks/1495252264233861130/OKUCCeg9f0z6buFGtyW3bVK73tSFSXTGTD1iiXHFqyfu-SM6-92i9wSnW2egMgJ6KyRr';
 
 // ════════════════════════════════════════
-//  AGE COUNTER - เกิด 15/09/2006
+//  AGE COUNTER — เกิด 15/09/2549
 // ════════════════════════════════════════
 const BIRTH = new Date('2006-09-15T00:00:00+07:00');
 
 function updateAge() {
-  const diffMs = Date.now() - BIRTH.getTime();
-  const years  = diffMs / (365.25 * 24 * 3600 * 1000);
-  const el = document.getElementById('ageCounter');
-  if (el) el.textContent = years.toFixed(1);
+  const diff = (Date.now() - BIRTH) / (365.25 * 24 * 3600 * 1000);
+  const str  = diff.toFixed(9);
+  const el1  = document.getElementById('ageCounter');
+  const el2  = document.getElementById('aboutAge');
+  const el3  = document.getElementById('aboutAgeInline');
+  if (el1) el1.textContent = str;
+  if (el2) el2.textContent = str;
+  if (el3) el3.textContent = str;
 }
 updateAge();
-setInterval(updateAge, 500);
+setInterval(updateAge, 100);
 
 // ════════════════════════════════════════
-//  FOLLOW BUTTON (เก็บสถานะ + นับจำนวน)
+//  FOLLOWER COUNT — บันทึก localStorage
 // ════════════════════════════════════════
-const BASE_FOLLOWERS = 0;
-let followCount  = parseInt(localStorage.getItem('followCount') ?? BASE_FOLLOWERS);
-let isFollowed   = localStorage.getItem('isFollowed') === 'true';
+let followers = parseInt(localStorage.getItem('followers') || '0', 10);
+let isFollowing = localStorage.getItem('isFollowing') === 'true';
 
-// ถ้ายังไม่เคยตั้งค่า ให้ใช้ BASE_FOLLOWERS
-if (localStorage.getItem('followCount') === null) followCount = BASE_FOLLOWERS;
-
-function formatCount(n) {
-  if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
-  return String(n);
-}
-
-function renderFollowState() {
+function renderFollowers() {
+  const n = followers;
+  const fmt = n >= 1000 ? (n / 1000).toFixed(1) + 'K' : n.toString();
+  document.querySelectorAll('#followerNum, #sbFollowNum').forEach(el => {
+    if (el) el.textContent = fmt;
+  });
   const btn = document.getElementById('followBtn');
-  const cnt = document.getElementById('followerCount');
-  if (!btn || !cnt) return;
-  cnt.textContent = formatCount(followCount);
-  if (isFollowed) {
-    btn.textContent = 'ติดตามแล้ว ✓';
-    btn.classList.add('followed');
-  } else {
-    btn.textContent = 'ติดตาม';
-    btn.classList.remove('followed');
+  if (btn) {
+    if (isFollowing) {
+      btn.textContent = 'ติดตามแล้ว ✓';
+      btn.classList.add('following');
+    } else {
+      btn.textContent = 'ติดตาม';
+      btn.classList.remove('following');
+    }
   }
 }
 
 function handleFollow() {
-  if (!isFollowed) {
-    isFollowed = true;
-    followCount += 1;
+  if (isFollowing) {
+    isFollowing = false;
+    followers = Math.max(0, followers - 1);
   } else {
-    isFollowed = false;
-    followCount -= 1;
+    isFollowing = true;
+    followers += 1;
   }
-  localStorage.setItem('isFollowed', isFollowed);
-  localStorage.setItem('followCount', followCount);
-  renderFollowState();
-
-  // ripple animation on stat
-  const cnt = document.getElementById('followerCount');
-  cnt?.animate([{transform:'scale(1.4)',color:'#4ecdc4'},{transform:'scale(1)',color:''}], {duration:400,easing:'ease-out'});
+  localStorage.setItem('isFollowing', isFollowing);
+  localStorage.setItem('followers', followers);
+  renderFollowers();
 }
 
-renderFollowState();
-
-// ════════════════════════════════════════
-//  SEND PICKER
-// ════════════════════════════════════════
-function openSendPicker() {
-  document.getElementById('pickerSheet').classList.add('open');
-  document.getElementById('pickerOverlay').classList.add('open');
-}
-function closeSendPicker() {
-  document.getElementById('pickerSheet').classList.remove('open');
-  document.getElementById('pickerOverlay').classList.remove('open');
-}
+renderFollowers();
 
 // ════════════════════════════════════════
 //  MUSIC PLAYER
+//  ── เพิ่มเพลงได้ที่ TRACKS ──
 // ════════════════════════════════════════
 const TRACKS = [
-  { title: 'แพ้ใจ', artist: 'เสก โลโซ', src: 'แพ้ใจ เสก โลโซ.mp3' },
+  // { title: 'ชื่อเพลง', artist: 'ศิลปิน', src: 'songs/song1.mp3' },
 ];
 
-let curTrack = 0;
-let isPlaying = false;
+let curTrack = 0, isPlaying = false;
 const audio = document.getElementById('audioPlayer');
 
 function renderPlaylist() {
   const pl = document.getElementById('playlist');
   if (!pl) return;
-  if (TRACKS.length === 0) {
-    pl.innerHTML = `<div style="text-align:center;color:var(--muted);padding:24px;font-size:.85rem">
-      ยังไม่มีเพลง — เพิ่มเพลงได้ที่ script.js → TRACKS
-    </div>`;
+  if (!TRACKS.length) {
+    pl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:20px;font-size:.82rem">เพิ่มเพลงได้ที่ script.js → TRACKS</div>';
     return;
   }
   pl.innerHTML = TRACKS.map((t, i) => `
-    <div class="track-item ${i===curTrack?'active':''}" onclick="loadTrack(${i},true)">
-      <span class="track-num">${i===curTrack && isPlaying ? '▶' : i+1}</span>
+    <div class="track-item ${i === curTrack ? 'active' : ''}" onclick="loadTrack(${i}, true)">
+      <span class="track-num">${i === curTrack && isPlaying ? '▶' : i + 1}</span>
       <div class="track-info">
         <div class="track-name">${t.title}</div>
         <div class="track-art">${t.artist}</div>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
 function loadTrack(i, autoplay = false) {
-  if (TRACKS.length === 0) return;
+  if (!TRACKS.length) return;
   curTrack = i;
   const t = TRACKS[i];
-  document.getElementById('musicTitle').textContent = t.title;
+  document.getElementById('musicTitle').textContent  = t.title;
   document.getElementById('musicArtist').textContent = t.artist;
   audio.src = t.src;
   if (autoplay) { audio.play(); isPlaying = true; updatePlayBtn(); }
@@ -121,10 +101,10 @@ function loadTrack(i, autoplay = false) {
 }
 
 function togglePlay() {
-  if (TRACKS.length === 0) return;
+  if (!TRACKS.length) return;
   if (!audio.src || audio.src === window.location.href) { loadTrack(0, true); return; }
-  if (isPlaying) { audio.pause(); isPlaying = false; }
-  else { audio.play(); isPlaying = true; }
+  isPlaying ? audio.pause() : audio.play();
+  isPlaying = !isPlaying;
   updatePlayBtn();
 }
 
@@ -134,8 +114,8 @@ function updatePlayBtn() {
   document.getElementById('musicDisc')?.classList.toggle('playing', isPlaying);
 }
 
-function nextTrack() { if (TRACKS.length===0) return; loadTrack((curTrack+1)%TRACKS.length, isPlaying); }
-function prevTrack() { if (TRACKS.length===0) return; loadTrack((curTrack-1+TRACKS.length)%TRACKS.length, isPlaying); }
+function nextTrack() { if (TRACKS.length) loadTrack((curTrack + 1) % TRACKS.length, isPlaying); }
+function prevTrack() { if (TRACKS.length) loadTrack((curTrack - 1 + TRACKS.length) % TRACKS.length, isPlaying); }
 
 audio?.addEventListener('timeupdate', () => {
   if (!audio.duration) return;
@@ -146,44 +126,43 @@ audio?.addEventListener('timeupdate', () => {
 });
 audio?.addEventListener('ended', nextTrack);
 
-function fmt(s) {
-  const m = Math.floor(s/60), sec = Math.floor(s%60);
-  return `${m}:${sec.toString().padStart(2,'0')}`;
-}
-
-document.getElementById('progressFill')?.parentElement?.addEventListener('click', function(e) {
+document.getElementById('progressBar')?.addEventListener('click', function (e) {
   if (!audio.duration) return;
-  const rect = this.getBoundingClientRect();
-  audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+  const r = this.getBoundingClientRect();
+  audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
 });
 
+function fmt(s) {
+  const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+  return `${m}:${sec.toString().padStart(2, '0')}`;
+}
 renderPlaylist();
 
 // ════════════════════════════════════════
 //  PAGES
 // ════════════════════════════════════════
-let pageHistory = ['page-home'];
+let pageHist = ['page-home'];
 
 function goPage(id) {
   document.querySelector('.page.active')?.classList.remove('active');
   document.getElementById(id)?.classList.add('active');
-  if (pageHistory[pageHistory.length-1] !== id) pageHistory.push(id);
-  window.scrollTo(0,0);
+  if (pageHist[pageHist.length - 1] !== id) pageHist.push(id);
+  window.scrollTo(0, 0);
   if (id === 'page-music') renderPlaylist();
 }
 function goBack() {
-  if (pageHistory.length > 1) pageHistory.pop();
-  goPage(pageHistory[pageHistory.length-1]);
+  if (pageHist.length > 1) pageHist.pop();
+  goPage(pageHist[pageHist.length - 1]);
 }
 
 // ════════════════════════════════════════
 //  MENU
 // ════════════════════════════════════════
 function toggleMenu() {
-  ['sidebar','overlay','menuBtn'].forEach(id => document.getElementById(id)?.classList.toggle('open'));
+  ['sidebar', 'overlay', 'menuBtn'].forEach(id => document.getElementById(id)?.classList.toggle('open'));
 }
 function closeMenu() {
-  ['sidebar','overlay','menuBtn'].forEach(id => document.getElementById(id)?.classList.remove('open'));
+  ['sidebar', 'overlay', 'menuBtn'].forEach(id => document.getElementById(id)?.classList.remove('open'));
 }
 
 // ════════════════════════════════════════
@@ -208,7 +187,8 @@ function closeMsg() {
     document.getElementById('formView').style.display = '';
   }, 400);
 }
-document.getElementById('msgText')?.addEventListener('input', function() {
+
+document.getElementById('msgText')?.addEventListener('input', function () {
   document.getElementById('charCount').textContent = this.value.length;
 });
 
@@ -218,9 +198,8 @@ async function sendMessage() {
   const btn  = document.getElementById('sendBtn');
   const txt  = document.getElementById('sendBtnText');
   if (!msg) {
-    const ta = document.getElementById('msgText');
-    ta.style.borderColor = '#7c5cbf';
-    setTimeout(() => ta.style.borderColor = '', 2000);
+    document.getElementById('msgText').style.borderColor = 'var(--accent)';
+    setTimeout(() => document.getElementById('msgText').style.borderColor = '', 2000);
     return;
   }
   btn.disabled = true;
@@ -228,10 +207,12 @@ async function sendMessage() {
   const now = new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' });
   try {
     const res = await fetch(WEBHOOK_MSG, {
-      method: 'POST', headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ embeds: [{ title: '📩 ข้อความใหม่!', color: 0x7c5cbf,
-        fields: [{name:'จาก',value:name,inline:true},{name:'เวลา',value:now,inline:true},{name:'ข้อความ',value:msg}],
-        footer:{text:'ipxngsxk website'} }] })
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        embeds: [{ title: '📩 ข้อความใหม่!', color: 0x7c5cbf,
+          fields: [{ name: 'จาก', value: name, inline: true }, { name: 'เวลา', value: now, inline: true }, { name: 'ข้อความ', value: msg }],
+          footer: { text: 'ipxngsxk.github.io/myweb' } }]
+      })
     });
     if (res.ok) {
       document.getElementById('formView').style.display = 'none';
@@ -239,7 +220,7 @@ async function sendMessage() {
       setTimeout(closeMsg, 3000);
     } else throw new Error();
   } catch {
-    txt.textContent = 'ส่งไม่สำเร็จ ลองใหม่';
+    txt.textContent = 'ส่งไม่สำเร็จ';
     btn.disabled = false;
     setTimeout(() => txt.textContent = 'ส่งข้อความ', 2500);
   }
@@ -275,12 +256,11 @@ function closePhoto() {
 }
 
 function onFileSelect(e) {
-  const file = e.target.files[0];
-  if (!file) return;
+  const file = e.target.files[0]; if (!file) return;
   selectedFile = file;
   document.getElementById('fileLabelText').textContent = file.name;
   const reader = new FileReader();
-  reader.onload = (ev) => {
+  reader.onload = ev => {
     document.getElementById('photoPreview').src = ev.target.result;
     document.getElementById('photoPreviewWrap').style.display = 'block';
   };
@@ -292,52 +272,46 @@ async function sendPhoto() {
   const caption = document.getElementById('photoCaption').value.trim() || 'ไม่มีคำบรรยาย';
   const btn     = document.getElementById('photoSendBtn');
   const txt     = document.getElementById('photoSendTxt');
-
   if (!selectedFile) {
     document.getElementById('fileLabel').style.borderColor = 'var(--accent)';
     setTimeout(() => document.getElementById('fileLabel').style.borderColor = '', 2000);
     return;
   }
-
   btn.disabled = true;
   txt.innerHTML = '<span class="spinner"></span>กำลังส่ง...';
-
   const now = new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' });
-
   try {
-    const formData = new FormData();
-    formData.append('file', selectedFile, selectedFile.name);
-    formData.append('payload_json', JSON.stringify({
-      embeds: [{
-        title: '🖼️ มีรูปใหม่เข้ามา!',
-        color: 0x4ecdc4,
-        fields: [
-          { name: 'จาก', value: name, inline: true },
-          { name: 'เวลา', value: now, inline: true },
-          { name: 'คำบรรยาย', value: caption }
-        ],
+    const fd = new FormData();
+    fd.append('file', selectedFile, selectedFile.name);
+    fd.append('payload_json', JSON.stringify({
+      embeds: [{ title: '🖼️ รูปใหม่เข้ามา!', color: 0x4ecdc4,
+        fields: [{ name: 'จาก', value: name, inline: true }, { name: 'เวลา', value: now, inline: true }, { name: 'คำบรรยาย', value: caption }],
         image: { url: `attachment://${selectedFile.name}` },
-        footer: { text: 'ipxngsxk website' }
-      }]
+        footer: { text: 'ipxngsxk.github.io/myweb' } }]
     }));
-
-    const res = await fetch(WEBHOOK_PHOTO, { method: 'POST', body: formData });
+    const res = await fetch(WEBHOOK_PHOTO, { method: 'POST', body: fd });
     if (res.ok) {
       document.getElementById('photoFormView').style.display = 'none';
       document.getElementById('photoSuccessView').classList.remove('hidden');
       setTimeout(closePhoto, 3000);
     } else throw new Error();
   } catch {
-    txt.textContent = 'ส่งไม่สำเร็จ ลองใหม่';
+    txt.textContent = 'ส่งไม่สำเร็จ';
     btn.disabled = false;
     setTimeout(() => txt.textContent = 'ส่งรูป', 2500);
   }
 }
 
 // ════════════════════════════════════════
-//  NAV
+//  TABS / NAV
 // ════════════════════════════════════════
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+  });
+});
 function setNav(el) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   el.classList.add('active');
-             }
+}
