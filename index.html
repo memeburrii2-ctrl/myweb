@@ -1,36 +1,300 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lovepei Website</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            background-color: #0f172a;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            text-align: center;
-            padding: 30px;
-            background-color: #1e293b;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            max-width: 80%;
-        }
-        h1 { color: #f43f5e; margin-bottom: 10px; }
-        p { color: #cbd5e1; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ถึงเพ่ย 🩷</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&family=Sarabun:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#ffffff;
+    --cream:#fff6f8;
+    --blush:#ffe1e9;
+    --rose:#ff90a8;
+    --deep-rose:#e85d75;
+    --ink:#5b4148;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Sarabun', sans-serif;
+    background:linear-gradient(180deg, var(--white) 0%, var(--cream) 40%, var(--blush) 100%);
+    color:var(--ink);
+    overflow-x:hidden;
+    min-height:100vh;
+  }
+
+  /* floating hearts background */
+  .hearts-bg{
+    position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden;
+  }
+  .heart{
+    position:absolute;
+    bottom:-40px;
+    font-size:1.4rem;
+    color:var(--rose);
+    opacity:0.55;
+    animation:float linear infinite;
+  }
+  @keyframes float{
+    0%{transform:translateY(0) translateX(0) rotate(0deg); opacity:0;}
+    10%{opacity:0.6;}
+    100%{transform:translateY(-110vh) translateX(var(--drift,20px)) rotate(360deg); opacity:0;}
+  }
+
+  section{position:relative; z-index:1;}
+
+  /* HERO / ENVELOPE */
+  .hero{
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding:2rem;
+  }
+  .eyebrow{
+    font-size:0.8rem;
+    letter-spacing:0.3em;
+    color:var(--deep-rose);
+    margin-bottom:0.6rem;
+    text-transform:uppercase;
+  }
+  .hero h1{
+    font-family:'Mali', cursive;
+    font-weight:700;
+    font-size:clamp(2rem, 6vw, 3.2rem);
+    color:var(--deep-rose);
+    margin-bottom:2.2rem;
+  }
+
+  .envelope-wrap{
+    perspective:1000px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .envelope{
+    position:relative;
+    width:min(78vw, 300px);
+    height:min(52vw, 200px);
+    background:var(--white);
+    border-radius:10px;
+    box-shadow:0 20px 40px -15px rgba(232,93,117,0.35);
+    transition:transform 0.4s ease;
+  }
+  .envelope:hover{transform:translateY(-6px);}
+  .flap{
+    position:absolute; top:0; left:0; width:100%; height:52%;
+    background:var(--rose);
+    clip-path:polygon(0 0, 100% 0, 50% 100%);
+    border-radius:10px 10px 0 0;
+    transform-origin:top;
+    transition:transform 0.7s cubic-bezier(.6,-0.28,.74,.05);
+    z-index:3;
+  }
+  .envelope.open .flap{transform:rotateX(180deg);}
+  .body-tri{
+    position:absolute; left:0; right:0; bottom:0; height:70%;
+    background:var(--blush);
+    clip-path:polygon(0 100%, 100% 100%, 100% 20%, 50% 60%, 0 20%);
+    border-radius:0 0 10px 10px;
+    z-index:2;
+  }
+  .seal{
+    position:absolute; top:44%; left:50%; transform:translate(-50%,-50%);
+    width:38px; height:38px; border-radius:50%;
+    background:var(--deep-rose);
+    display:flex; align-items:center; justify-content:center;
+    color:white; font-size:1.1rem; z-index:4;
+    box-shadow:0 4px 10px rgba(232,93,117,0.5);
+    transition:opacity 0.4s ease, transform 0.4s ease;
+  }
+  .envelope.open .seal{opacity:0; transform:translate(-50%,-50%) scale(0.3);}
+  .hint{
+    margin-top:1.2rem; font-size:0.85rem; color:var(--ink); opacity:0.55;
+  }
+  .envelope.open ~ .hint{opacity:0;}
+
+  .scroll-cue{
+    margin-top:2.5rem;
+    font-size:0.75rem;
+    color:var(--deep-rose);
+    opacity:0;
+    transition:opacity 0.6s ease 0.5s;
+  }
+  .revealed .scroll-cue{opacity:0.8;}
+
+  /* LETTER SECTION */
+  .letter-section{
+    display:none;
+    min-height:100vh;
+    padding:5rem 1.5rem 6rem;
+    display:flex; justify-content:center;
+  }
+  .letter-section.show{display:flex;}
+  .letter{
+    max-width:560px;
+    width:100%;
+    background:var(--white);
+    border-radius:20px;
+    padding:clamp(1.8rem, 5vw, 3.2rem);
+    box-shadow:0 30px 60px -25px rgba(232,93,117,0.3);
+    line-height:1.9;
+    font-size:1.05rem;
+  }
+  .letter .to{
+    font-family:'Mali', cursive;
+    font-weight:700;
+    font-size:1.6rem;
+    color:var(--deep-rose);
+    margin-bottom:1.3rem;
+  }
+  .letter p{margin-bottom:1.1rem;}
+  .letter .sign{
+    font-family:'Mali', cursive;
+    font-weight:600;
+    font-size:1.2rem;
+    color:var(--deep-rose);
+    margin-top:1.8rem;
+    text-align:right;
+  }
+
+  /* REASONS */
+  .reasons{
+    padding:2rem 1.5rem 6rem;
+    max-width:640px;
+    margin:0 auto;
+  }
+  .reasons h2{
+    font-family:'Mali', cursive;
+    text-align:center;
+    color:var(--deep-rose);
+    font-size:clamp(1.5rem,4vw,2rem);
+    margin-bottom:2rem;
+  }
+  .reason-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(160px,1fr));
+    gap:1rem;
+  }
+  .reason-card{
+    background:var(--white);
+    border:1px solid var(--blush);
+    border-radius:16px;
+    padding:1.3rem 1.1rem;
+    font-size:0.92rem;
+    color:var(--ink);
+    box-shadow:0 10px 25px -18px rgba(232,93,117,0.4);
+  }
+  .reason-card span{
+    display:block; font-size:1.3rem; margin-bottom:0.4rem;
+  }
+
+  /* CLOSING */
+  .closing{
+    text-align:center;
+    padding:2rem 1.5rem 7rem;
+  }
+  .closing .big{
+    font-family:'Mali', cursive;
+    font-weight:700;
+    font-size:clamp(1.8rem,5vw,2.6rem);
+    color:var(--deep-rose);
+    margin-bottom:0.8rem;
+  }
+  .closing p{opacity:0.75; max-width:420px; margin:0 auto;}
+  .pulse{
+    display:inline-block;
+    margin-top:1.6rem;
+    font-size:2rem;
+    animation:pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.18);}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .heart, .pulse, .flap, .envelope, .seal{animation:none !important; transition:none !important;}
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>รักเพ่ย🎀</h1>
-        <p>🤍🩷🤍🩷🤍🩷</p>
+
+<div class="hearts-bg" id="heartsBg"></div>
+
+<section class="hero" id="hero">
+  <div class="eyebrow">a little something for</div>
+  <h1>เพ่ย 🩷</h1>
+  <div class="envelope-wrap" id="envelopeWrap">
+    <div class="envelope" id="envelope">
+      <div class="flap"></div>
+      <div class="body-tri"></div>
+      <div class="seal">🩷</div>
     </div>
+  </div>
+  <div class="hint">แตะดู</div>
+  <div class="scroll-cue">↓/div>
+</section>
+
+<section class="letter-section" id="letterSection">
+  <div class="letter">
+    <div class="to">ถึงเพ่ยที่รัก,</div>
+    <p>รักเพ่ย รักเพ่ย รักเพ่ย🤍</p>
+    <p>รักรักรักรักรักรักรักรัก</p>
+    <p>มาก มาก มาก มาก มาก มาก</p>
+    <p>รักเพ่ยนะ 🩷</p>
+    <div class="sign"> — รัก</div>
+  </div>
+</section>
+
+<section class="reasons">
+  <h2>รัก นอย โกรธ เศร้า</h2>
+  <div class="reason-grid">
+    <div class="reason-card"><span>🥹</span>อยากให้สนใจกันทุกเวลา ทักหาตลอด</div>
+    <div class="reason-card"><span>📷</span>แรกๆก็ถ่าตอนตื่นนอน แปรงฟัน กินข้าว ตอนนี้ไม่มีสักรูป</div>
+    <div class="reason-card"><span>🌙</span>คิดถึงทุกครั้งก่อนนอน ชอบฟังนิทานอยากให้บ่นให้ฟังพูดให้ฟังตลอด</div>
+    <div class="reason-card"><span>🩷</span>เป็นตัวเองในแบบที่น่ารักที่สุด</div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="big">รักเพ่ยนะ</div>
+  <p>รักนะเว้ยยยยย สนใจกันบ้างง 🩷</p>
+  <div class="pulse">🩷</div>
+</section>
+
+<script>
+  // floating hearts
+  const bg = document.getElementById('heartsBg');
+  const symbols = ['🩷','🤍','💗','✨'];
+  for(let i=0;i<22;i++){
+    const h = document.createElement('div');
+    h.className='heart';
+    h.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+    h.style.left = Math.random()*100+'vw';
+    h.style.setProperty('--drift', (Math.random()*60-30)+'px');
+    h.style.fontSize = (0.9+Math.random()*1.2)+'rem';
+    const dur = 8+Math.random()*10;
+    h.style.animationDuration = dur+'s';
+    h.style.animationDelay = (Math.random()*dur)+'s';
+    bg.appendChild(h);
+  }
+
+  const envelope = document.getElementById('envelope');
+  const wrap = document.getElementById('envelopeWrap');
+  const hero = document.getElementById('hero');
+  const letterSection = document.getElementById('letterSection');
+
+  wrap.addEventListener('click', () => {
+    if(envelope.classList.contains('open')) return;
+    envelope.classList.add('open');
+    hero.classList.add('revealed');
+    setTimeout(()=>{
+      letterSection.classList.add('show');
+      letterSection.scrollIntoView({behavior:'smooth'});
+    }, 750);
+  });
+</script>
+
 </body>
 </html>
