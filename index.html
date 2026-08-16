@@ -3,270 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>รักเพ่ยนะจุ้บๆ🩷</title>
+<title>ถ้าคนมันไม่รักกันแล้ว</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  html, body { height:100%; overflow:hidden; background:#050103; font-family:'Poppins', sans-serif; }
-
-  #heart {
-    position:fixed;
-    inset:0;
-    display:block;
-    background:#050103;
+  html, body {
+    height:100%;
+    background:#0a0a0a;
+    font-family:'Noto Sans Thai', sans-serif;
   }
 
-  /* ข้อความรักตรงกลางหัวใจ ลอยทับ canvas อยู่ */
-  .heart-text {
-    position:fixed;
-    top:42%; left:50%;
-    transform:translate(-50%,-50%);
+  .wrap {
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:2rem;
+  }
+
+  .msg {
+    max-width:640px;
     text-align:center;
-    color:#fff0f2;
-    line-height:1.2;
-    pointer-events:none;
-    z-index:5;
-    text-shadow: 0 0 10px rgba(255,60,110,.95), 0 0 26px rgba(255,20,80,.7), 0 0 48px rgba(255,20,80,.5);
+    color:#eaeaea;
+    font-weight:300;
+    font-size:clamp(1.3rem, 4.2vw, 2.1rem);
+    line-height:1.75;
+    letter-spacing:.01em;
+    opacity:0;
+    animation:fadeIn 2.4s ease forwards;
   }
-  .heart-text .line1 { font-size: clamp(.9rem, 4vw, 1.5rem); font-weight:600; letter-spacing:.05em; }
-  .heart-text .line2 { font-size: clamp(1.2rem, 5.2vw, 2rem); font-weight:800; letter-spacing:.06em; }
-
-  .orbit-txt {
-    position:fixed; top:42%; left:50%;
-    color:#ff9fb8;
-    font-weight:600;
-    font-size: clamp(.7rem, 2vw, .95rem);
-    text-shadow: 0 0 8px rgba(255,60,110,.9), 0 0 3px rgba(0,0,0,.6);
-    white-space:nowrap;
-    pointer-events:none;
-    z-index:4;
+  @keyframes fadeIn {
+    from { opacity:0; transform:translateY(8px); }
+    to   { opacity:1; transform:translateY(0); }
   }
 
-  /* โค้ดจางๆ ลอยเป็นพื้นผิวรอบหัวใจ เอาบรรยากาศแบบในรูปตัวอย่าง */
-  .code-layer { position:fixed; inset:0; z-index:3; pointer-events:none; overflow:hidden; }
-  .code-snip {
-    position:absolute;
-    font-family:'JetBrains Mono', monospace;
-    font-size:.7rem;
-    line-height:1.5;
-    color:rgba(255,70,100,.28);
-    white-space:pre;
+  /* เส้นบางๆ คั่นบน-ล่างข้อความ ให้ดูนิ่งสงบ ไม่ใส่อะไรฟุ่มเฟือย */
+  .line {
+    width:40px; height:1px;
+    background:#555;
+    margin:0 auto 2rem;
+    opacity:0;
+    animation:fadeIn 2.4s ease forwards .3s;
   }
-  .code-snip.dim { color:rgba(200,200,210,.14); }
+  .line.bottom { margin:2rem auto 0; }
+
+  /* เกรนจางๆ ให้ภาพดูมีมิติ ไม่ใช่พื้นดำทึบเรียบไป */
+  .grain {
+    position:fixed; inset:0;
+    pointer-events:none;
+    opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
 </style>
 </head>
 <body>
 
-<canvas id="heart"></canvas>
+<div class="grain"></div>
 
-<div class="code-layer" id="codeLayer"></div>
-
-<div class="heart-text">
-  <div class="line1">รัก</div>
-  <div class="line2">เพ่ย</div>
+<div class="wrap">
+  <div>
+    <div class="line"></div>
+    <div class="msg">ถ้าคนมันไม่รักกันแล้ว<br>ต่อให้อีกฝ่ายพยายามแค่ไหน<br>เขาก็คงคิดว่าไร้สาระ</div>
+    <div class="line bottom"></div>
+  </div>
 </div>
-
-<div id="orbit"></div>
-
-<script>
-var canvas = document.getElementById('heart');
-var ctx = canvas.getContext('2d');
-var rand = Math.random;
-
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener('resize', resize);
-
-// เอาบรรทัดโค้ดของเราเองมาลอยจางๆ เป็นพื้นผิว ให้บรรยากาศแบบ "หัวใจที่เขียนด้วยโค้ด"
-var codeChunks = [
-  "var heartPosition = function(rad) {\n  return [\n    Math.pow(Math.sin(rad),3),\n    -(15*Math.cos(rad))\n  ];\n};",
-  "for (rad = 0; rad < PI*2; rad += step) {\n  ringPoints.push(place(...));\n}",
-  "particles.push({\n  speed: rand()*3+3,\n  hue: 350 + rand()*15\n});",
-  "ctx.globalCompositeOperation = 'lighter';\nctx.stroke();",
-  "if (dist < 14) {\n  pt.target = (pt.target + 1) % pointCount;\n}", // แก้ไขโค้ดใน codeChunks ด้วย
-  "requestAnimationFrame(loop);",
-  "// รักเพ่ย\nvar love = true;"
-];
-var codeLayer = document.getElementById('codeLayer');
-var codeSpots = [
-  { left: '4%',  top: '30%', dim:false },
-  { left: '6%',  top: '52%', dim:false },
-  { left: '2%',  top: '68%', dim:true  },
-  { left: '70%', top: '22%', dim:true  },
-  { left: '78%', top: '58%', dim:false },
-  { left: '68%', top: '75%', dim:true  },
-  { left: '38%', top: '8%',  dim:true  }
-];
-codeSpots.forEach(function (spot, i) {
-  var div = document.createElement('div');
-  div.className = 'code-snip' + (spot.dim ? ' dim' : '');
-  div.style.left = spot.left;
-  div.style.top = spot.top;
-  div.textContent = codeChunks[i % codeChunks.length];
-  codeLayer.appendChild(div);
-});
-
-// สูตรเส้นโค้งหัวใจ (parametric heart curve) มาตรฐานที่ใช้กันทั่วไป
-function heartPosition(rad) {
-  return [
-    Math.pow(Math.sin(rad), 3),
-    -(15 * Math.cos(rad) - 5 * Math.cos(2 * rad) - 2 * Math.cos(3 * rad) - Math.cos(4 * rad))
-  ];
-}
-
-// ปรับสเกล + ย้ายตำแหน่งจุดให้ไปอยู่กลางจอ
-function place(pos, scale) {
-  var cy = window.innerHeight * 0.42;
-  return [
-    window.innerWidth / 2 + pos[0] * scale,
-    cy + pos[1] * scale
-  ];
-}
-
-// *** แก้ไข: สร้างจุดโครงร่างหัวใจเพียงชั้นเดียว (ชั้นนอก) เพื่อให้วิ่งตามโครงร่าง
-var ringPoints = [];
-var scale = 13; // ใช้ชั้นนอกสุดเป็นตัวกำหนด
-var step = 0.03; // เพิ่มจำนวนจุดเพื่อให้เส้นดูต่อเนื่องขึ้น
-for (var rad = 0; rad < Math.PI * 2; rad += step) {
-  ringPoints.push(place(heartPosition(rad), scale * 15));
-}
-var pointCount = ringPoints.length;
-
-// จุดขอบหัวใจแบบนิ่งๆ ไว้ทำเป็นดวงไฟระยิบระยับรอบเส้นขอบ
-var borderDots = [];
-for (var rad2 = 0; rad2 < Math.PI * 2; rad2 += 0.1) {
-  var p = place(heartPosition(rad2), 15 * 15.6);
-  borderDots.push({ x: p[0], y: p[1], phase: rand() * Math.PI * 2 });
-}
-
-// *** แก้ไข: ปรับจำนวนและคุณสมบัติของอนุภาคเพื่อให้วิ่งตามเส้นได้ดีขึ้น
-var traceLen = window.innerWidth < 500 ? 15 : 25; // ลดความยาวหางเพื่อให้เห็นโครงร่างชัดขึ้น
-var particleCount = window.innerWidth < 500 ? 150 : 300;
-var particles = [];
-for (var i = 0; i < particleCount; i++) {
-  // เริ่มที่จุดสุ่ม แต่เป้าหมายคือจุดถัดไปตามลำดับ
-  var startIndex = ~~(rand() * pointCount);
-  var startPt = ringPoints[startIndex];
-  var p2 = {
-    vx: 0, vy: 0,
-    target: (startIndex + 1) % pointCount, // *** เป้าหมายคือจุดถัดไปใน ringPoints
-    speed: rand() * 1.5 + 1.5, // ลดความเร็วลงเพื่อให้ดูนุ่มนวลและเกาะเส้น
-    ease: 0.12 + rand() * 0.08, // เพิ่มความหน่วงเพื่อให้เส้นดูพลิ้ว
-    hue: 350 + rand() * 15,
-    trace: []
-  };
-  for (var k = 0; k < traceLen; k++) p2.trace.push({ x: startPt[0], y: startPt[1] });
-  particles.push(p2);
-}
-
-var t = 0;
-function loop() {
-  t += 0.02;
-
-  // ทำให้หัวใจดูเต้นเบาๆ ด้วยการยืดหด scale ของจุดเป้าหมาย
-  var pulse = 1 + Math.sin(t) * 0.04;
-
-  // เฟดเฟรมก่อนหน้าเบาๆ แทนการเคลียร์ทั้งจอ จะได้เห็นหางแสง
-  ctx.globalCompositeOperation = 'source-over';
-  ctx.fillStyle = 'rgba(5,1,3,0.16)';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.globalCompositeOperation = 'lighter';
-
-  for (var i = 0; i < particles.length; i++) {
-    var pt = particles[i];
-    var goal = ringPoints[pt.target];
-    if (!goal) continue;
-    var gx = window.innerWidth / 2 + (goal[0] - window.innerWidth / 2) * pulse;
-    var gy = window.innerHeight * 0.42 + (goal[1] - window.innerHeight * 0.42) * pulse;
-
-    var head = pt.trace[0];
-    var dx = gx - head.x;
-    var dy = gy - head.y;
-    var dist = Math.sqrt(dx * dx + dy * dy);
-
-    if (dist < 10) { // ลดระยะ target ถึงเป้าหมายลง
-      // *** แก้ไข: ถึงเป้าหมายแล้ว ให้ไปจุดถัดไปตามลำดับ (เพื่อให้วิ่งเป็นรูปหัวใจ)
-      pt.target = (pt.target + 1) % pointCount;
-    } else {
-      pt.vx += (dx / dist) * pt.speed * 0.02; // ปรับแรงดึงดูดเล็กน้อย
-      pt.vy += (dy / dist) * pt.speed * 0.02;
-    }
-    pt.vx *= 0.94; // ปรับแรงเสียดทานเพื่อให้เกาะเส้นได้ดีขึ้น
-    pt.vy *= 0.94;
-    head.x += pt.vx;
-    head.y += pt.vy;
-
-    // ให้หางไล่ตามหัวแบบมีแรงหน่วง เกิดเป็นเส้นโค้งพลิ้ว
-    for (var k = 0; k < pt.trace.length - 1; k++) {
-      var a = pt.trace[k];
-      var b = pt.trace[k + 1];
-      b.x += (a.x - b.x) * pt.ease;
-      b.y += (a.y - b.y) * pt.ease;
-    }
-
-    ctx.strokeStyle = 'hsla(' + pt.hue + ', 100%, 58%, 0.45)';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(pt.trace[0].x, pt.trace[0].y);
-    for (var k2 = 1; k2 < pt.trace.length; k2++) {
-      ctx.lineTo(pt.trace[k2].x, pt.trace[k2].y);
-    }
-    ctx.stroke();
-  }
-  ctx.globalCompositeOperation = 'source-over';
-
-  // จุดไฟระยิบระยับรอบขอบหัวใจ
-  for (var j = 0; j < borderDots.length; j++) {
-    var d = borderDots[j];
-    var glow = 0.4 + 0.6 * Math.abs(Math.sin(t * 1.6 + d.phase));
-    ctx.beginPath();
-    ctx.fillStyle = 'rgba(255,255,255,' + glow + ')';
-    ctx.shadowColor = 'rgba(255,120,160,0.9)';
-    ctx.shadowBlur = 6;
-    ctx.arc(d.x, d.y, 1.6, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  ctx.shadowBlur = 0;
-
-  requestAnimationFrame(loop);
-}
-loop();
-
-// คำที่วนรอบหัวใจ แก้ตรงลิสต์นี้ได้เลยถ้าอยากเปลี่ยนคำ
-var phrases = [
-  "รักเพ่ย", "ไอ้แว่น", "โลกน่าอยู่เพราะแฟนกูน่ารัก",
-  "รัก", "22/07/2569", "รัก", "เพ่ย",
-  "ที่", "สุด", "ใน", "สาม",
-  "โลก", "My favorite", "น่ารัก"
-];
-var orbitSpeed = 0.00012;
-var orbitBox = document.getElementById('orbit');
-var items = [];
-for (var oi = 0; oi < phrases.length; oi++) {
-  var el = document.createElement('div');
-  el.className = 'orbit-txt';
-  el.textContent = phrases[oi];
-  orbitBox.appendChild(el);
-  items.push({ el: el, angle: (Math.PI * 2 / phrases.length) * oi });
-}
-function orbitLoop(time) {
-  var radiusX = Math.min(window.innerWidth * 0.46, 250);
-  var radiusY = radiusX * 0.62;
-  for (var oi2 = 0; oi2 < items.length; oi2++) {
-    var a = items[oi2].angle + time * orbitSpeed;
-    var x = Math.cos(a) * radiusX;
-    var y = Math.sin(a) * radiusY;
-    items[oi2].el.style.transform = 'translate(' + x + 'px,' + y + 'px) translate(-50%,-50%)';
-    items[oi2].el.style.opacity = 0.5 + 0.5 * ((y / radiusY + 1) / 2);
-  }
-  requestAnimationFrame(orbitLoop);
-}
-requestAnimationFrame(orbitLoop);
-</script>
 
 </body>
 </html>
