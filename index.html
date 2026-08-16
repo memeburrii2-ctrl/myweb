@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ถ้าคนมันไม่รักกันแล้ว</title>
+<title>รักเพ่ยนะจุ้บๆ🩷</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   html, body {
     height:100%;
-    background:#0a0a0a;
+    background: radial-gradient(ellipse at 50% 40%, #fff3f7 0%, #ffdcea 45%, #ffc7dd 75%, #ffb8d4 100%);
     font-family:'Noto Sans Thai', sans-serif;
   }
 
@@ -23,51 +23,57 @@
   }
 
   .msg {
-    max-width:640px;
     text-align:center;
-    color:#eaeaea;
-    font-weight:300;
-    font-size:clamp(1.3rem, 4.2vw, 2.1rem);
-    line-height:1.75;
-    letter-spacing:.01em;
-    opacity:0;
-    animation:fadeIn 2.4s ease forwards;
+    color:#e8447a;
+    font-weight:700;
+    font-size:clamp(1.8rem, 7vw, 3.2rem);
+    line-height:1.5;
+    text-shadow: 0 0 18px rgba(255,255,255,.8);
+    animation: bounce 2.2s ease-in-out infinite;
   }
-  @keyframes fadeIn {
-    from { opacity:0; transform:translateY(8px); }
-    to   { opacity:1; transform:translateY(0); }
+  @keyframes bounce {
+    0%, 100% { transform:translateY(0); }
+    50% { transform:translateY(-10px); }
   }
 
-  /* เส้นบางๆ คั่นบน-ล่างข้อความ ให้ดูนิ่งสงบ ไม่ใส่อะไรฟุ่มเฟือย */
-  .line {
-    width:40px; height:1px;
-    background:#555;
-    margin:0 auto 2rem;
-    opacity:0;
-    animation:fadeIn 2.4s ease forwards .3s;
+  /* หัวใจลอยเบาๆ รอบๆ ข้อความ */
+  .float {
+    position:fixed;
+    bottom:-10%;
+    font-size:1.4rem;
+    animation: rise linear infinite;
+    opacity:.85;
   }
-  .line.bottom { margin:2rem auto 0; }
-
-  /* เกรนจางๆ ให้ภาพดูมีมิติ ไม่ใช่พื้นดำทึบเรียบไป */
-  .grain {
-    position:fixed; inset:0;
-    pointer-events:none;
-    opacity:.035;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  @keyframes rise {
+    0%   { transform:translateY(0) rotate(0deg);   opacity:0; }
+    10%  { opacity:.9; }
+    100% { transform:translateY(-115vh) rotate(20deg); opacity:0; }
   }
 </style>
 </head>
 <body>
 
-<div class="grain"></div>
+<div id="floaters"></div>
 
 <div class="wrap">
-  <div>
-    <div class="line"></div>
-    <div class="msg">อ่านหา<br>พ่อ<br>มึงอะ</div>
-    <div class="line bottom"></div>
-  </div>
+  <div class="msg">รักเพ่ยนะจุ้บๆ<br>🎀</div>
 </div>
+
+<script>
+var icons = ['🩷', '🤍', '🫪'];
+var box = document.getElementById('floaters');
+for (var i = 0; i < 26; i++) {
+  var el = document.createElement('div');
+  el.className = 'float';
+  el.textContent = icons[~~(Math.random() * icons.length)];
+  el.style.left = (Math.random() * 100) + 'vw';
+  el.style.fontSize = (1 + Math.random() * 1.2) + 'rem';
+  var dur = 6 + Math.random() * 8;
+  el.style.animationDuration = dur + 's';
+  el.style.animationDelay = (Math.random() * dur) + 's';
+  box.appendChild(el);
+}
+</script>
 
 </body>
 </html>
